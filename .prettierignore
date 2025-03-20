@@ -1,0 +1,40 @@
+# .prettierignore
+
+# node_modules 폴더는 외부 라이브러리 코드이므로 포맷팅 제외
+node_modules/
+
+# 빌드된 출력물은 포맷팅할 필요 없음
+.next/
+out/
+
+dist/
+
+# 환경설정 파일 제외
+*.log
+*.lock
+
+# 환경 변수 파일 제외
+.env*
+
+# Git 관련 파일 제외
+.git/
+
+# 패키지 매니저가 자동 생성하는 파일 제외
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# VSCode 설정 파일 제외
+.vscode/
+
+# 이미지 및 정적 파일 제외
+public/
+
+# TypeScript 빌드 출력 제외
+*.d.ts
+
+# Prettier 자체 설정 파일 제외
+.prettierignore
+
+# Node 실행 파일 제외
+node/
