@@ -28,10 +28,16 @@ if [ -n "$BLUE_CONTAINER" ]; then
   DEPLOY_ENV="green"
   TARGET_PORT=3001
   CURRENT_PORT=3000
+  # 기존 green 컨테이너 정지 및 삭제
+  sudo docker stop nextjs-green || true
+  sudo docker rm nextjs-green || true
 elif [ -n "$GREEN_CONTAINER" ]; then
   DEPLOY_ENV="blue"
   TARGET_PORT=3000
   CURRENT_PORT=3001
+  # 기존 blue 컨테이너 정지 및 삭제
+  sudo docker stop nextjs-blue || true
+  sudo docker rm nextjs-blue || true
 else
   DEPLOY_ENV="blue"
   TARGET_PORT=3000
@@ -46,25 +52,15 @@ sudo docker pull $FULL_IMAGE_NAME || {
   exit 1
 }
 
-# docker-compose.yml 파일 생성
-cat > $WORK_DIR/docker-compose.yml << EOF
-version: '3'
-services:
-  nextjs-${DEPLOY_ENV}:
-    image: ${FULL_IMAGE_NAME}
-    container_name: nextjs-${DEPLOY_ENV}
-    ports:
-      - "${TARGET_PORT}:3000"
-    restart: always
-    labels:
-      - "service=colorful-starbucks-frontend"
-EOF
-
-# Docker Compose 실행
-echo "Starting Docker Compose..."
-cd $WORK_DIR
-sudo docker-compose -f $WORK_DIR/docker-compose.yml up -d || {
-  echo "Docker Compose 실행 실패"
+# 새 컨테이너 실행
+echo "Running new Docker container..."
+sudo docker run -d \
+  --name nextjs-${DEPLOY_ENV} \
+  -p ${TARGET_PORT}:3000 \
+  --restart always \
+  -l service=colorful-starbucks-frontend \
+  $FULL_IMAGE_NAME || {
+  echo "Docker 컨테이너 실행 실패"
   exit 1
 }
 
