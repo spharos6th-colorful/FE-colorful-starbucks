@@ -24,6 +24,8 @@ sudo tee /etc/nginx/sites-available/nextjs > /dev/null <<EOL
 server {
     listen 80;
     server_name colorful-starbucks.store;
+    client_max_body_size 20M;
+
 
     location / {
         proxy_pass http://localhost:${TARGET_PORT};
