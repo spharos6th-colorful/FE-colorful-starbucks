@@ -2,7 +2,7 @@ name: Deploy Next.js to ECR and CodeDeploy
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
 
 permissions:
   id-token: write
