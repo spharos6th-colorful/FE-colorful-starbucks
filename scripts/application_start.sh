@@ -1,22 +1,23 @@
 #!/bin/bash
 cd /home/ubuntu/colorful-starbucks-frontend
 
-# 현재 배포 환경 확인
+# 현재 실행 중인 컨테이너 확인
 BLUE_CONTAINER=$(docker ps --filter "name=nextjs-blue" --filter "status=running" --format "{{.ID}}")
 GREEN_CONTAINER=$(docker ps --filter "name=nextjs-green" --filter "status=running" --format "{{.ID}}")
 
+# 배포 상태 파일 경로
+DEPLOY_STATE_FILE="/home/ubuntu/last_deploy_env.txt"
+LAST_DEPLOY_ENV=$(cat "$DEPLOY_STATE_FILE")
+
 # 환경 결정
-if [ -n "$BLUE_CONTAINER" ]; then
-  DEPLOY_ENV="blue"
-  TARGET_PORT=3000
-  OLD_ENV="green"
-elif [ -n "$GREEN_CONTAINER" ]; then
+if [ "$LAST_DEPLOY_ENV" = "blue" ]; then
   DEPLOY_ENV="green"
   TARGET_PORT=3001
   OLD_ENV="blue"
 else
-  echo "No running containers found. Exiting."
-  exit 1
+  DEPLOY_ENV="blue"
+  TARGET_PORT=3000
+  OLD_ENV="green"
 fi
 
 # Nginx 구성 업데이트
@@ -25,7 +26,6 @@ server {
     listen 80;
     server_name colorful-starbucks.store;
     client_max_body_size 20M;
-
 
     location / {
         proxy_pass http://localhost:${TARGET_PORT};
