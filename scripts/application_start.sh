@@ -1,24 +1,4 @@
 #!/bin/bash
-cd /home/ubuntu/colorful-starbucks-frontend
-
-# 현재 실행 중인 컨테이너 확인
-BLUE_CONTAINER=$(docker ps --filter "name=nextjs-blue" --filter "status=running" --format "{{.ID}}")
-GREEN_CONTAINER=$(docker ps --filter "name=nextjs-green" --filter "status=running" --format "{{.ID}}")
-
-# 배포 상태 파일 경로
-DEPLOY_STATE_FILE="/home/ubuntu/last_deploy_env.txt"
-LAST_DEPLOY_ENV=$(cat "$DEPLOY_STATE_FILE")
-
-# 환경 결정
-if [ "$LAST_DEPLOY_ENV" = "blue" ]; then
-  DEPLOY_ENV="green"
-  TARGET_PORT=3001
-  OLD_ENV="blue"
-else
-  DEPLOY_ENV="blue"
-  TARGET_PORT=3000
-  OLD_ENV="green"
-fi
 
 # Nginx 구성 업데이트
 sudo tee /etc/nginx/sites-available/nextjs > /dev/null <<EOL
@@ -28,7 +8,7 @@ server {
     client_max_body_size 20M;
 
     location / {
-        proxy_pass http://localhost:${TARGET_PORT};
+        proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
@@ -51,13 +31,6 @@ sudo nginx -t || {
 
 # Nginx 재시작
 sudo systemctl restart nginx
-
-# 이전 컨테이너 정리
-OLD_CONTAINER=$(docker ps -a --filter "name=nextjs-${OLD_ENV}" --format "{{.ID}}")
-if [ -n "$OLD_CONTAINER" ]; then
-  docker stop $OLD_CONTAINER
-  docker rm $OLD_CONTAINER
-fi
 
 # 이미지 정리 (최신 2개만 유지)
 docker image prune -a --filter "label=service=colorful-starbucks-frontend" --force
