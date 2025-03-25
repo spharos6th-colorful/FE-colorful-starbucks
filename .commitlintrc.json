@@ -1,0 +1,6 @@
+{
+  "extends": ["gitmoji"],
+  "rules": {
+    "start-with-gitmoji": [2, "always"]
+  }
+}
