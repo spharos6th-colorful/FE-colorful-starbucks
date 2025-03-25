@@ -1,5 +1,4 @@
-@import "tailwindcss";
-
+@import 'tailwindcss';
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -8,8 +7,98 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-pretendard);
+
+  /* color system */
+  --color-primary-100: #00a862;
+  --color-primary-200: #02493f;
+  --color-secondary-100: #a17e5e;
+  --color-secondary-200: #ab713a;
+  --color-secondary-300: #9f7147;
+  --color-error: #ff5452;
+  --color-help-message: #b5b5b5;
+  --color-border-100: #e1e1e1;
+  --color-border-200: #dadada;
+  --color-border-300: #cfcfcf;
+  --color-gray-100: #f9f9f9;
+  --color-gray-200: #f7f7f7;
+  --color-gray-300: #f5f5f5;
+  --color-gray-400: #f2f2f2;
+  --color-disabled: #e0e0e0;
+  --color-text-100: #e2e2e2;
+  --color-text-200: #d9d9d9;
+  --color-text-300: #aeaeae;
+  --color-text-400: #999999;
+  --color-text-500: #8c8c8c;
+  --color-text-600: #808080;
+  --color-text-700: #727272;
+  --color-text-800: #6b6b6b;
+  --color-text-900: #676767;
+}
+
+/* Typography */
+@utility text-title1 {
+  @apply text-[28px] font-semibold leading-[110%] tracking-normal;
+}
+
+@utility text-title2 {
+  @apply text-2xl font-semibold leading-[120%] tracking-normal;
+}
+
+@utility text-title3 {
+  @apply text-xl leading-[110%] tracking-normal;
+}
+
+@utility text-subtitle1 {
+  @apply text-lg font-semibold leading-[110%] tracking-normal;
+}
+
+@utility text-subtitle2 {
+  @apply text-base font-semibold leading-[110%] tracking-normal;
+}
+
+@utility text-subtitle3 {
+  @apply text-sm font-medium leading-[110%] tracking-normal;
+}
+
+@utility text-button1 {
+  @apply text-base font-semibold leading-[110%] tracking-normal;
+}
+
+@utility text-button2 {
+  @apply text-base font-normal leading-[110%] tracking-normal;
+}
+
+@utility text-body1 {
+  @apply text-[15px] font-medium leading-[120%] tracking-normal;
+}
+
+@utility text-body2 {
+  @apply text-sm font-semibold leading-[115%] tracking-normal;
+}
+
+@utility text-body3 {
+  @apply text-sm font-medium leading-[115%] tracking-normal;
+}
+
+@utility text-body4 {
+  @apply text-sm font-normal leading-[115%] tracking-normal;
+}
+
+@utility text-caption1 {
+  @apply text-[13px] font-semibold leading-[120%] tracking-[-2%];
+}
+
+@utility text-caption2 {
+  @apply text-xs font-medium leading-[120%] tracking-[-2%];
+}
+
+@utility text-caption3 {
+  @apply text-xs font-normal leading-[120%] tracking-[-2%];
+}
+
+@utility text-extra {
+  @apply text-[11px] font-semibold leading-[110%] tracking-[-2%];
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +111,5 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'PretendardVariable', Arial, Helvetica, sans-serif;
 }
