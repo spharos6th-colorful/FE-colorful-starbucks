@@ -1,9 +1,10 @@
 'use client';
 import React from 'react';
-import ProductCategoryTop from '../ui/ProductCategoryTop';
 import { useRouter, useSearchParams } from 'next/navigation';
+
 import { sampleCategories } from '@/data/productCategoryTopDummyDatas';
-import { productCategoryTopType } from '@/types/productCategoryType';
+import { ProductCategoryTopType } from '@/types/productCategoryType';
+import ProductCategoryTop from '../ui/ProductCategoryTop';
 
 export default function ProductCategoryTopLayout() {
   const router = useRouter();
@@ -11,9 +12,7 @@ export default function ProductCategoryTopLayout() {
 
   const currentCategoryCode = searchParams.get('category') || 'all';
 
-  //const currentCategory = sampleCategories.find((cat) => cat.code === currentCategoryCode) || sampleCategories[0];
-
-  const handleCategoryClick = (category: productCategoryTopType) => {
+  const handleCategoryClick = (category: ProductCategoryTopType) => {
     const params = new URLSearchParams(searchParams.toString());
     params.set('category', category.code);
 
@@ -21,7 +20,7 @@ export default function ProductCategoryTopLayout() {
   };
 
   return (
-    <div className='w-full border-b border-[var(--color-border-100)]'>
+    <div className='w-full border-b boarder-stroke-100'>
       <div className='flex overflow-x-auto'>
         {sampleCategories.map((category) => (
           <div key={category.id} className='flex-shrink-0'>

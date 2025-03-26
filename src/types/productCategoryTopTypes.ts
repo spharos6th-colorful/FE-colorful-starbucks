@@ -1,4 +1,4 @@
-export interface productCategoryTopType {
+export interface ProductCategoryTopType {
   name: string;
   isActive?: boolean;
   onClick: () => void; // 파라미터 없는 함수

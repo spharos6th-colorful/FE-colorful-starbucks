@@ -1,8 +1,8 @@
-import { productCategoryTopType } from '@/types/productCategoryTopTypes';
 import React from 'react';
 
-// 기존 타입 유지
-export default function ProductCategoryTop({ name, isActive = false, onClick }: productCategoryTopType) {
+import { ProductCategoryTopType } from '@/types/productCategoryTopTypes';
+
+export default function ProductCategoryTop({ name, isActive = false, onClick }: ProductCategoryTopType) {
   return (
     <div
       className={`px-4 py-5 text-center cursor-pointer ${

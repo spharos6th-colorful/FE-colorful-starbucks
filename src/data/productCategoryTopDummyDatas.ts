@@ -1,6 +1,6 @@
-import { productCategoryTopType } from '@/types/productCategoryType';
+import { ProductCategoryTopType } from '@/types/productCategoryType';
 
-export const sampleCategories: productCategoryTopType[] = [
+export const sampleCategories: ProductCategoryTopType[] = [
   { id: 1, name: '전체', code: 'all' },
   { id: 2, name: '텀블러/보온병', code: 'tumbler' },
   { id: 3, name: '머그/컵', code: 'mug' },
