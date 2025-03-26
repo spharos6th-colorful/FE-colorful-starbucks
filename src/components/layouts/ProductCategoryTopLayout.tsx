@@ -3,8 +3,8 @@ import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
 import { sampleCategories } from '@/data/productCategoryTopDummyDatas';
-import { ProductCategoryTopType } from '@/types/productCategoryType';
-import ProductCategoryTop from '../ui/ProductCategoryTop';
+import { ProductCategoryTopType } from '@/types/products/productCategoryType';
+import ProductCategoryTop from '../ui/products/ProductCategoryTop';
 
 export default function ProductCategoryTopLayout() {
   const router = useRouter();
