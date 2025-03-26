@@ -23,7 +23,7 @@ export default function ProductCategoryTopLayout() {
     <div className='w-full border-b boarder-stroke-100'>
       <div className='flex overflow-x-auto'>
         {sampleCategories.map((category) => (
-          <div key={category.id} className='flex-shrink-0'>
+          <div key={category.code} className='flex-shrink-0'>
             <ProductCategoryTop
               name={category.name}
               isActive={currentCategoryCode === category.code}
