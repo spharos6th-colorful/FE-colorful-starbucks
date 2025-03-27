@@ -119,57 +119,6 @@ export default function ButtonTestPage() {
           </div>
         </div>
       </section>
-
-      <section>
-        <h2 className='text-xl font-semibold mb-4'>인터랙션 비교</h2>
-        <div className='grid grid-cols-2 gap-8'>
-          <div>
-            <h3 className='text-lg font-medium mb-3'>기본 Button (hover만)</h3>
-            <Button variant='default' width='auto'>
-              호버 효과만 있음
-            </Button>
-            <p className='text-sm text-gray-500 mt-2'>hover시 색상 변경만 있음</p>
-          </div>
-
-          <div>
-            <h3 className='text-lg font-medium mb-3'>Motion Buttons (애니메이션)</h3>
-            <Buttons label='클릭해보세요' variant='default' width='auto' />
-            <p className='text-sm text-gray-500 mt-2'>클릭 시 scale 애니메이션 적용</p>
-          </div>
-        </div>
-      </section>
-
-      <section>
-        <h2 className='text-xl font-semibold mb-4'>버튼 API 비교</h2>
-        <div className='grid grid-cols-2 gap-8'>
-          <div>
-            <h3 className='text-lg font-medium mb-3'>기본 Button</h3>
-            <pre className='bg-gray-100 p-3 rounded text-sm overflow-auto'>
-              {`<Button
-  variant="default" | "starbucks" | ...
-  width="auto" | "full" | "half"
-  disabled={true | false}
->
-  버튼 텍스트
-</Button>`}
-            </pre>
-          </div>
-
-          <div>
-            <h3 className='text-lg font-medium mb-3'>Motion Buttons</h3>
-            <pre className='bg-gray-100 p-3 rounded text-sm overflow-auto'>
-              {' '}
-              {`<Buttons
-  label="버튼 텍스트" 
-  variant="default" | "starbucks" | ...
-  width="auto" | "full" | "half"
-  disabled={true | false}
-  animate={true | false}
-/>`}
-            </pre>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }
