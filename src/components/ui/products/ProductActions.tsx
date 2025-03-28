@@ -1,6 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+
 import { Button } from '../Button';
+import { useScrollVisibility } from '@/hooks/useScrollVisibility';
 
 interface ProductActionsProps {
   productId: string;
@@ -8,31 +9,7 @@ interface ProductActionsProps {
 
 export default function ProductActions({ productId }: ProductActionsProps) {
   console.log(productId);
-  const [isVisible, setIsVisible] = useState(true);
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsVisible(false);
-
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-
-      const timeout = setTimeout(() => {
-        setIsVisible(true);
-      }, 500);
-
-      setScrollTimeout(timeout);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
-    };
-  }, [scrollTimeout]);
+  const isVisible = useScrollVisibility(500);
 
   return (
     <div
