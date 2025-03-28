@@ -2,8 +2,8 @@ export interface ProductTypes {
   productCode: string;
   productName: string;
   description: string;
-  productThumbnail: string;
-  productCommonImage: string;
+  productThumbnailUrl: string;
+  productCommonImageUrl: string;
   CarvingStatus: string;
   price: number;
 }

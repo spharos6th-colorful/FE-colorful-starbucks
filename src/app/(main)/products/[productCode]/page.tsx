@@ -1,6 +1,7 @@
 // app/products/[productCode]/page.tsx
 // import { getProductDetail } from '@/app/api/products/[productCode]/productDetail';
 import ProductActions from '@/components/ui/products/ProductActions';
+import ProductDetailImage from '@/components/ui/products/ProductDetailImage';
 import ProductImage from '@/components/ui/products/ProductImage';
 import ProductInfo from '@/components/ui/products/ProductInfo';
 import { ProductTypes } from '@/types/products/productTypes';
@@ -9,8 +10,8 @@ const dummyProducts: ProductTypes = {
   productCode: '1000',
   productName: 'SS 플라워 마켓 스탠리 텀블러 591ml',
   description: '부드러운 푸릇빛이 새롭게 담은 플라워 마켓 스탠리 텀블러입니다.',
-  productThumbnail: '/images/productThumbnails/1000.png',
-  productCommonImage: '/images/productThumbnails/1000.png',
+  productThumbnailUrl: '/images/productThumbnails/1000.png',
+  productCommonImageUrl: '/images/productDetailImages/1000_detail.png',
   CarvingStatus: 'N',
   price: 43000,
 };
@@ -36,9 +37,10 @@ export default async function ProductDetailPage({ params }: { params: { productC
 
   return (
     <div className='flex flex-col h-screen bg-white'>
-      <ProductImage imageUrl={product.productCommonImage} name={product.productName} />
+      <ProductImage imageUrl={product.productThumbnailUrl} name={product.productName} />
       <ProductInfo product={product} />
       <div className='flex-1'></div>
+      <ProductDetailImage imageUrl={product.productCommonImageUrl} name={product.productName} />
       <ProductActions productId={product.productCode} />
     </div>
   );

@@ -1,9 +1,8 @@
 'use client';
-
-import { Button } from '../Button';
-
 // import { useRouter } from 'next/navigation';
 // import { useState } from 'react';
+
+import { Button } from '../Button';
 
 interface ProductActionsProps {
   productId: string;
@@ -25,7 +24,7 @@ export default function ProductActions({ productId }: ProductActionsProps) {
   // };
 
   return (
-    <div className='p-4 flex items-center'>
+    <div className='fixed bottom-0 left-0 right-0 p-4  z-50'>
       <Button variant='default' width='full'>
         구매하기
       </Button>
