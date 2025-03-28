@@ -11,8 +11,8 @@ const dummyProducts: ProductTypes = {
   productName: 'SS 플라워 마켓 스탠리 텀블러 591ml',
   description: '부드러운 푸릇빛이 새롭게 담은 플라워 마켓 스탠리 텀블러입니다.',
   productThumbnailUrl: '/images/productThumbnails/1000.png',
-  productCommonImageUrl: '/images/productDetailImages/1000_detail.png',
-  CarvingStatus: 'N',
+  productImageUrl: '/images/productDetailImages/1000_detail.png',
+  markable: 'N',
   price: 43000,
 };
 
@@ -40,7 +40,7 @@ export default async function ProductDetailPage({ params }: { params: { productC
       <ProductImage imageUrl={product.productThumbnailUrl} name={product.productName} />
       <ProductInfo product={product} />
       <div className='flex-1'></div>
-      <ProductDetailImage imageUrl={product.productCommonImageUrl} name={product.productName} />
+      <ProductDetailImage imageUrl={product.productImageUrl} name={product.productName} />
       <ProductActions productId={product.productCode} />
     </div>
   );

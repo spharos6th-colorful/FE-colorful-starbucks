@@ -3,7 +3,7 @@ export interface ProductTypes {
   productName: string;
   description: string;
   productThumbnailUrl: string;
-  productCommonImageUrl: string;
-  CarvingStatus: string;
+  productImageUrl: string;
+  markable: string;
   price: number;
 }
