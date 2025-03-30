@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Button } from '@/components/ui/Button';
-import Buttons from '@/components/ui/Buttons';
+import { Button } from '@/components/ui/common/Button';
+import Buttons from '@/components/ui/common/Buttons';
 
 // 버튼 사용 사례 페이지고 나중에는 삭제할 예정
 // 사용법 궁금하면 여기서 사용법 보고 이용하면 됩니다.
