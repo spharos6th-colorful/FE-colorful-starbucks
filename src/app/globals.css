@@ -113,3 +113,15 @@ body {
   color: var(--foreground);
   font-family: 'PretendardVariable', Arial, Helvetica, sans-serif;
 }
+
+.swiper-pagination-bullet {
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: black !important;
+  opacity: 1;
+}
