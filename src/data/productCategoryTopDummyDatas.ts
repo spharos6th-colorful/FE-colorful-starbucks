@@ -1,4 +1,4 @@
-import { ProductCategoryTopType } from '@/types/productCategoryType';
+import { ProductCategoryTopType } from '@/types/products/productCategoryType';
 
 export const sampleCategories: ProductCategoryTopType[] = [
   { id: 1, name: '전체', code: 'all' },

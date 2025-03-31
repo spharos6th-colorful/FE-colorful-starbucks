@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { ProductCategoryTopProsType } from '@/types/productCategoryTopTypes';
+import { ProductCategoryTopProsType } from '@/types/products/productCategoryTopTypes';
 
 export default function ProductCategoryTop({ name, isActive = false, onClick }: ProductCategoryTopProsType) {
   return (
