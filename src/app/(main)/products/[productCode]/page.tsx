@@ -1,7 +1,7 @@
-// app/products/[productCode]/page.tsx
+import Image from 'next/image';
+
 // import { getProductDetail } from '@/app/api/products/[productCode]/productDetail';
 import ProductActions from '@/components/ui/products/ProductActions';
-import ProductDetailImage from '@/components/ui/products/ProductDetailImage';
 import ProductImage from '@/components/ui/products/ProductImage';
 import ProductInfo from '@/components/ui/products/ProductInfo';
 import { ProductTypes } from '@/types/products/productTypes';
@@ -17,31 +17,35 @@ const dummyProducts: ProductTypes = {
 };
 
 export default async function ProductDetailPage({ params }: { params: { productCode: string } }) {
-  //   let product: ProductTypes | null = null; // api 요청 해야하지만 지금은 더미로 이용
+  // const { productCode } = await params;
+
+  //const product = await getProductDetail(productCode); // API 요청 날려야하지만 현재는 더미
   const product = dummyProducts;
   console.log(params); //나중에 지울 예정(사용하지 않는 변수때문에)
 
-  try {
-    //product = await getProductDetail(params.productCode); // API 요청 날려야하지만 현재는 더미
-  } catch (err) {
-    console.error('상품 정보를 불러오는데 실패했습니다:', err);
-  }
-
-  if (!product) {
-    return (
-      <div className='flex justify-center items-center h-screen'>
-        <p>상품 정보를 불러올 수 없습니다.</p>
-      </div>
-    );
-  }
+  console.log(product);
 
   return (
-    <div className='flex flex-col h-screen bg-white'>
-      <ProductImage imageUrl={product.productThumbnailUrl} name={product.productName} />
-      <ProductInfo product={product} />
-      <div className='flex-1'></div>
-      <ProductDetailImage imageUrl={product.productImageUrl} name={product.productName} />
+    <main className='flex flex-col h-screen bg-white'>
+      <ProductImage
+        imageUrl={product.productThumbnailUrl}
+        name={`${product.productName} 썸네일 이미지`}
+        containerClassName='fixed top-0 left-0 w-full aspect-square z-10'
+        priority={true}
+      />
+      <ProductInfo {...product} />
+      <div className='w-full'>
+        <div className='w-full'>
+          <Image
+            src={product.productImageUrl}
+            alt={product.productName}
+            width={768}
+            height={15000} // 실제 비율이 무엇이든 상관없음
+            className='w-full h-auto'
+          />
+        </div>
+      </div>
       <ProductActions productId={product.productCode} />
-    </div>
+    </main>
   );
 }
