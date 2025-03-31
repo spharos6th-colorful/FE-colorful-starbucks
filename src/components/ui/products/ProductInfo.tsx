@@ -1,13 +1,20 @@
 import { ProductTypes } from '@/types/products/productTypes';
 import ProductAccordion from './ProductAccordion';
+import ShareIcon from '@/assets/icon/common/share.svg';
 
 export default function ProductInfo(product: ProductTypes) {
+  const handleshareProduct = (productCode: string) => {
+    console.log('shared' + productCode);
+  };
+
   return (
     <section className='px-4 py-5'>
       <div className='flex justify-between items-center mb-2'>
         {/* 여기에 best, new 같은거 와야함 */}
         <h2 className='text-2xl font-bold'>{product.productName}</h2>
-        {/* 여기에 공유하기 컴포넌트 와야함 */}
+        <div className='cursor-pointer' onClick={() => handleshareProduct(product.productCode)}>
+          <ShareIcon />
+        </div>
       </div>
 
       <div className='flex items-center mb-3'>{/* <span className='text-sm text-gray-500'>{product.}</span> */}</div>
