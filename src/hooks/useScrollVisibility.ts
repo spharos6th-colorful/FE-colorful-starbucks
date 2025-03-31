@@ -1,4 +1,5 @@
-// hooks/useScrollVisibility.ts
+'use client';
+
 import { useState, useEffect } from 'react';
 
 export function useScrollVisibility(delay = 1000) {
