@@ -1,30 +1,36 @@
+// hooks/useScrollVisibility.ts
 import { useState, useEffect } from 'react';
 
-export function useScrollVisibility(delay = 500) {
+export function useScrollVisibility(delay = 1000) {
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    let scrollTimeout: NodeJS.Timeout | null = null;
+    let timeoutId: NodeJS.Timeout | null = null;
 
-    const handleScroll = () => {
-      setIsVisible(false);
-
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
+    const scrollListener = () => {
+      // 이전 타임아웃 정리
+      if (timeoutId) {
+        clearTimeout(timeoutId);
       }
 
-      scrollTimeout = setTimeout(() => {
+      // 현재 상태가 visible이면 invisible로 변경
+      if (isVisible) {
+        setIsVisible(false);
+      }
+
+      // 새 타이머 설정
+      timeoutId = setTimeout(() => {
         setIsVisible(true);
       }, delay);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', scrollListener);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeout) clearTimeout(scrollTimeout);
+      window.removeEventListener('scroll', scrollListener);
+      if (timeoutId) clearTimeout(timeoutId);
     };
-  }, [delay]);
+  }, [delay, isVisible]);
 
   return isVisible;
 }
