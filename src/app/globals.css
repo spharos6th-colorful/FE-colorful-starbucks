@@ -16,9 +16,9 @@
   --color-secondary-300: #9f7147;
   --color-error: #ff5452;
   --color-help-message: #b5b5b5;
-  --color-border-100: #e1e1e1;
-  --color-border-200: #dadada;
-  --color-border-300: #cfcfcf;
+  --color-stroke-100: #e1e1e1;
+  --color-stroke-200: #dadada;
+  --color-stroke-300: #cfcfcf;
   --color-gray-100: #f9f9f9;
   --color-gray-200: #f7f7f7;
   --color-gray-300: #f5f5f5;
@@ -70,7 +70,7 @@
 
 /* Typography */
 @utility text-title1 {
-  @apply text-[28px] font-semibold leading-[110%] tracking-normal;
+  @apply text-[1.75rem] font-semibold leading-[110%] tracking-normal;
 }
 
 @utility text-title2 {
@@ -102,7 +102,7 @@
 }
 
 @utility text-body1 {
-  @apply text-[15px] font-medium leading-[120%] tracking-normal;
+  @apply text-[0.9375rem] font-medium leading-[120%] tracking-normal;
 }
 
 @utility text-body2 {
@@ -118,7 +118,7 @@
 }
 
 @utility text-caption1 {
-  @apply text-[13px] font-semibold leading-[120%] tracking-[-2%];
+  @apply text-[0.8125rem] font-semibold leading-[120%] tracking-[-2%];
 }
 
 @utility text-caption2 {
@@ -130,11 +130,27 @@
 }
 
 @utility text-extra {
-  @apply text-[11px] font-semibold leading-[110%] tracking-[-2%];
+  @apply text-[0.6875rem] font-semibold leading-[110%] tracking-[-2%];
+}
+
+@utility scrollbar-hidden {
+  -ms-overflow-style: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  @apply hidden;
+}
+
+@utility shadow-1 {
+  @apply shadow-[0_4px_10px_rgba(0,0,0,0.06)];
+}
+
+@utility shadow-2 {
+  @apply shadow-[0_-4px_10px_rgba(0,0,0,0.06)];
 }
 
 body {
-  font-family: 'PretendardVariable', Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
 }
 
 :root {
@@ -212,5 +228,20 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  @keyframes slide-up {
+    0% {
+      transform: translate(0, 100%);
+    }
+    100% {
+      transform: translate(0, 0);
+    }
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.4s ease-out;
   }
 }
