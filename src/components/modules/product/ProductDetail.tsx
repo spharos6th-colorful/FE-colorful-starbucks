@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import ProductActions from '@/components/ui/products/ProductActions';
@@ -16,34 +18,45 @@ const dummyProducts: ProductTypes = {
 };
 
 export default function ProductDetail({ productCode }: { productCode: string }) {
-  // const { productCode } = await params;
+  /// const { productCode } = await params;
 
   //const product = await getProductDetail(productCode); // API 요청 날려야하지만 현재는 더미
-  console.log(productCode); //일단 더미 사용할 예정
-
   const product = dummyProducts;
+  console.log(productCode);
 
   return (
-    <main className='flex flex-col h-screen bg-white'>
-      <ProductImage
-        imageUrl={product.productThumbnailUrl}
-        name={`${product.productName} 썸네일 이미지`}
-        containerClassName='fixed top-0 left-0 w-full aspect-square z-10'
-        priority={true}
-      />
-      <ProductInfo {...product} />
-      <div className='w-full'>
-        <div className='w-full'>
+    <main className='flex flex-col min-h-screen bg-white'>
+      <section>
+        <div className='w-full relative' style={{ height: 'min(100vw, 100vh)' }}>
+          <ProductImage
+            imageUrl={product.productThumbnailUrl}
+            name={`${product.productName} 썸네일 이미지`}
+            containerClassName='w-full h-full'
+            objectFit='cover'
+            priority={true}
+          />
+        </div>
+      </section>
+      <section>
+        <div className='w-full z-20 bg-white pt-4'>
+          <ProductInfo {...product} />
+        </div>
+
+        <div className='w-full mt-4'>
           <Image
             src={product.productImageUrl}
             alt={product.productName}
-            width={768}
-            height={15000}
+            width={370}
+            height={1500}
             className='w-full h-auto'
           />
         </div>
-      </div>
-      <ProductActions productId={product.productCode} />
+      </section>
+      <section>
+        <div className='w-full z-30'>
+          <ProductActions productId={product.productCode} />
+        </div>
+      </section>
     </main>
   );
 }
