@@ -5,7 +5,7 @@ export interface ProductType {
   productBottomCategoryId?: number;
   productName: string;
   isBest?: boolean;
-  productThumbnail: string;
+  productThumbnailUrl: string;
   carvingStatus?: boolean;
   price: number;
   createdAt?: string;

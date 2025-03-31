@@ -2,10 +2,14 @@ import Link from 'next/link';
 
 import IconSeeMore from '@/assets/Icon-SeeMore.svg';
 
-function MoreButton({ children, href }: { children?: React.ReactNode; href: string }) {
+interface MoreButtonProps {
+  href: string;
+  title: string;
+}
+function MoreButton({ href, title }: MoreButtonProps) {
   return (
     <Link href={href} className='flex items-center'>
-      <p>{children}</p>
+      <span>{title}</span>
       <IconSeeMore />
     </Link>
   );

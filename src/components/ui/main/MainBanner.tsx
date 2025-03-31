@@ -4,9 +4,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { bannerData } from '@/data/main/dummyData';
-import { Autoplay, Navigation, Pagination } from 'swiper/modules';
 import Image from 'next/image';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+
+import { bannerData } from '@/data/main/dummyData';
+import Badge from './Badge';
 
 /* type mainBannerProps = {}; */
 /* {}: mainBannerProps */
@@ -32,21 +34,11 @@ function MainBanner() {
             />
 
             <div className='absolute inset-0 flex flex-col justify-center p-8 md:p-12 lg:p-16 z-10'>
-              {banner.badge && (
-                <div className='inline-block bg-black text-white text-xs font-medium px-3 py-1 rounded-full mb-4 w-fit'>
-                  {banner.badge}
-                </div>
-              )}
+              {banner.badge && <Badge>{banner.badge}</Badge>}
 
               <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 md:mb-4'>{banner.title}</h2>
 
               <p className='text-lg md:text-xl text-white mb-4 md:mb-6 max-w-md'>{banner.description}</p>
-
-              {banner.issueNumber && (
-                <div className='text-white text-sm md:text-base'>
-                  ISSUE {banner.issueNumber}. {banner.issueTitle}
-                </div>
-              )}
             </div>
           </div>
         </SwiperSlide>

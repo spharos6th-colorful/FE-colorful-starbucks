@@ -2,9 +2,9 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 
-import ProductsItem from '../../module/main/ProductsItem';
+import ProductItem from '../../modules/main/ProductItem';
 import { productsData } from '@/data/main/dummyData';
-import SectionHeader from '../../module/main/SectionHeader';
+import SectionHeader from '../../modules/main/SectionHeader';
 
 interface ProductListProps {
   title: string;
@@ -37,7 +37,7 @@ export default function ProductList({ eventUuid, title }: ProductListProps) {
       >
         {productsType.map((product) => (
           <SwiperSlide key={product.productCode}>
-            <ProductsItem product={product} />
+            <ProductItem product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
