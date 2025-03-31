@@ -54,7 +54,11 @@ export default function ProductDetail({ productCode }: { productCode: string }) 
       </section>
       <section>
         <div className='w-full z-30'>
-          <ProductActions productId={product.productCode} />
+          <ProductActions
+            productId={product.productCode}
+            productName={product.productName}
+            productPrice={product.price}
+          />
         </div>
       </section>
     </main>
