@@ -1,7 +1,7 @@
 'use client';
 
-import { Button } from '../Button';
 import { useScrollVisibility } from '@/hooks/useScrollVisibility';
+import { Button } from '../common';
 
 interface ProductActionsProps {
   productId: string;
