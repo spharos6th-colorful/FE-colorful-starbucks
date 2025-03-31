@@ -1,3 +1,5 @@
+'use server';
+
 import { ProductTypes } from '@/types/products/productTypes';
 
 export const getProductDetail = async (productCode: string): Promise<ProductTypes> => {
