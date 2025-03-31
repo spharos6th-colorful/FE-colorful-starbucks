@@ -1,5 +1,5 @@
-// components/ui/products/SelectedOptionItem.tsx
 import React from 'react';
+
 import QuantityControl from './QuantityControl';
 import { SelectedOption } from '@/types/products/productPurchaseTypes';
 

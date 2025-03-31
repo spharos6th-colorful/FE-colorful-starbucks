@@ -1,5 +1,5 @@
-// components/modules/products/OptionSelectionForm.tsx
 import React from 'react';
+
 import OptionSelector from '@/components/ui/products/OptionSelector';
 import QuantityControl from '@/components/ui/products/QuantityControl';
 import { ProductOption } from '@/types/products/productPurchaseTypes';

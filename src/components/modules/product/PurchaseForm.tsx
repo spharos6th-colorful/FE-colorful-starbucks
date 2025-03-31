@@ -1,5 +1,5 @@
-// components/modules/products/PurchaseForm.tsx
 import React from 'react';
+
 import OptionSelectionForm from './OptionSelectionForm';
 import SelectedOptionList from './SelectedOptionList';
 import CartIcon from '@/assets/icon/product/cart.svg';
