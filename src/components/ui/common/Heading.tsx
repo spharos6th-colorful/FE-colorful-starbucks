@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { Title as TitleComponent } from '@/components/ui/common';
 
 interface HeadingProps {
   children?: Readonly<React.ReactNode>;
@@ -10,7 +11,7 @@ function Wrapper({ children, className = '' }: HeadingProps) {
 }
 
 function Title({ children, className = '' }: HeadingProps) {
-  return <h2 className={cn('text-title2', className)}>{children}</h2>;
+  return <TitleComponent className={cn(className)}>{children}</TitleComponent>;
 }
 
 export const Heading = { Title, Wrapper };
