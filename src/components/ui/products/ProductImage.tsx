@@ -1,11 +1,25 @@
 import Image from 'next/image';
 
-import { ProductImageProps } from '@/types/products/productImageProps';
+interface ProductImageProps {
+  imageUrl: string;
+  name: string;
+  className?: string;
+  containerClassName?: string;
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+  priority?: boolean;
+}
 
-export default function ProductImage({ imageUrl, name }: ProductImageProps) {
+export default function ProductImage({
+  imageUrl,
+  name,
+  className = '',
+  containerClassName = '',
+  objectFit = 'contain',
+  priority = false,
+}: ProductImageProps) {
   return (
-    <div className='aspect-square relative bg-gray-100'>
-      {imageUrl && <Image src={imageUrl} alt={name || '상품 이미지'} fill className='object-contain' priority />}
+    <div className={`relative ${containerClassName}`}>
+      <Image src={imageUrl} alt={name} fill className={`object-${objectFit} ${className}`} priority={priority} />
     </div>
   );
 }
