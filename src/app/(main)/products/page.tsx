@@ -1,19 +1,15 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 
 import ProductCategoryTopLayout from '@/components/layouts/ProductCategoryTopLayout';
 
-const ProductsPage: React.FC = () => {
+export default function ProductsPage() {
   return (
-    <div className='container mx-auto py-4'>
-      <Suspense fallback={''}>
-        {/* TODO : fallback에 스켈레톤 적용예정*/}
-        <ProductCategoryTopLayout />
-      </Suspense>
+    // 가장 큰 속성에는 대부분 스타일은 뺀다.(안에 있는걸 줄이면 됨)
+    <main>
+      <ProductCategoryTopLayout />
       {/* 상품 소분류 카테고리 및 옵션들이 들어갈 예정 */}
       {/* 상품 리스트 나타낼 페에지가 들어갈 예정 */}
-      <div className='mt-6'>{/* <ProductList categoryId={activeCategoryId} /> */}</div>
-    </div>
+      {/* <ProductList categoryId={activeCategoryId} /> */}
+    </main> // 최상단에서 메인으로 div 대신
   );
-};
-
-export default ProductsPage;
+}
