@@ -3,7 +3,7 @@ import { DeliveryDataType } from '@/types/responseDataTypes';
 
 export default function DeliveryItem({ data }: { data: DeliveryDataType }) {
   return (
-    <div className='space-y-2 grow'>
+    <div className='space-y-2 grow w-[calc(100%-90px)]'>
       <Body className='flex items-center gap-1 text-body2'>
         <span>
           {data.receiverName}

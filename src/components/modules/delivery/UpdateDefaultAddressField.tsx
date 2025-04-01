@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 // import { getDeliveryDatas } from '@/action/delivery-service';
 import { ActionList, RadioGroup, RadioGroupItem } from '@/components/ui/common';
-import DeliveryItem from './DeliveryItem';
+import DeliveryItem from '../../ui/delivery/DeliveryItem';
 import { dummyDeliveryDatas } from '@/data/dummyDeliveryDatas';
 
 export default async function UpdateDefaultAddressField() {
