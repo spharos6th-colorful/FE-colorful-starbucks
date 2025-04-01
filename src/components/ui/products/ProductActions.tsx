@@ -5,23 +5,24 @@ import { Button } from '../common';
 import CartIcon from '@/assets/icon/product/cart.svg';
 import { useModal } from '../common/Modal';
 import PurchaseModal from './PurchaseModal';
+import { ProductOption } from '@/types/products/productPurchaseTypes';
 
 interface ProductActionsProps {
   productId: string;
   productName: string;
   productPrice: number;
+  productOptions: ProductOption[];
 }
 
-export default function ProductActions({ productId, productPrice }: ProductActionsProps) {
+export default function ProductActions({ productId, productPrice, productName, productOptions }: ProductActionsProps) {
   const { modal, openModal } = useModal();
+  console.log(productName);
 
   const handlePurchaseClick = () => {
     openModal('purchase-modal');
   };
 
-  console.log(productId);
   const isVisible = useScrollVisibility(500);
-
   const isPurchaseModalOpen = modal === 'purchase-modal';
 
   return (
@@ -41,7 +42,7 @@ export default function ProductActions({ productId, productPrice }: ProductActio
         </div>
       )}
 
-      <PurchaseModal productId={productId} productPrice={productPrice} />
+      <PurchaseModal productId={productId} productPrice={productPrice} productOptions={productOptions} />
     </>
   );
 }
