@@ -1,5 +1,5 @@
 import { eventData } from '@/data/main/dummyData';
-import ProductList from './productList';
+import ProductList from './ProductList';
 
 export default async function EventProductList() {
   // const eventDatas = await getEventDatas();
