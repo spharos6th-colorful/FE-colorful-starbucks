@@ -10,7 +10,7 @@ export function Group({ children, className }: ActionListProps) {
 }
 
 export function Item({ children, className }: ActionListProps) {
-  return <li className={cn('!text-body3 border-r border-r-stroke-100', className)}>{children}</li>;
+  return <li className={cn('!text-body3 border-r text-text-500 border-r-stroke-100', className)}>{children}</li>;
 }
 
 export const ActionList = { Group, Item };
