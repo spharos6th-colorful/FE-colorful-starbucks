@@ -1,21 +1,18 @@
+'use client';
+
 import React from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import ProductCategoryTop from '@/components/ui/products/ProductCategoryTop';
 import { sampleCategories } from '@/data/productCategoryTopDummyDatas';
 import { ProductCategoryTopType } from '@/types/products/productCategoryType';
 
-export default function CategoryContent() {
+export default function CategoryContent({ initialCategory }: { initialCategory: string }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-
-  const currentCategoryCode = searchParams.get('category') || 'all';
+  const currentCategoryCode = initialCategory;
 
   const handleCategoryClick = (category: ProductCategoryTopType) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set('category', category.code);
-
-    router.push(`?${params.toString()}`, { scroll: false });
+    router.push(`?category=${category.code}`, { scroll: false });
   };
 
   return (

@@ -1,16 +1,13 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React from 'react';
 
-import CategorySkeleton from '../ui/skeleton/CategorySkeleton';
 import CategoryContent from '../modules/product/CategoryContent';
 
-export default function ProductCategoryTopLayout() {
+export default function ProductCategoryTopLayout({ initialCategory }: { initialCategory: string }) {
   return (
     <div className='w-full border-b boarder-stroke-100'>
-      <Suspense fallback={<CategorySkeleton />}>
-        <CategoryContent />
-      </Suspense>
+      <CategoryContent initialCategory={initialCategory} />
     </div>
   );
 }
