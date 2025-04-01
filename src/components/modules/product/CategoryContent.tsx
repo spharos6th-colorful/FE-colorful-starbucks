@@ -1,5 +1,4 @@
 'use client';
-
 import React from 'react';
 import { useRouter } from 'next/navigation';
 
@@ -16,16 +15,18 @@ export default function CategoryContent({ initialCategory }: { initialCategory: 
   };
 
   return (
-    <div className='flex overflow-x-auto'>
-      {sampleCategories.map((category) => (
-        <div key={category.code} className='flex-shrink-0'>
-          <ProductCategoryTop
-            name={category.name}
-            isActive={currentCategoryCode === category.code}
-            onClick={() => handleCategoryClick(category)}
-          />
-        </div>
-      ))}
+    <div className='flex justify-center'>
+      <div className='flex overflow-x-auto'>
+        {sampleCategories.map((category) => (
+          <div key={category.code} className='flex-shrink-0'>
+            <ProductCategoryTop
+              name={category.name}
+              isActive={currentCategoryCode === category.code}
+              onClick={() => handleCategoryClick(category)}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
