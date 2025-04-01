@@ -33,9 +33,9 @@ export default function ProductInfo({ tags, ...product }: ProductInfoProps) {
             <ProductTags isBest={tags.isBest} isNew={tags.isNew} isMarkable={tags.isMarkable} caveatFont={caveat} />
           )}
         </h2>
-        <div className='cursor-pointer' onClick={() => handleshareProduct(product.productCode)}>
+        <button className='cursor-pointer' onClick={() => handleshareProduct(product.productCode)}>
           <ShareIcon />
-        </div>
+        </button>
       </div>
 
       <div className='flex items-center mb-3'></div>
