@@ -2,11 +2,11 @@ import React from 'react';
 
 import OptionSelector from '@/components/ui/products/OptionSelector';
 import QuantityControl from '@/components/ui/products/QuantityControl';
-import { ProductOption } from '@/types/products/productPurchaseTypes';
+import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { useProductOptions } from '@/context/ProductOptionsContext';
 
 interface OptionSelectionFormProps {
-  productOptions: ProductOption[];
+  productOptions: ProductOptionType[];
 }
 
 export default function OptionSelectionForm({ productOptions }: OptionSelectionFormProps) {

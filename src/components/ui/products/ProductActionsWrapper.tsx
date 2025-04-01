@@ -1,13 +1,13 @@
 'use client';
 
-import { ProductOption } from '@/types/products/productPurchaseTypes';
+import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import ProductActions from '@/components/ui/products/ProductActions';
 
 interface ProductActionsWrapperProps {
   productId: string;
   productName: string;
   productPrice: number;
-  productOptions: ProductOption[];
+  productOptions: ProductOptionType[];
 }
 
 export default function ProductActionsWrapper({

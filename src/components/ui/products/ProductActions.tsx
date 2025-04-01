@@ -5,13 +5,13 @@ import { Button } from '../common';
 import CartIcon from '@/assets/icon/product/cart.svg';
 import { useModal } from '../common/Modal';
 import PurchaseModal from './PurchaseModal';
-import { ProductOption } from '@/types/products/productPurchaseTypes';
+import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 
 interface ProductActionsProps {
   productId: string;
   productName: string;
   productPrice: number;
-  productOptions: ProductOption[];
+  productOptions: ProductOptionType[];
 }
 
 export default function ProductActions({ productId, productPrice, productName, productOptions }: ProductActionsProps) {

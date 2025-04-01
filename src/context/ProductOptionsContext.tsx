@@ -2,7 +2,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { ProductOption, SelectedOption, SelectedOptionValue } from '@/types/products/productPurchaseTypes';
+import { ProductOptionType, SelectedOption, SelectedOptionValue } from '@/types/products/productPurchaseTypes';
 import { useCallback } from 'react';
 
 interface ProductOptionsContextType {
@@ -28,7 +28,7 @@ interface ProductOptionsProviderProps {
   children: ReactNode;
   productId: string;
   productPrice: number;
-  productOptions: ProductOption[];
+  productOptions: ProductOptionType[];
 }
 
 export function ProductOptionsProvider({

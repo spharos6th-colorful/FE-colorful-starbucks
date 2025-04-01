@@ -1,5 +1,5 @@
 // types/products/productPurchaseTypes.ts
-export interface ProductOption {
+export interface ProductOptionType {
   id: string;
   name: string;
   values: string[];
@@ -20,7 +20,7 @@ export interface SelectedOption {
 export interface ProductDetail {
   id: string;
   price: number;
-  options: ProductOption[];
+  options: ProductOptionType[];
   // 기타 상품 정보...
 }
 

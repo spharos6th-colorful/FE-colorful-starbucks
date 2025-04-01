@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import { ProductOption, SelectedOption } from '@/types/products/productPurchaseTypes';
+import { ProductOptionType, SelectedOption } from '@/types/products/productPurchaseTypes';
 import { Modal, useModal } from '../common/Modal';
 import { ProductOptionsProvider } from '@/context/ProductOptionsContext';
 import PurchaseForm from '@/components/modules/product/PurchaseForm';
@@ -9,7 +9,7 @@ import PurchaseForm from '@/components/modules/product/PurchaseForm';
 interface PurchaseModalProps {
   productId: string;
   productPrice: number;
-  productOptions: ProductOption[];
+  productOptions: ProductOptionType[];
 }
 
 export default function PurchaseModal({ productId, productPrice, productOptions }: PurchaseModalProps) {

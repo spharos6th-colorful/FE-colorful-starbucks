@@ -1,6 +1,6 @@
 import { ProductTypes } from '@/types/products/productTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
-import { ProductOption } from '@/types/products/productPurchaseTypes';
+import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import ProductImage from '@/components/ui/products/ProductImage';
 import ProductInfoSection from './ProductInfoSection';
 import ProductActionsWrapper from '@/components/ui/products/ProductActionsWrapper';
@@ -16,7 +16,7 @@ const dummyProducts: ProductTypes = {
 };
 
 // 더미 옵션 데이터
-const dummyOptions: ProductOption[] = [
+const dummyOptions: ProductOptionType[] = [
   {
     id: 'color',
     name: '색상',
