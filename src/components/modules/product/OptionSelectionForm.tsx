@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OptionSelector from '@/components/ui/products/OptionSelector';
+import OptionSelector from '@/components/modules/product/OptionSelector';
 import QuantityControl from '@/components/ui/products/QuantityControl';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { useProductOptions } from '@/context/ProductOptionsContext';
