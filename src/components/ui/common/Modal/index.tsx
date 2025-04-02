@@ -64,9 +64,8 @@ const ModalContainer = ({ children, variant, className }: ModalContainerProps) =
         className={cn(
           'animate-slide-up absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2',
           'shadow-[0_4px_10px_rgba(0,0,0,0.06)]',
-          'max-w-lg w-full mx-auto',
+          'max-w-lg w-[calc(100%-48px)] mx-auto overflow-hidden',
           'bg-white rounded-lg',
-          'px-6 py-5',
           className,
         )}
       >
