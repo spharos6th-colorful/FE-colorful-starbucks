@@ -10,6 +10,7 @@ export const getDeliveryDatas = async (size: number = 5, cursor?: string) => {
     return data;
   } catch (error) {
     console.log('🚀 ~ getDeliveryDatas ~ error:', error);
+    throw error;
   }
 };
 
@@ -19,5 +20,6 @@ export const deleteAddress = async (memberAddressId: string) => {
     await res.json();
   } catch (error) {
     console.log('🚀 ~ deleteAddress ~ error:', error);
+    throw error;
   }
 };

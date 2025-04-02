@@ -25,6 +25,7 @@ export default function DeleteAddressModal({ memberAddressId }: DeleteAddressMod
       await deleteAddress(memberAddressId);
     } catch (error) {
       console.log('🚀 ~ handleDeleteAddressData ~ error:', error);
+      throw error;
       alert('주소 삭제 실패');
     }
   };
