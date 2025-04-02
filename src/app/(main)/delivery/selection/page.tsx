@@ -1,20 +1,15 @@
 import Link from 'next/link';
+import { permanentRedirect } from 'next/navigation';
 
 import { Heading } from '@/components/ui/common/Heading';
 import UpdateDefaultAddressForm from '@/components/pages/delivery/UpdateDefaultAddressForm';
 import PlusIcon from '@/assets/icon/delivery/plusIcon.svg';
 
 export default async function DeliverySelectionPage() {
-  const handleUpdateDefaultAddress = async (updateDefaultAddressData: FormData) => {
+  const handleUpdateAddress = async (updateAddressData: FormData) => {
     'use server';
-    try {
-      // FIXME: 서버 API 연동 필요
-      // await updateDefaultAddress(updateDefaultAddressData);
-      console.log('🚀 ~ handleUpdateDefaultAddress ~ updateDefaultAddressData:', updateDefaultAddressData);
-    } catch (error) {
-      console.log('🚀 ~ handleUpdateDefaultAddress ~ error:', error);
-      throw error;
-    }
+    const memberAddressUuid = updateAddressData.get('memberAddressUuid') as string;
+    permanentRedirect(`/carts?memberAddressUuid=${memberAddressUuid}`);
   };
 
   return (
@@ -27,7 +22,7 @@ export default async function DeliverySelectionPage() {
         </Link>
       </Heading.Wrapper>
 
-      <UpdateDefaultAddressForm handleUpdateDefaultAddress={handleUpdateDefaultAddress} />
+      <UpdateDefaultAddressForm handleUpdateAddress={handleUpdateAddress} />
     </>
   );
 }

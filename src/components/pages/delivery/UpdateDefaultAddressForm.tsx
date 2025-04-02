@@ -1,13 +1,13 @@
 import UpdateDefaultAddressField from '@/components/modules/delivery/UpdateDefaultAddressField';
 import { BottomSheet, Button } from '@/components/ui/common';
 
-export default function UpdateDefaultAddressForm({
-  handleUpdateDefaultAddress,
+export default function UpdateAddressForm({
+  handleUpdateAddress,
 }: {
-  handleUpdateDefaultAddress: (formData: FormData) => Promise<void>;
+  handleUpdateAddress: (formData: FormData) => Promise<void>;
 }) {
   return (
-    <form action={handleUpdateDefaultAddress} className='pb-28'>
+    <form action={handleUpdateAddress} className='pb-28'>
       <UpdateDefaultAddressField />
 
       <BottomSheet>
