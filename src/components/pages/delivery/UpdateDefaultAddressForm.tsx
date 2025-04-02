@@ -7,7 +7,7 @@ export default function UpdateDefaultAddressForm({
   handleUpdateDefaultAddress: (formData: FormData) => Promise<void>;
 }) {
   return (
-    <form action={handleUpdateDefaultAddress}>
+    <form action={handleUpdateDefaultAddress} className='pb-28'>
       <UpdateDefaultAddressField />
 
       <BottomSheet>
