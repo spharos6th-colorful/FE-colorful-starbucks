@@ -2,6 +2,7 @@ import React from 'react';
 
 import QuantityControl from './QuantityControl';
 import { SelectedOption } from '@/types/products/productPurchaseTypes';
+import DeleteIcon from '@/assets/icon/common/delete.svg';
 
 interface SelectedOptionItemProps {
   option: SelectedOption;
@@ -28,9 +29,7 @@ export default function SelectedOptionItem({ option, onRemove, onQuantityChange 
     <div className='p-3 flex flex-col gap-2'>
       <div className='flex justify-between items-center'>
         <span>{optionsText}</span>
-        <button onClick={() => onRemove(id)} className='text-gray-400 hover:text-gray-600'>
-          ✕
-        </button>
+        <DeleteIcon onClick={() => onRemove(id)} className='mr-1' />
       </div>
       <div className='flex justify-between items-center'>
         <span className='text-gray-500'>수량</span>
