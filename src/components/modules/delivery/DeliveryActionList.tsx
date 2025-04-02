@@ -20,7 +20,9 @@ export default function DeliveryActionList({ memberAddressId }: { memberAddressI
         <Link href={`/delivery/edit/${memberAddressId}`}>수정</Link>
       </ActionList.Item>
       <ActionList.Item>
-        <button onClick={handleClickDeleteButton}>삭제</button>
+        <button onClick={handleClickDeleteButton} className='cursor-pointer'>
+          삭제
+        </button>
       </ActionList.Item>
     </ActionList.Group>
   );
