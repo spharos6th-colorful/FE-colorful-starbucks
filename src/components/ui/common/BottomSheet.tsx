@@ -8,7 +8,12 @@ export function BottomSheet({
   className?: string;
 }) {
   return (
-    <div className={cn('absolute z-10 left-0 bottom-0 w-full px-5 pt-3 pb-8 bg-white shadow-2', className)}>
+    <div
+      className={cn(
+        'fixed z-10 left-1/2 bottom-0 -translate-x-1/2 max-w-3xl w-full px-5 pt-3 pb-8 bg-white shadow-2',
+        className,
+      )}
+    >
       {children}
     </div>
   );
