@@ -11,11 +11,15 @@ export default async function UpdateDefaultAddressField() {
   const defaultAddress = data.findIndex((d) => d.isDefaultAddress);
 
   return (
-    <RadioGroup defaultValue={data[defaultAddress].memberAddressId} className='px-6' name='memberAddressId'>
+    <RadioGroup
+      defaultValue={data[defaultAddress].memberAddressId}
+      className='px-6 [&_label]:last:border-none'
+      name='memberAddressId'
+    >
       {data.map((delivery) => (
         <label
           htmlFor={delivery.memberAddressId}
-          className='flex gap-2 md:gap-4 py-3 items-start w-full'
+          className='flex gap-2 md:gap-4 py-3 items-start w-full border-b border-stroke-100'
           key={delivery.memberAddressId}
         >
           <RadioGroupItem value={delivery.memberAddressId} id={delivery.memberAddressId} />
