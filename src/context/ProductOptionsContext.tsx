@@ -166,7 +166,6 @@ export function ProductOptionsProvider({
         increaseQuantity,
         decreaseQuantity,
         resetSelections,
-
         isOptionComplete,
       }}
     >
