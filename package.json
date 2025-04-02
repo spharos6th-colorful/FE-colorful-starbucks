@@ -13,11 +13,12 @@
     "commit": "git cz"
   },
   "dependencies": {
+    "@radix-ui/react-radio-group": "^1.2.3",
+    "@radix-ui/react-select": "^2.1.6",
+    "@radix-ui/react-slot": "^1.1.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.485.0",
-    "@radix-ui/react-radio-group": "^1.2.3",
-    "@radix-ui/react-slot": "^1.1.2",
     "framer-motion": "^12.6.2",
     "next": "15.2.3",
     "react": "^19.0.0",
@@ -48,6 +49,7 @@
     "gitmoji-cli": "^9.5.0",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.0",
+    "mini-css-extract-plugin": "^2.9.2",
     "prettier": "^3.5.3",
     "tailwindcss": "^4",
     "typescript": "^5"
