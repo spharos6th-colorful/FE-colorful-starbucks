@@ -11,7 +11,6 @@ interface DeliveryManagementPageProps {
 
 export default async function DeliveryManagementPage({ searchParams }: DeliveryManagementPageProps) {
   const { memberAddressId } = await searchParams;
-  console.log('🚀 ~ DeliveryManagementPage ~ memberAddressId:', memberAddressId);
 
   return (
     <>
