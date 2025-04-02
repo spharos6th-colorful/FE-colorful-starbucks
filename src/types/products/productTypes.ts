@@ -5,5 +5,5 @@ export interface ProductTypes {
   productThumbnailUrl: string;
   productImageUrl: string;
   markable: string;
-  price?: number;
+  price: number;
 }
