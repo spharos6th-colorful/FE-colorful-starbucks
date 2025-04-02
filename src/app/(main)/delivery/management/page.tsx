@@ -6,11 +6,11 @@ import DeleteAddressModal from '@/components/ui/delivery/DeleteAddressModal';
 import IconPlus from '@/assets/icon/delivery/plusIcon.svg';
 
 interface DeliveryManagementPageProps {
-  searchParams: Promise<{ memberAddressId?: string }>;
+  searchParams: Promise<{ memberAddressUuid?: string }>;
 }
 
 export default async function DeliveryManagementPage({ searchParams }: DeliveryManagementPageProps) {
-  const { memberAddressId } = await searchParams;
+  const { memberAddressUuid } = await searchParams;
 
   return (
     <>
@@ -20,7 +20,7 @@ export default async function DeliveryManagementPage({ searchParams }: DeliveryM
 
       <DeliveryAddressList />
 
-      {memberAddressId ? <DeleteAddressModal memberAddressId={memberAddressId} /> : null}
+      {memberAddressUuid ? <DeleteAddressModal memberAddressUuid={memberAddressUuid} /> : null}
 
       <BottomSheet>
         <Button variant={'default'} width={'auto'} className='w-full' asChild>

@@ -1,5 +1,5 @@
 export interface DeliveryDataType {
-  memberAddressId: string;
+  memberAddressUuid: string;
   addressNickname: string;
   receiverName: string;
   mainAddress: string;

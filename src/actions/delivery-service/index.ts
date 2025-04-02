@@ -14,9 +14,9 @@ export const getDeliveryDatas = async (size: number = 5, cursor?: string) => {
   }
 };
 
-export const deleteAddress = async (memberAddressId: string) => {
+export const deleteAddress = async (memberAddressUuid: string) => {
   try {
-    const res = await fetch(`/api/v1/users/address/${memberAddressId}`, { method: 'POST' });
+    const res = await fetch(`/api/v1/users/address/${memberAddressUuid}`, { method: 'POST' });
     await res.json();
   } catch (error) {
     console.log('🚀 ~ deleteAddress ~ error:', error);

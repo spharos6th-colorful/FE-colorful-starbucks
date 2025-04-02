@@ -12,23 +12,23 @@ export default async function UpdateDefaultAddressField() {
 
   return (
     <RadioGroup
-      defaultValue={data[defaultAddress].memberAddressId}
+      defaultValue={data[defaultAddress].memberAddressUuid}
       className='px-6 [&_label]:last:border-none'
-      name='memberAddressId'
+      name='memberAddressUuid'
     >
       {data.map((delivery) => (
         <label
-          htmlFor={delivery.memberAddressId}
+          htmlFor={delivery.memberAddressUuid}
           className='flex gap-2 md:gap-4 py-3 items-start w-full border-b border-stroke-100'
-          key={delivery.memberAddressId}
+          key={delivery.memberAddressUuid}
         >
-          <RadioGroupItem value={delivery.memberAddressId} id={delivery.memberAddressId} />
+          <RadioGroupItem value={delivery.memberAddressUuid} id={delivery.memberAddressUuid} />
 
           <DeliveryItem data={delivery} />
 
           <ActionList.Group>
             <ActionList.Item className='text-text-600'>
-              <Link href={`/delivery/edit/${delivery.memberAddressId}`}>수정</Link>
+              <Link href={`/delivery/edit/${delivery.memberAddressUuid}`}>수정</Link>
             </ActionList.Item>
           </ActionList.Group>
         </label>

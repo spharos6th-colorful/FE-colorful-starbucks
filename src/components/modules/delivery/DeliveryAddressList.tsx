@@ -11,11 +11,11 @@ export default async function DeliveryAddressList() {
     <ul className='px-6 [&_li]:last:border-none pb-28'>
       {deliveryAddressDatas.map((address) => (
         <li
-          key={address.memberAddressId}
+          key={address.memberAddressUuid}
           className='border-b border-b-stroke-100 py-5 flex justify-between items-start'
         >
           <DeliveryItem data={address} />
-          <DeliveryActionList memberAddressId={address.memberAddressId} />
+          <DeliveryActionList memberAddressUuid={address.memberAddressUuid} />
         </li>
       ))}
     </ul>

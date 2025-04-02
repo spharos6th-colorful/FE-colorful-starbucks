@@ -8,10 +8,10 @@ import { ModalButtons } from '../common/Modal/ModalButtons';
 import { deleteAddress } from '@/actions/delivery-service';
 
 interface DeleteAddressModalProps {
-  memberAddressId: string;
+  memberAddressUuid: string;
 }
 
-export default function DeleteAddressModal({ memberAddressId }: DeleteAddressModalProps) {
+export default function DeleteAddressModal({ memberAddressUuid }: DeleteAddressModalProps) {
   const router = useRouter();
   const { closeModal } = useModal();
 
@@ -20,9 +20,9 @@ export default function DeleteAddressModal({ memberAddressId }: DeleteAddressMod
     router.back();
   };
 
-  const handleDeleteAddressData = async (memberAddressId: string) => {
+  const handleDeleteAddressData = async (memberAddressUuid: string) => {
     try {
-      await deleteAddress(memberAddressId);
+      await deleteAddress(memberAddressUuid);
     } catch (error) {
       console.log('🚀 ~ handleDeleteAddressData ~ error:', error);
       throw error;
@@ -40,7 +40,7 @@ export default function DeleteAddressModal({ memberAddressId }: DeleteAddressMod
         <ModalButtons.Button onClick={handleClickReset} className='text-text-700'>
           취소
         </ModalButtons.Button>
-        <ModalButtons.Button onClick={() => handleDeleteAddressData(memberAddressId)} className='text-primary-100'>
+        <ModalButtons.Button onClick={() => handleDeleteAddressData(memberAddressUuid)} className='text-primary-100'>
           삭제
         </ModalButtons.Button>
       </ModalButtons.Wrapper>

@@ -2,7 +2,7 @@ import { DeliveryDataType } from '@/types/responseDataTypes';
 
 export const dummyDeliveryDatas: DeliveryDataType[] = [
   {
-    memberAddressId: '1',
+    memberAddressUuid: '1',
     addressNickname: '집',
     receiverName: '홍길동',
     mainAddress: '서울특별시 강남구',
@@ -12,7 +12,7 @@ export const dummyDeliveryDatas: DeliveryDataType[] = [
     isDefaultAddress: true,
   },
   {
-    memberAddressId: '2',
+    memberAddressUuid: '2',
     addressNickname: '집',
     receiverName: '홍길동',
     mainAddress: '서울특별시 강남구',
@@ -22,7 +22,7 @@ export const dummyDeliveryDatas: DeliveryDataType[] = [
     isDefaultAddress: false,
   },
   {
-    memberAddressId: '3',
+    memberAddressUuid: '3',
     addressNickname: '집',
     receiverName: '홍길동',
     mainAddress: '서울특별시 강남구',
@@ -32,7 +32,7 @@ export const dummyDeliveryDatas: DeliveryDataType[] = [
     isDefaultAddress: false,
   },
   {
-    memberAddressId: '4',
+    memberAddressUuid: '4',
     addressNickname: '집',
     receiverName: '홍길동',
     mainAddress: '서울특별시 강남구',
@@ -42,7 +42,7 @@ export const dummyDeliveryDatas: DeliveryDataType[] = [
     isDefaultAddress: false,
   },
   {
-    memberAddressId: '5',
+    memberAddressUuid: '5',
     addressNickname: '집',
     receiverName: '홍길동',
     mainAddress: '서울특별시 강남구',
