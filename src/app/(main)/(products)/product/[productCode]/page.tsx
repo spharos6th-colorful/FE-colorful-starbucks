@@ -35,13 +35,9 @@ const dummyOptions: ProductOptionType[] = [
   },
 ];
 
-interface PageProps {
-  params: Promise<{ productCode: string }>;
-}
-
-export default async function Page({ params }: PageProps) {
-  //const { productCode } = await params;
-  await params; //나중에 지울 예정
+export default async function Page({ params }: { params: Promise<{ productCode: string }> }) {
+  const { productCode } = await params;
+  console.log(productCode);
 
   //  더미 데이터 사용
   const product = dummyProducts;

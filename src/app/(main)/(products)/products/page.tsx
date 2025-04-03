@@ -2,10 +2,11 @@ import React from 'react';
 
 import ProductCategoryTopLayout from '@/components/layouts/ProductCategoryTopLayout';
 
-export default async function ProductsPage({ searchParams }: { searchParams: { category?: string } }) {
-  const params = await searchParams;
-  const currentCategory = params.category || 'all';
+type SearchParams = Promise<{ category?: string }>;
 
+export default async function ProductsPage(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams;
+  const currentCategory = searchParams.category || 'all';
   return (
     // 가장 큰 속성에는 대부분 스타일은 뺀다.(안에 있는걸 줄이면 됨)
     <main>
