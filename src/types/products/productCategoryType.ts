@@ -1,5 +1,4 @@
 export interface ProductCategoryTopType {
-  id: number;
-  name: string;
-  code: string;
+  topCategoryId: number;
+  categoryName: string;
 }
