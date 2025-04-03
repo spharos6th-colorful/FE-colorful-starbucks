@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
+import { ModalProvider } from '@/context/ModalContext';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '700'],
 });
 
 export const metadata: Metadata = {
@@ -21,9 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body className={`${inter.className} antialiased bg-gray-100`}>
+      <body className={`${inter.style} antialiased bg-gray-100`}>
         <div className='min-w-xs max-w-3xl w-full mx-auto h-dvh bg-white relative overflow-x-hidden overflow-y-scroll scrollbar-hidden'>
-          {children}
+          <ModalProvider>{children}</ModalProvider>
         </div>
       </body>
     </html>
