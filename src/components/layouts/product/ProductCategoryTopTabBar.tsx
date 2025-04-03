@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-import CategoryContent from '../modules/product/CategoryContent';
+import CategoryContent from '../../modules/product/CategoryContent';
 
 export default function ProductCategoryTopTabBar({ initialCategory }: { initialCategory: string }) {
   return (

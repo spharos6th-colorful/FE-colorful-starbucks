@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
-import ProductCategoryTopTabBar from '@/components/layouts/ProductCategoryTopTabBar';
+import ProductCategoryTopTabBar from '@/components/layouts/product/ProductCategoryTopTabBar';
 
 type SearchParams = Promise<SearchParamsType>;
 
