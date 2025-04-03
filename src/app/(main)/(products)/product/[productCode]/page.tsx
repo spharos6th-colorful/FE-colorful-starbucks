@@ -1,4 +1,6 @@
-import ProductDetail from '@/components/modules/product/ProductDetail';
+import ProductImage from '@/components/ui/products/ProductImage';
+import ProductInfoSection from '@/components/modules/product/ProductInfoSection';
+import ProductActionsWrapper from '@/components/ui/products/ProductActionsWrapper';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import { ProductTypes } from '@/types/products/productTypes';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
@@ -53,5 +55,25 @@ export default async function Page({ params }: PageProps) {
   //   getProductOptions(productCode),
   // ]);
 
-  return <ProductDetail product={product} tags={tags} productOptions={productOptions} />;
+  return (
+    <main className='flex flex-col min-h-screen bg-white'>
+      <section className='w-full relative' style={{ height: 'min(100vw, 100vh)' }}>
+        <ProductImage
+          imageUrl={product.productThumbnailUrl}
+          name={`${product.productName} 썸네일 이미지`}
+          containerClassName='w-full h-full'
+          objectFit='cover'
+          priority={true}
+        />
+      </section>
+
+      <ProductInfoSection product={product} tags={tags} />
+
+      <ProductActionsWrapper
+        productId={product.productCode}
+        productPrice={product.price}
+        productOptions={productOptions}
+      />
+    </main>
+  );
 }
