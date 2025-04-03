@@ -335,3 +335,15 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  /* 스크롤바 숨기기 */
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none; /* IE, Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
