@@ -6,7 +6,9 @@ export default function ProductCategoryTop({ name, isActive = false, onClick }: 
   return (
     <div
       className={`px-4 py-5 text-center cursor-pointer ${
-        isActive ? 'text-primary-100 text-body2' : 'text-[var(--color-text-700)] text-body3'
+        isActive
+          ? 'border-b-2 border-primary-100 text-primary-100 text-body2 font-black'
+          : 'text-[var(--color-text-700)] text-body3'
       }`}
       onClick={onClick}
     >
