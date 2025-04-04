@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import Link from 'next/link';
-
 import { usePathname, useSearchParams } from 'next/navigation';
+import { ProductBottomTabBarWrapper } from '@/components/ui/common/product/ProductBottomTabBarWrapper';
 
 type FilterOption = {
   filterId: string;
@@ -22,15 +22,29 @@ const getSelectedArray = (selected?: string | string[]): string[] => {
   return typeof selected === 'string' ? selected.split(',') : selected;
 };
 
-const FilterOption = ({ option, isSelected, href }: { option: FilterOption; isSelected: boolean; href: string }) => (
-  <Link
-    href={href}
-    className={`whitespace-nowrap text-body3 ${isSelected ? 'text-primary-100 font-black' : 'text-text-700'}`}
-    scroll={false}
-  >
-    {option.filterName}
-  </Link>
-);
+function handleMultiSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
+  const isSelected = selectedArray.includes(optionId);
+
+  if (isSelected) {
+    const newSelected = selectedArray.filter((id) => id !== optionId);
+
+    if (newSelected.length === 0) {
+      params.delete(filterId);
+    } else {
+      params.set(filterId, newSelected.join(','));
+    }
+  } else {
+    params.set(filterId, [...selectedArray, optionId].join(','));
+  }
+}
+
+function handleSingleSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
+  if (selectedArray.includes(optionId)) {
+    params.delete(filterId);
+  } else {
+    params.set(filterId, optionId);
+  }
+}
 
 export default function ProductFilterRow({
   title,
@@ -56,44 +70,19 @@ export default function ProductFilterRow({
   };
 
   return (
-    <div className='w-full overflow-x-auto hide-scrollbar py-4 border-b border-stroke-100'>
-      <div className='flex min-w-max px-4'>
-        <span className='text-body3 text-black w-20'>{title}</span>
-        <div className='flex gap-6'>
-          {options.map((option) => (
-            <FilterOption
-              key={option.filterId}
-              option={option}
-              isSelected={selectedArray.includes(option.filterId)}
-              href={`${pathname}?${updateQueryParams(option.filterId)}`}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    <ProductBottomTabBarWrapper title={title}>
+      {options.map((option) => (
+        <Link
+          key={option.filterId}
+          href={`${pathname}?${updateQueryParams(option.filterId)}`}
+          className={`whitespace-nowrap text-body3 ${
+            selectedArray.includes(option.filterId) ? 'text-primary-100 font-black' : 'text-text-700'
+          }`}
+          scroll={false}
+        >
+          {option.filterName}
+        </Link>
+      ))}
+    </ProductBottomTabBarWrapper>
   );
-}
-
-function handleMultiSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
-  const isSelected = selectedArray.includes(optionId);
-
-  if (isSelected) {
-    const newSelected = selectedArray.filter((id) => id !== optionId);
-
-    if (newSelected.length === 0) {
-      params.delete(filterId);
-    } else {
-      params.set(filterId, newSelected.join(','));
-    }
-  } else {
-    params.set(filterId, [...selectedArray, optionId].join(','));
-  }
-}
-
-function handleSingleSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
-  if (selectedArray.includes(optionId)) {
-    params.delete(filterId);
-  } else {
-    params.set(filterId, optionId);
-  }
 }
