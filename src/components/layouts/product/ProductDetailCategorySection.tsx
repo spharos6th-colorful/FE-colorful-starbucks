@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
 import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
 import { FilterDataType, SubDetailCategoryType, SubSizeCateogryType } from '@/types/products/productCategoryType';
+import UpIcon from '@/assets/icon/common/up.svg';
 
 type ProductDetailCategorySectionProps = {
   searchParams: Record<string, string | string[] | undefined>;
@@ -79,8 +80,7 @@ export default function ProductDetailCategorySection({
           className='flex items-center text-body3 text-[var(--color-text-700)]'
         >
           {isExpanded ? '접기' : '펼치기'}
-          {/* TODO 현재 접기 펼치기 아이콘 수정 요망 */}
-          <span className='ml-1'>{isExpanded ? '⌃' : '⌵'}</span>
+          <span className='ml-1'>{isExpanded ? <UpIcon /> : <UpIcon className='rotate-180' />}</span>
         </button>
       </div>
     </section>
