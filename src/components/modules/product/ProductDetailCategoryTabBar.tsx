@@ -11,7 +11,7 @@ type ProductDetailCategoryTabBarProps = {
 
 const getSelectedArray = (selected?: string | string[]): string[] => {
   if (!selected) return [];
-  return typeof selected === 'string' ? [selected] : selected;
+  return typeof selected === 'string' ? selected.split(',') : selected;
 };
 
 export default function ProductDetailCategoryTabBar({ categories, selectedIds }: ProductDetailCategoryTabBarProps) {
@@ -21,9 +21,24 @@ export default function ProductDetailCategoryTabBar({ categories, selectedIds }:
 
   const updateQueryParams = (categoryId: number) => {
     const params = new URLSearchParams(searchParams);
-    params.set('bottomCategoryIds', categoryId.toString());
+    const categoryIdString = categoryId.toString();
+
+    if (selectedArray.includes(categoryIdString)) {
+      const newSelected = selectedArray.filter((id) => id !== categoryIdString);
+
+      if (newSelected.length === 0) {
+        params.delete('bottomCategoryIds');
+      } else {
+        params.set('bottomCategoryIds', newSelected.join(','));
+      }
+    } else {
+      const newSelected = [...selectedArray, categoryIdString];
+      params.set('bottomCategoryIds', newSelected.join(','));
+    }
+
     return params.toString();
   };
+
   return (
     <div className='w-full overflow-x-auto hide-scrollbar py-4 border-b border-stroke-100'>
       <div className='flex min-w-max px-4'>
@@ -36,7 +51,7 @@ export default function ProductDetailCategoryTabBar({ categories, selectedIds }:
               className={`text-body3 ${
                 selectedArray.includes(category.bottomCategoryId.toString())
                   ? 'text-primary-100 font-black'
-                  : 'text-[var(--color-text-700)]'
+                  : 'text-text-700'
               }`}
               scroll={false}
             >
