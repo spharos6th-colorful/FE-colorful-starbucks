@@ -14,18 +14,18 @@ export default async function ProductsPage(props: { searchParams: SearchParams }
   const topCategoryId = searchParams.topCategoryId || '1';
 
   // 필터링된 파라미터 객체 생성
-  const filteredParams: Record<string, string | string[] | undefined> = {};
+  const filteredParams: SearchParamsType = {};
   Object.entries(searchParams).forEach(([key, value]) => {
     filteredParams[key] = value;
   });
 
-  // 서버에서 데이터 가져오기 현재는 더미로 할 예정
+  // FIXME: 서버에서 데이터 가져오기 현재는 더미로 할 예정
   // const [subCategories, filterOptions] = await Promise.all([
   //   getProductCategories(topCategoryId),
   //   getProductFilters(topCategoryId),
   // ]);
 
-  //더미로 우선은 할 예정
+  // FIXME: 더미로 우선은 할 예정
   const { subDetailCategories, subVolumeCategories } = await getSubCategoriesAndVolume(topCategoryId);
 
   return (
@@ -37,7 +37,7 @@ export default async function ProductsPage(props: { searchParams: SearchParams }
         subVolumeCategories={subVolumeCategories}
         filterOptions={sampleFilterData}
       />
-      {/* 상품 리스트 영역 */}
+      {/* TODO: 상품 리스트 영역 */}
       {/* <ProductList data={productListData} /> */}
     </main>
   );

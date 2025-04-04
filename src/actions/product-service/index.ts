@@ -109,7 +109,7 @@ export async function getProductFilters(topCategoryId: string): Promise<FilterDa
   }
 }
 
-//현재는 더미 넘겨주는 함수이다. 나중에 변경 예정
+// FIXME: 현재는 더미 넘겨주는 함수이다. 나중에 변경 예정
 type SubCategoriesAndVolume = {
   subDetailCategories: SubDetailCategoryType[];
   subVolumeCategories: SubSizeCateogryType[];
