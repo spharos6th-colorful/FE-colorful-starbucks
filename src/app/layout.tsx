@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
+import ScrollToTopButton from '@/components/ui/common/ScrollToTopButton';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -24,6 +25,7 @@ export default function RootLayout({
       <body className={`${inter.className} antialiased bg-gray-100`}>
         <div className='min-w-xs max-w-3xl w-full mx-auto h-dvh bg-white relative overflow-x-hidden overflow-y-scroll scrollbar-hidden'>
           {children}
+          <ScrollToTopButton />
         </div>
       </body>
     </html>
