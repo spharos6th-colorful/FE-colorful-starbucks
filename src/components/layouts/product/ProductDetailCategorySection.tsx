@@ -1,9 +1,10 @@
 'use client';
 
+import React, { useState } from 'react';
+
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
 import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
 import { FilterData, SubDetailCategory, SubSizeCateogry } from '@/types/products/productCategoryType';
-import React, { useState } from 'react';
 
 type ProductDetailCategorySectionProps = {
   searchParams: Record<string, string | string[] | undefined>;
