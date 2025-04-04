@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useSearchParams, usePathname } from 'next/navigation';
+import { cn } from '@/lib/utils';
 
 export default function ProductDetailCategoryFilter() {
   const searchParams = useSearchParams();
@@ -34,11 +35,10 @@ export default function ProductDetailCategoryFilter() {
           <Link
             key={filter.id}
             href={`${pathname}?${updateQueryParams(filter.id)}`}
-            className={`px-4 py-3 text-body3 whitespace-nowrap ${
-              activeFilter === filter.id
-                ? 'text-primary-100 border-b-2 border-primary-100'
-                : 'text-[var(--color-text-700)]'
-            }`}
+            className={cn(
+              'px-4 py-3 text-body3 whitespace-nowrap',
+              activeFilter === filter.id ? 'text-primary-100 border-b-2 border-primary-100' : 'text-text-700',
+            )}
             scroll={false}
           >
             {filter.name}
