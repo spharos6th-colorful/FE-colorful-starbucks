@@ -22,7 +22,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${inter.style} antialiased bg-gray-100`}>
-        <div className='min-w-xs max-w-3xl w-full mx-auto h-dvh bg-white relative overflow-x-hidden overflow-y-scroll scrollbar-hidden'>
+        <div className='w-full max-w-3xl mx-auto h-dvh bg-white relative overflow-x-hidden overflow-y-scroll scrollbar-hidden'>
           <ModalProvider>{children}</ModalProvider>
         </div>
       </body>
