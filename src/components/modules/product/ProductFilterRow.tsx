@@ -2,7 +2,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
+
 import { ProductBottomTabBarWrapper } from '@/components/ui/common/product/ProductBottomTabBarWrapper';
+import { getSelectedArray } from '@/lib/\bproduct/util';
 
 type FilterOptionType = {
   filterId: string;
@@ -15,11 +17,6 @@ type ProductFilterRowProps = {
   filterId: string;
   selectedIds?: string | string[];
   isMultiSelect?: boolean;
-};
-
-const getSelectedArray = (selected?: string | string[]): string[] => {
-  if (!selected) return [];
-  return typeof selected === 'string' ? selected.split(',') : selected;
 };
 
 function handleMultiSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {

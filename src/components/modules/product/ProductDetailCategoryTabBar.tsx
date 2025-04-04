@@ -5,15 +5,11 @@ import { useSearchParams, usePathname } from 'next/navigation';
 
 import { SubDetailCategoryType } from '@/types/products/productCategoryType';
 import { ProductBottomTabBarWrapper } from '@/components/ui/common/product/ProductBottomTabBarWrapper';
+import { getSelectedArray } from '@/lib/\bproduct/util';
 
 type ProductDetailCategoryTabBarProps = {
   categories: SubDetailCategoryType[];
   selectedIds: string | string[] | undefined;
-};
-
-const getSelectedArray = (selected?: string | string[]): string[] => {
-  if (!selected) return [];
-  return typeof selected === 'string' ? selected.split(',') : selected;
 };
 
 export default function ProductDetailCategoryTabBar({ categories, selectedIds }: ProductDetailCategoryTabBarProps) {
