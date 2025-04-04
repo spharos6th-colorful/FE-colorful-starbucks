@@ -24,9 +24,7 @@ const getSelectedArray = (selected?: string | string[]): string[] => {
 const FilterOption = ({ option, isSelected, href }: { option: FilterOption; isSelected: boolean; href: string }) => (
   <Link
     href={href}
-    className={`whitespace-nowrap text-body3 ${
-      isSelected ? 'text-primary-100 font-black' : 'text-[var(--color-text-700)]'
-    }`}
+    className={`whitespace-nowrap text-body3 ${isSelected ? 'text-primary-100 font-black' : 'text-text-700'}`}
     scroll={false}
   >
     {option.filterName}
@@ -44,7 +42,6 @@ export default function ProductFilterRow({
   const searchParams = useSearchParams();
   const selectedArray = getSelectedArray(selectedIds);
 
-  // URL 쿼리 파라미터 업데이트 함수
   const updateQueryParams = (optionId: string) => {
     const params = new URLSearchParams(searchParams);
 
@@ -76,29 +73,23 @@ export default function ProductFilterRow({
   );
 }
 
-// 다중 선택 처리 함수
 function handleMultiSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
   const isSelected = selectedArray.includes(optionId);
 
   if (isSelected) {
-    // 이미 선택된 옵션 제거
     const newSelected = selectedArray.filter((id) => id !== optionId);
 
-    // 선택된 옵션이 없으면 필터 파라미터 삭제, 그렇지 않으면 새 선택 목록으로 업데이트
     if (newSelected.length === 0) {
       params.delete(filterId);
     } else {
       params.set(filterId, newSelected.join(','));
     }
   } else {
-    // 새 옵션 추가
     params.set(filterId, [...selectedArray, optionId].join(','));
   }
 }
 
-// 단일 선택 처리 함수
 function handleSingleSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
-  // 이미 선택된 옵션이면 파라미터 삭제, 그렇지 않으면 새 옵션으로 설정
   if (selectedArray.includes(optionId)) {
     params.delete(filterId);
   } else {

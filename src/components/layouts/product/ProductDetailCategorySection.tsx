@@ -78,7 +78,8 @@ export default function ProductDetailCategorySection({
           className='flex items-center text-body3 text-[var(--color-text-700)]'
         >
           {isExpanded ? '접기' : '펼치기'}
-          <span className='ml-1'>{isExpanded ? '▲' : '▼'}</span>
+          {/* TODO 현재 접기 펼치기 아이콘 수정 요망 */}
+          <span className='ml-1'>{isExpanded ? '⌃' : '⌵'}</span>
         </button>
       </div>
     </section>
