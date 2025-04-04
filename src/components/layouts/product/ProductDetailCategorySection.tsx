@@ -4,13 +4,13 @@ import React, { useState } from 'react';
 
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
 import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
-import { FilterData, SubDetailCategory, SubSizeCateogry } from '@/types/products/productCategoryType';
+import { FilterDataType, SubDetailCategoryType, SubSizeCateogryType } from '@/types/products/productCategoryType';
 
 type ProductDetailCategorySectionProps = {
   searchParams: Record<string, string | string[] | undefined>;
-  subCategories: SubDetailCategory[];
-  subVolumeCategories: SubSizeCateogry[];
-  filterOptions: FilterData;
+  subCategories: SubDetailCategoryType[];
+  subVolumeCategories: SubSizeCateogryType[];
+  filterOptions: FilterDataType;
 };
 
 export default function ProductDetailCategorySection({

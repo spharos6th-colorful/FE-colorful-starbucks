@@ -4,14 +4,14 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { ProductBottomTabBarWrapper } from '@/components/ui/common/product/ProductBottomTabBarWrapper';
 
-type FilterOption = {
+type FilterOptionType = {
   filterId: string;
   filterName: string;
 };
 
 type ProductFilterRowProps = {
   title: string;
-  options: FilterOption[];
+  options: FilterOptionType[];
   filterId: string;
   selectedIds?: string | string[];
   isMultiSelect?: boolean;

@@ -3,11 +3,11 @@ import React from 'react';
 import Link from 'next/link';
 import { useSearchParams, usePathname } from 'next/navigation';
 
-import { SubDetailCategory } from '@/types/products/productCategoryType';
+import { SubDetailCategoryType } from '@/types/products/productCategoryType';
 import { ProductBottomTabBarWrapper } from '@/components/ui/common/product/ProductBottomTabBarWrapper';
 
 type ProductDetailCategoryTabBarProps = {
-  categories: SubDetailCategory[];
+  categories: SubDetailCategoryType[];
   selectedIds: string | string[] | undefined;
 };
 

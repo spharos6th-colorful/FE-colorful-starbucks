@@ -4,25 +4,25 @@ export interface ProductCategoryTopType {
 }
 
 // 하위 카테고리 타입
-export type SubDetailCategory = {
+export type SubDetailCategoryType = {
   bottomCategoryId: number;
   categoryName: string;
 };
 
 // 용량 카테고리 타입
-export type SubSizeCateogry = {
+export type SubSizeCateogryType = {
   sizeId: string;
   sizeName: string;
 };
 
 // 필터 옵션 타입
-export type FilterOption = {
+export type FilterOptionType = {
   filterId: string;
   filterName: string;
 };
 
 // 필터 데이터 타입
-export type FilterData = {
-  seasons: FilterOption[];
-  price: FilterOption[];
+export type FilterDataType = {
+  seasons: FilterOptionType[];
+  price: FilterOptionType[];
 };

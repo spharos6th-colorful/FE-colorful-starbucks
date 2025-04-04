@@ -1,10 +1,10 @@
 'use server';
 
 import {
-  FilterData,
+  FilterDataType,
   ProductCategoryTopType,
-  SubDetailCategory,
-  SubSizeCateogry,
+  SubDetailCategoryType,
+  SubSizeCateogryType,
 } from '@/types/products/productCategoryType';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
@@ -91,7 +91,7 @@ export async function getProductCategories(topCategoryId: string): Promise<Produ
 }
 
 // 카테고리 ID에 따른 필터 옵션 조회
-export async function getProductFilters(topCategoryId: string): Promise<FilterData> {
+export async function getProductFilters(topCategoryId: string): Promise<FilterDataType> {
   try {
     const response = await fetch(`http://localhost:8080/api/v1/categories/${topCategoryId}/filters`);
     if (!response.ok) {
@@ -111,8 +111,8 @@ export async function getProductFilters(topCategoryId: string): Promise<FilterDa
 
 //현재는 더미 넘겨주는 함수이다. 나중에 변경 예정
 type SubCategoriesAndVolume = {
-  subDetailCategories: SubDetailCategory[];
-  subVolumeCategories: SubSizeCateogry[];
+  subDetailCategories: SubDetailCategoryType[];
+  subVolumeCategories: SubSizeCateogryType[];
 };
 export async function getSubCategoriesAndVolume(topCategoryId: string): Promise<SubCategoriesAndVolume> {
   switch (topCategoryId) {
