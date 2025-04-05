@@ -1,6 +1,6 @@
 import IconLimited from '@/assets/icons/product/Icon-Limited.svg';
-import IconBest from '@/assets/icons/product/icon-best.svg';
-import IconNew from '@/assets/icons/product/icon-new.svg';
+import IconBest from '@/assets/icons/product/Icon-Best.svg';
+import IconNew from '@/assets/icons/product/Icon-New.svg';
 
 interface TagProps {
   isMarkable?: boolean;

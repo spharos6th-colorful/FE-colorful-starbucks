@@ -9,7 +9,7 @@ type ProductDataType = {
   productThumbnailUrl: string;
 };
 
-export default async function ProductItem({ product }: { product: ProductDataType }) {
+export default function ProductItem({ product }: { product: ProductDataType }) {
   const { productName, price, productThumbnailUrl } = product;
   return (
     <div className='w-full'>
