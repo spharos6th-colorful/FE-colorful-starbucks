@@ -31,6 +31,7 @@ function MainBanner() {
               fill
               style={{ objectFit: 'cover' }}
               sizes='100vw'
+              priority
             />
 
             <div className='absolute inset-0 flex flex-col justify-center p-8 md:p-12 lg:p-16 z-10'>
