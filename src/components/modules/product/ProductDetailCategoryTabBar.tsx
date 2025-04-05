@@ -5,7 +5,7 @@ import { useSearchParams, usePathname } from 'next/navigation';
 
 import { SubDetailCategoryType } from '@/types/products/productCategoryType';
 import { ProductBottomTabBarWrapper } from '@/components/ui/common/product/ProductBottomTabBarWrapper';
-import { getSelectedArray } from '@/lib/\bproduct/util';
+import { getSelectedArray } from '@/lib/product/util';
 
 type ProductDetailCategoryTabBarProps = {
   categories: SubDetailCategoryType[];
