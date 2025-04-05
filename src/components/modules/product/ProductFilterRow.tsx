@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { usePathname, useSearchParams } from 'next/navigation';
 
 import { ProductBottomTabBarWrapper } from '@/components/ui/common/product/ProductBottomTabBarWrapper';
-import { getSelectedArray } from '@/lib/\bproduct/util';
+import { getSelectedArray } from '@/lib/product/util';
 
 type FilterOptionType = {
   filterId: string;

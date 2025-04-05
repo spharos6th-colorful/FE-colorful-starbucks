@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
 import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
 import { FilterDataType, SubDetailCategoryType, SubSizeCateogryType } from '@/types/products/productCategoryType';
-import UpIcon from '@/assets/icon/common/up.svg';
+import UpIcon from '@/assets/icons/common/up.svg';
 
 type ProductDetailCategorySectionProps = {
   searchParams: Record<string, string | string[] | undefined>;

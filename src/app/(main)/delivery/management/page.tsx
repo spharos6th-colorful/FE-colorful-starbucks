@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BottomSheet, Button, Heading } from '@/components/ui/common';
 import DeliveryAddressList from '@/components/modules/delivery/DeliveryAddressList';
 import DeleteAddressModal from '@/components/ui/delivery/DeleteAddressModal';
-import IconPlus from '@/assets/icon/delivery/plusIcon.svg';
+import IconPlus from '@/assets/icons/delivery/plusIcon.svg';
 
 interface DeliveryManagementPageProps {
   searchParams: Promise<{ memberAddressId?: string }>;

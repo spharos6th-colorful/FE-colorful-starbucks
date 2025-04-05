@@ -1,6 +1,6 @@
 import { ProductTypes } from '@/types/products/productTypes';
 import ProductAccordion from './ProductAccordion';
-import ShareIcon from '@/assets/icon/common/share.svg';
+import ShareIcon from '@/assets/icons/common/share.svg';
 import { Caveat } from 'next/font/google';
 import ProductTags from '@/components/modules/product/ProductTags';
 
