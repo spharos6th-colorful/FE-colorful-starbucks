@@ -1,11 +1,11 @@
 import { MainBannerType, ProductType } from '@/types/main/ResponseDataTypes';
-import dummyImage from '@/assets/category_icon/Icon-category_chocolate.jpg';
-import bannerImage from '@/assets/banner/banner.jpg';
-import bannerImage1 from '@/assets/banner/banner1.jpg';
-import bannerImage2 from '@/assets/banner/banner2.jpg';
-import bannerImage3 from '@/assets/banner/banner3.jpg';
-import bannerImage4 from '@/assets/banner/banner4.jpg';
-import bannerImage5 from '@/assets/banner/banner5.jpg';
+import dummyImage from '@/assets/images/category/Icon-category_chocolate.jpg';
+import bannerImage from '@/assets/images/banner/banner.jpg';
+import bannerImage1 from '@/assets/images/banner/banner1.jpg';
+import bannerImage2 from '@/assets/images/banner/banner2.jpg';
+import bannerImage3 from '@/assets/images/banner/banner3.jpg';
+import bannerImage4 from '@/assets/images/banner/banner4.jpg';
+import bannerImage5 from '@/assets/images/banner/banner5.jpg';
 
 import { EventType } from '@/types/main/ResponseDataTypes';
 export const productsData: ProductType[] = [

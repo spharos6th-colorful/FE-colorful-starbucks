@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { Heading } from '@/components/ui/common/Heading';
 import UpdateDefaultAddressForm from '@/components/pages/delivery/UpdateDefaultAddressForm';
-import PlusIcon from '@/assets/icon/delivery/plusIcon.svg';
+import PlusIcon from '@/assets/icons/delivery/plusIcon.svg';
 
 export default async function DeliverySelectionPage() {
   const handleUpdateDefaultAddress = async (updateDefaultAddressData: FormData) => {

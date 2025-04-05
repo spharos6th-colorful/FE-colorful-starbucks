@@ -2,7 +2,7 @@ import React from 'react';
 
 import QuantityControl from './QuantityControl';
 import { SelectedOption } from '@/types/products/productPurchaseTypes';
-import DeleteIcon from '@/assets/icon/common/delete.svg';
+import DeleteIcon from '@/assets/icons/common/delete.svg';
 
 interface SelectedOptionItemProps {
   option: SelectedOption;

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import SelectedOptionList from './SelectedOptionList';
-import CartIcon from '@/assets/icon/product/cart.svg';
+import CartIcon from '@/assets/icons/product/cart.svg';
 import { Button } from '@/components/ui/common';
 import { useProductOptions } from '@/context/ProductOptionsContext';
 import { ProductDetail, SelectedOption } from '@/types/products/productPurchaseTypes';
