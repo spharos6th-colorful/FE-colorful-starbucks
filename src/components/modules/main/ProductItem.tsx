@@ -9,12 +9,12 @@ type ProductDataType = {
   productThumbnailUrl: string;
 };
 
-export default function ProductItem({ product }: { product: ProductDataType }) {
+export default async function ProductItem({ product }: { product: ProductDataType }) {
   const { productName, price, productThumbnailUrl } = product;
   return (
     <div className='w-full'>
       <div className='relative aspect-square w-full'>
-        <Image fill src={productThumbnailUrl} alt={productName} className='rounded-[4px]' />
+        <Image src={productThumbnailUrl} alt={productName} className='rounded-[4px]' fill sizes='100%' />
       </div>
       <Tag isMarkable={true} isNew={false} isBest={true} />
       <h3 className='text-button2 my-3 '>{productName}</h3>
