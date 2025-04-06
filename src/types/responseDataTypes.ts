@@ -8,3 +8,11 @@ export interface DeliveryDataType {
   phoneNumber: string;
   isDefaultAddress: boolean;
 }
+export interface cartListDataType {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+  checked: boolean;
+  productThumbnailUrl: string;
+}

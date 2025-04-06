@@ -1,19 +1,31 @@
-'use server';
+// 'use server';
 
-import { DeliveryDataType } from '@/types/responseDataTypes';
+// import { cartListDataType } from '@/types/responseDataTypes';
+// import { revalidateTag } from 'next/cache';
 
-// fixme: 추후 수정 필요
-export const getSelectedAddress = async (memberAddressUuid: string) => {
-  try {
-    const res = await fetch(`localhost:8080/carts/ ${memberAddressUuid}`);
-    if (!res.ok) {
-      throw new Error('Failed to fetch data');
-    }
-    const data = await res.json();
+export const deletedSelectedProducts = async (id: number[]) => {};
+export const deleteAllProducts = async (accessToken: string) => {};
 
-    return data as DeliveryDataType;
-  } catch (error) {
-    console.error('Error fetching data:', error);
-    return null;
-  }
-};
+// export const checkCartProduct = async (id: number, checked: boolean) => {
+//   console.log('id', id);
+//   console.log('checked', checked);
+//   const res = await fetch(`http://localhost:3000/cart/${id}`, {
+//     method: 'PATCH',
+//     headers: { 'Content-Type': 'application/json' },
+//     body: JSON.stringify({
+//       checked: checked,
+//     }),
+//   });
+//   revalidateTag('getCartData');
+//   return res.json();
+// };
+
+// export const getCartData = async () => {
+//   const res = await fetch('http://localhost:3000/cart', {
+//     next: { tags: ['getCartData'] },
+//   });
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch data');
+//   }
+//   return res.json() as Promise<cartListDataType[]>;
+// };

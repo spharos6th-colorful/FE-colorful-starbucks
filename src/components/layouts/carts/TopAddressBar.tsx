@@ -1,22 +1,28 @@
-import DefaultAddressState from '@/components/modules/carts/DefaultAddressState';
-import SelectedAddressState from '@/components/modules/carts/SelectedAddressState';
+'use client';
 
-interface TopAddressBarProps {
-  memberAddressUuid?: string;
-}
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination } from 'swiper/modules';
+import 'swiper/css';
 
-function TopAddressBar({ memberAddressUuid }: TopAddressBarProps) {
-  if (!memberAddressUuid) {
-    return (
-      <section className='bg-gray-200 p-[24px]'>
-        <DefaultAddressState />
-      </section>
-    );
-  }
+import AddressState from '@/components/modules/carts/SelectedAddressState';
+import { DeliveryDataType } from '@/types/responseDataTypes';
+
+type AddressPickerButtonProps = {
+  addressListData: DeliveryDataType[];
+};
+
+function TopAddressBar({ addressListData }: AddressPickerButtonProps) {
   return (
-    <section className='bg-gray-200 p-[24px]'>
-      <SelectedAddressState memberAddressUuid={memberAddressUuid} />
-    </section>
+    <Swiper modules={[Pagination]} pagination={{ clickable: true }}>
+      {addressListData.map((addressData) => (
+        <SwiperSlide>
+          <div>
+            <AddressState data={addressData} />
+          </div>
+        </SwiperSlide>
+      ))}
+    </Swiper>
   );
 }
+
 export default TopAddressBar;

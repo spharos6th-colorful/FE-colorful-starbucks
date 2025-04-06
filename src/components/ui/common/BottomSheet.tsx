@@ -7,9 +7,5 @@ export function BottomSheet({
   children?: Readonly<React.ReactNode>;
   className?: string;
 }) {
-  return (
-    <div className={cn('absolute z-10 left-0 bottom-0 w-full px-5 pt-3 pb-8 bg-white shadow-2', className)}>
-      {children}
-    </div>
-  );
+  return <div className={cn('fixed bottom-0 w-full max-w-3xl bg-white p-4', className)}>{children}</div>;
 }

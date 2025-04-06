@@ -7,7 +7,7 @@ function TotalPrice({ price }: TotalPriceProps) {
     return price.toLocaleString('ko-KR');
   };
   return (
-    <p className='text-title2'>
+    <p className='text-title2 text-right'>
       {formatCurrency(price)}
       <span className=' text-body2'>원</span>
     </p>

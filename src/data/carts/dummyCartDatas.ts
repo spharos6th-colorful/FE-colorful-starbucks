@@ -1,0 +1,60 @@
+import { cartListDataType } from '@/types/responseDataTypes';
+
+export const dummyCartDatas: cartListDataType[] = [
+  {
+    id: 1,
+    name: '[각인]SS  스탠리 그린 아이슬란드  텀블러 710ml',
+    price: 10000,
+    quantity: 2,
+    checked: true,
+    productThumbnailUrl: '/images/productThumbnails/1000.png',
+  },
+  {
+    id: 2,
+    name: '[각인]SS  스탠리 그린 아이슬란드  텀블러 710ml',
+    price: 10000,
+    quantity: 2,
+    checked: true,
+    productThumbnailUrl: '/images/productThumbnails/1000.png',
+  },
+  {
+    id: 3,
+    name: '[각인]SS  스탠리 그린 아이슬란드  텀블러 710ml',
+    price: 10000,
+    quantity: 2,
+    checked: true,
+    productThumbnailUrl: '/images/productThumbnails/1000.png',
+  },
+  {
+    id: 4,
+    name: '[각인]SS  스탠리 그린 아이슬란드  텀블러 710ml',
+    price: 10000,
+    quantity: 2,
+    checked: true,
+    productThumbnailUrl: '/images/productThumbnails/1000.png',
+  },
+  {
+    id: 5,
+    name: '[각인]SS  스탠리 그린 아이슬란드  텀블러 710ml',
+    price: 10000,
+    quantity: 2,
+    checked: true,
+    productThumbnailUrl: '/images/productThumbnails/1000.png',
+  },
+  {
+    id: 6,
+    name: '[각인]SS  스탠리 그린 아이슬란드  텀블러 710ml',
+    price: 10000,
+    quantity: 2,
+    checked: true,
+    productThumbnailUrl: '/images/productThumbnails/1000.png',
+  },
+  {
+    id: 7,
+    name: '[각인]SS  스탠리 그린 아이슬란드  텀블러 710ml',
+    price: 10000,
+    quantity: 2,
+    checked: true,
+    productThumbnailUrl: '/images/productThumbnails/1000.png',
+  },
+];

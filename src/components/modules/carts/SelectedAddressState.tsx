@@ -1,22 +1,20 @@
-import { getSelectedAddress } from '@/actions/cart-service';
-import AddressPickerButton from '@/components/ui/carts/AddressPickerButton';
+import { SectionContainer } from '@/components/ui/common/SectionContainer';
+import { DeliveryDataType } from '@/types/responseDataTypes';
 
-interface SelectedAddressStateProps {
-  memberAddressUuid: string;
-}
+type AddressStateProps = {
+  data: DeliveryDataType;
+};
 
-async function SelectedAddressState({ memberAddressUuid }: SelectedAddressStateProps) {
-  const data = await getSelectedAddress(memberAddressUuid);
+function AddressState({ data }: AddressStateProps) {
   return (
-    <div className='flex justify-between items-center'>
+    <SectionContainer.InnerPaddingSection className=' p-[24px] bg-gray-200 grid grid-cols-2 justify-center'>
       <div className='text-body3'>
-        <p className='font-bold'>{data?.addressNickname}</p>
-        <p>{data?.mainAddress}</p>
-        <p>{data?.subAddress}</p>
+        <p className='font-bold'>{data.addressNickname}</p>
+        <p>{data.mainAddress}</p>
+        <p>{data.subAddress}</p>
       </div>
-      <AddressPickerButton href='' text='배송지 변경' className='text-primary-100' />
-    </div>
+    </SectionContainer.InnerPaddingSection>
   );
 }
 
-export default SelectedAddressState;
+export default AddressState;
