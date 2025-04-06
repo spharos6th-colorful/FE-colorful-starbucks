@@ -37,8 +37,8 @@ export default function SearchPage() {
         </button>
       </form>
 
-      {/* <div className='my-auto pb-10'> */}
       <div className='grid grid-rows-2 h-full'>
+        {/* 최근 검색어 없을 경우 분기 처리 UI */}
         {/* <section className='flex flex-col justify-center h-full'>
           <p className='text-black text-center font-medium text-sm'>최근 검색어가 없습니다.</p>
         </section> */}
