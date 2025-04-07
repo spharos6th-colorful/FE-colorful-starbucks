@@ -45,7 +45,7 @@ export default function FilteredProductItemCard({ productCode }: FilteredProduct
   return (
     <Link href={`/products/${product.productCode}`} scroll={false} className='block w-full'>
       <div className='w-full'>
-        <div className='relative aspect-square w-full'>
+        <div className='relative aspect-square w-full '>
           <Image
             src='/images/productThumbnails/1000.png'
             alt='아주멋진 이미지입니다.'
