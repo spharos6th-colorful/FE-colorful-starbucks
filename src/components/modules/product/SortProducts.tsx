@@ -4,6 +4,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useRef, useState } from 'react';
 
 import UpIcon from '@/assets/icons/common/up.svg';
+import { cn } from '@/lib/utils';
 
 export default function SortProducts() {
   const router = useRouter();
@@ -67,9 +68,10 @@ export default function SortProducts() {
           {sortOptions.map((option) => (
             <button
               key={option.value}
-              className={`block w-full text-center px-4 py-3 text-sm hover:bg-gray-100  ${
-                currentSortValue === option.value ? 'text-primary-100 font-medium' : 'text-gray-700'
-              }`}
+              className={cn(
+                'block w-full text-center px-4 py-3 text-sm hover:bg-gray-100',
+                currentSortValue === option.value ? 'text-primary-100 font-medium' : 'text-gray-700',
+              )}
               onClick={() => handleSortSelect(option.value)}
             >
               {option.label}
