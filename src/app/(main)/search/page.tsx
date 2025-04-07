@@ -24,7 +24,7 @@ export default function SearchPage() {
     <main className='flex flex-col h-full max-h-dvh'>
       <form className='flex justify-between gap-2 px-6 pt-3 pb-2.5 shadow-[0_2px_6px_rgba(0,0,0,0.1)]'>
         <div
-          className={`grid grid-cols-[1fr_auto_auto] items-center w-full bg-[#F7F7F7] placeholder-text-[#d9d9d9] text-[13px] font-semibold px-2 py-2 rounded-md`}
+          className={`grid grid-cols-[1fr_auto_auto] items-center w-full bg-[#F7F7F7] placeholder-text-[#d9d9d9] text-[13px] font-semibold px-2 py-2 rounded-sm`}
         >
           <input type='text' name='query' placeholder='검색어를 입력해주세요' className='outline-none' />
           <button type='submit' className='w-fit'>
@@ -38,7 +38,7 @@ export default function SearchPage() {
       </form>
 
       <div className='grid grid-rows-2 h-full'>
-        {/* 최근 검색어 없을 경우 분기 처리 UI */}
+        {/* 해당 주석은 분기 처리 이후 지워주세요! 최근 검색어 없을 경우 분기 처리 UI */}
         {/* <section className='flex flex-col justify-center h-full'>
           <p className='text-black text-center font-medium text-sm'>최근 검색어가 없습니다.</p>
         </section> */}
@@ -51,26 +51,26 @@ export default function SearchPage() {
                   {recentSearchHistory.query}
                 </Link>
 
-                <button>
+                <button className='cursor-pointer'>
                   <CloseIcon width={16} height={16} />
                 </button>
               </li>
             ))}
           </ul>
           <div className='flex justify-end mt-5'>
-            <button className='text-xs text-[#212121] font-semibold'>전체 삭제</button>
+            <button className='text-xs text-[#212121] font-semibold cursor-pointer'>전체 삭제</button>
           </div>
         </section>
 
         <section className='px-6 space-y-[1.375rem] flex-shrink-0'>
           <p className='font-semibold text-lg'>추천 태그</p>
-          <ul className='flex flex-wrap gap-x-2.5 gap-y-2'>
+          <ul className='flex flex-wrap gap-x-2.5 gap-y-2 items-baseline'>
             {searchTagDatas.map((tag) => (
-              <li
-                key={tag.id}
-                className='rounded-full bg-[#00A862] text-white text-[0.9375rem] leading-5 w-fit px-3 py-1.5'
-              >
-                <Link href={`/search?query=${tag.name}`} className='cursor-pointer'>
+              <li key={tag.id} className='text-white text-[0.9375rem] leading-5'>
+                <Link
+                  href={`/search?query=#${tag.name}`}
+                  className='inline-block rounded-full bg-[#00A862] px-3 py-1.5'
+                >
                   #{tag.name}
                 </Link>
               </li>
