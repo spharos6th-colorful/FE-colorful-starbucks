@@ -5,6 +5,7 @@ import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 import FilteredProductItemCard from '@/components/modules/product/FilteredProductItemCard';
 import { getInitialProductsData } from '@/data/productDummy/filteredProductDummy';
 import { useRouter, useSearchParams } from 'next/navigation';
+import SortProducts from '@/components/modules/product/SortProducts';
 
 interface ProductItem {
   id: number;
@@ -106,6 +107,9 @@ export default function FilteredProductSection({ searchParams, initialProductsDa
 
   return (
     <section className='mt-4 px-4'>
+      <div className='flex justify-end mb-4'>
+        <SortProducts />
+      </div>
       <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4'>
         {productsData.content.map((product, index) => {
           const isLastItem = index === productsData.content.length - 1;
