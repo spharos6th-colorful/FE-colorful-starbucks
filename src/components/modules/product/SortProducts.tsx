@@ -63,11 +63,11 @@ export default function SortProducts() {
       </button>
 
       {isOpen && (
-        <div className='absolute z-10 w-full mt-1 bg-white border border-gray-300 rounded-md shadow-lg truncate whitespace-nowrap'>
+        <div className='absolute z-10 w-full mt-1 mr-1 bg-white border border-gray-300 rounded-md shadow-lg truncate whitespace-nowrap'>
           {sortOptions.map((option) => (
             <button
               key={option.value}
-              className={`block w-full text-center px-4 py-3 text-sm hover:bg-gray-100 ${
+              className={`block w-full text-center px-4 py-3 text-sm hover:bg-gray-100  ${
                 currentSortValue === option.value ? 'text-primary-100 font-medium' : 'text-gray-700'
               }`}
               onClick={() => handleSortSelect(option.value)}
