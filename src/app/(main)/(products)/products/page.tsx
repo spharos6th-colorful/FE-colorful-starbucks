@@ -10,7 +10,7 @@ import {
   getSubCategoriesAndVolume,
 } from '@/actions/product-service';
 import FilteredProductSection from '@/components/layouts/product/FilteredProductSection';
-import { getInitialProductsData } from '@/data/productDummy/filteredProductDummy';
+import { getInitialProductsDummyData } from '@/data/productDummy/filteredProductDummy';
 
 type SearchParams = Promise<SearchParamsType>;
 
@@ -36,9 +36,9 @@ export default async function ProductsPage(props: { searchParams: SearchParams }
   const { subDetailCategories, subVolumeCategories } = await getSubCategoriesAndVolume(Number(topCategoryId));
 
   // FIXME: API호출 우선 구현은 되었고, 더미로 진행 예정
-  //const productsWithDeatilsData = await getFilteredProductsWithDetails(filteredParams);
+  // const initialProductsData = getInitialProductsData();
 
-  const initialProductsData = getInitialProductsData();
+  const initialProductsData = getInitialProductsDummyData();
 
   // 초기 상품들 랜더링
   return (

@@ -3,7 +3,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 import FilteredProductItemCard from '@/components/modules/product/FilteredProductItemCard';
-import { getInitialProductsData } from '@/data/productDummy/filteredProductDummy';
+import { getInitialProductsDummyData } from '@/data/productDummy/filteredProductDummy';
 import { useRouter, useSearchParams } from 'next/navigation';
 import SortProducts from '@/components/modules/product/SortProducts';
 
@@ -29,7 +29,7 @@ async function fetchMoreProductsDummy(params: SearchParamsType): Promise<Product
     return new Promise((resolve) => {
       setTimeout(() => {
         const cursor = params.cursor ? Number(params.cursor) : undefined;
-        const moreData = getInitialProductsData(cursor);
+        const moreData = getInitialProductsDummyData(cursor);
         resolve(moreData);
       }, 300); // 로딩 효과를 보여주기 위한 지연
     });
@@ -115,7 +115,7 @@ export default function FilteredProductSection({ searchParams, initialProductsDa
           const isLastItem = index === productsData.content.length - 1;
 
           return (
-            <div key={product.productCode} ref={isLastItem ? lastProductRef : undefined}>
+            <div key={`${product.id}-${index}`} ref={isLastItem ? lastProductRef : undefined}>
               <FilteredProductItemCard productCode={product.productCode} />
             </div>
           );

@@ -8,9 +8,7 @@ export interface ProductDetail {
   productName: string;
   price: number;
   productThumbnailUrl: string;
-  isNew?: boolean;
-  isBest?: boolean;
-  isMarkable?: boolean;
+  markable?: boolean;
 }
 
 export const productItemList: ProductItem[] = [
@@ -72,9 +70,7 @@ export const dummyProductDetail: ProductDetail = {
   productName: 'SS 플라워 마켓 스탠리 텀블러 591ml',
   price: 7000,
   productThumbnailUrl: '/images/productThumbnails/1000.png',
-  isNew: true,
-  isBest: true,
-  isMarkable: true,
+  markable: true,
 };
 
 // 상품 상세 정보를 가져오는 더미 함수
@@ -86,7 +82,7 @@ export async function getProductDetail(productCode: number): Promise<ProductDeta
 }
 
 // 초기 상품 데이터 로딩 함수
-export function getInitialProductsData(cursor?: number): {
+export function getInitialProductsDummyData(cursor?: number): {
   content: ProductItem[];
   hasNext: boolean;
   nextCursor: number | null;

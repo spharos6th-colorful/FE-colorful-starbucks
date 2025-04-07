@@ -9,7 +9,7 @@ import {
 } from '@/types/products/productCategoryType';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
-import { ProductListDataType, ProductsWithDetailsDataType, ProductTypes } from '@/types/products/productTypes';
+import { ProductListDataType, ProductTypes } from '@/types/products/productTypes';
 
 export const getProductDetail = async (productCode: number): Promise<ProductTypes> => {
   try {
@@ -211,25 +211,14 @@ export async function getFilteredProducts(params: SearchParamsType): Promise<Pro
   }
 }
 
-export async function getFilteredProductsWithDetails(params: SearchParamsType): Promise<ProductsWithDetailsDataType> {
-  // 필터링된 상품 목록 가져오기 (이제 직접 data 객체를 반환)
-  const productListData = await getFilteredProducts(params);
-
-  if (!productListData.content.length) {
-    return {
-      ...productListData,
-      productDetails: [],
-    };
-  }
-
-  // 각 상품의 상세 정보를 병렬로 가져오기
-  const productDetails = await Promise.all(productListData.content.map((item) => getProductDetail(item.productCode)));
-
-  // 상품 목록 데이터와 상세 정보를 합쳐서 반환
-  return {
-    ...productListData,
-    productDetails,
-  };
+export interface ProductDetail {
+  productCode: number;
+  productName: string;
+  price: number;
+  productThumbnailUrl: string;
+  isNew?: boolean;
+  isBest?: boolean;
+  isMarkable?: boolean;
 }
 
 export const getProductDetailDummy = async (productCode: number) => {
@@ -239,7 +228,7 @@ export const getProductDetailDummy = async (productCode: number) => {
       productCode: productCode,
       productName: 'SS 플라워 마켓 스탠리 텀블러 591ml',
       price: 43000,
-      productThumbnailUrl: '/images/products/tumbler1.jpg',
+      productThumbnailUrl: '/images/productThumbnails/1000.png',
     };
   } catch (error) {
     console.error('더미 상품 정보 생성 중 오류 발생:', error);
@@ -277,5 +266,29 @@ export async function fetchMoreProducts(params: SearchParamsType): Promise<Produ
   } catch (error) {
     console.error('추가 상품 로드 오류:', error);
     throw error;
+  }
+}
+export async function getInitialProductsData(searchParams?: SearchParamsType): Promise<ProductListDataType> {
+  try {
+    // 초기 로딩 시 기본 파라미터 설정
+    const defaultParams: SearchParamsType = {
+      size: '10',
+      topCategoryId: '1', // 필요에 따라 기본 카테고리 설정
+      ...searchParams, // 전달받은 추가 파라미터로 덮어쓰기
+    };
+
+    // fetchMoreProducts 함수 재사용
+    const initialProductsData = await fetchMoreProducts(defaultParams);
+
+    return initialProductsData;
+  } catch (error) {
+    console.error('초기 상품 데이터 로딩 오류:', error);
+
+    // 에러 발생 시 빈 데이터 반환
+    return {
+      content: [],
+      hasNext: false,
+      nextCursor: null,
+    };
   }
 }
