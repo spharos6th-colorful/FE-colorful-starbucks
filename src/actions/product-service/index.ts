@@ -229,6 +229,7 @@ export const getProductDetailDummy = async (productCode: number) => {
       productName: 'SS 플라워 마켓 스탠리 텀블러 591ml',
       price: 43000,
       productThumbnailUrl: '/images/productThumbnails/1000.png',
+      isBest: true,
     };
   } catch (error) {
     console.error('더미 상품 정보 생성 중 오류 발생:', error);

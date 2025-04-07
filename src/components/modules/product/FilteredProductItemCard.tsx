@@ -1,9 +1,9 @@
 'use client';
-
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Tag from '../../ui/main/Tag';
 import Link from 'next/link';
+
+import Tag from '../../ui/main/Tag';
 import { getProductDetailDummy, ProductDetail } from '@/actions/product-service';
 
 interface FilteredProductCardProps {

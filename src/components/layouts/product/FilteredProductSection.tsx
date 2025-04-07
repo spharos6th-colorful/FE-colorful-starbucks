@@ -1,11 +1,11 @@
 'use client';
-
 import React, { useState, useRef, useCallback } from 'react';
-import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
-import FilteredProductItemCard from '@/components/modules/product/FilteredProductItemCard';
-import { getInitialProductsDummyData } from '@/data/productDummy/filteredProductDummy';
 import { useRouter, useSearchParams } from 'next/navigation';
+
+import { getInitialProductsDummyData } from '@/data/productDummy/filteredProductDummy';
+import FilteredProductItemCard from '@/components/modules/product/FilteredProductItemCard';
 import SortProducts from '@/components/modules/product/SortProducts';
+import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 
 interface ProductItem {
   id: number;
