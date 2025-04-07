@@ -13,12 +13,12 @@ export interface ProductItem {
   productCode: number;
 }
 
-export interface ProductListData {
+export interface ProductListDataType {
   content: ProductItem[];
   hasNext: boolean;
   nextCursor: string | null;
 }
 
-export interface ProductsWithDetailsData extends ProductListData {
+export interface ProductsWithDetailsDataType extends ProductListDataType {
   productDetails: ProductTypes[];
 }

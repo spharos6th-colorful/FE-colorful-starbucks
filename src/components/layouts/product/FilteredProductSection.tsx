@@ -12,7 +12,7 @@ interface ProductItem {
   productCode: number;
 }
 
-interface ProductListData {
+interface ProductListDataType {
   content: ProductItem[];
   hasNext: boolean;
   nextCursor: number | null;
@@ -20,10 +20,10 @@ interface ProductListData {
 
 interface FilteredProductSectionProps {
   searchParams: SearchParamsType;
-  initialProductsData: ProductListData;
+  initialProductsData: ProductListDataType;
 }
 
-async function fetchMoreProductsDummy(params: SearchParamsType): Promise<ProductListData> {
+async function fetchMoreProductsDummy(params: SearchParamsType): Promise<ProductListDataType> {
   try {
     // 지연 효과를 주기 위한 setTimeout 사용
     return new Promise((resolve) => {
@@ -45,7 +45,7 @@ export default function FilteredProductSection({ searchParams, initialProductsDa
 
   const cursor = searchParamsObj.get('cursor') ? Number(searchParamsObj.get('cursor')) : initialProductsData.nextCursor;
 
-  const [productsData, setProductsData] = useState<ProductListData>(initialProductsData);
+  const [productsData, setProductsData] = useState<ProductListDataType>(initialProductsData);
   const [loading, setLoading] = useState(false);
 
   const [hasMore, setHasMore] = useState(initialProductsData.hasNext);

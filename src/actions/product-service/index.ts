@@ -9,7 +9,7 @@ import {
 } from '@/types/products/productCategoryType';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
-import { ProductListData, ProductsWithDetailsData, ProductTypes } from '@/types/products/productTypes';
+import { ProductListDataType, ProductsWithDetailsDataType, ProductTypes } from '@/types/products/productTypes';
 
 export const getProductDetail = async (productCode: number): Promise<ProductTypes> => {
   try {
@@ -179,7 +179,7 @@ export async function getSubCategoriesAndVolume(topCategoryId: number): Promise<
   }
 }
 
-export async function getFilteredProducts(params: SearchParamsType): Promise<ProductListData> {
+export async function getFilteredProducts(params: SearchParamsType): Promise<ProductListDataType> {
   const queryParams = new URLSearchParams();
 
   if (params.cursor) queryParams.append('cursor', params.cursor);
@@ -211,7 +211,7 @@ export async function getFilteredProducts(params: SearchParamsType): Promise<Pro
   }
 }
 
-export async function getFilteredProductsWithDetails(params: SearchParamsType): Promise<ProductsWithDetailsData> {
+export async function getFilteredProductsWithDetails(params: SearchParamsType): Promise<ProductsWithDetailsDataType> {
   // 필터링된 상품 목록 가져오기 (이제 직접 data 객체를 반환)
   const productListData = await getFilteredProducts(params);
 
@@ -247,7 +247,7 @@ export const getProductDetailDummy = async (productCode: number) => {
   }
 };
 
-export async function fetchMoreProducts(params: SearchParamsType): Promise<ProductListData> {
+export async function fetchMoreProducts(params: SearchParamsType): Promise<ProductListDataType> {
   try {
     const queryParams = new URLSearchParams();
 
