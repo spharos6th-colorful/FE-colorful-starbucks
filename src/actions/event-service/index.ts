@@ -1,10 +1,10 @@
 'use server';
 
-export interface EventResponseType {
+export type EventResponseType = {
   title: string;
   eventUuid: string;
   thumbnailUrl: string;
-}
+};
 
 export const getEvents = async (page: number, size: number): Promise<EventResponseType[]> => {
   try {
