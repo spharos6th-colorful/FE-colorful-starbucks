@@ -1,4 +1,3 @@
-import { getTermsAction } from '@/actions/auth-service/sign-up';
 import ArrowButton from '@/components/ui/auth/terms/ArrowButton';
 import { Checkbox } from '@/components/ui/CheckBox';
 import { Body } from '@/components/ui/common';
