@@ -3,10 +3,10 @@ import React from 'react';
 import EventTabBar from '@/components/layouts/event/EventTabBar';
 import { getEventsDummy } from '@/actions/event-service';
 
-interface EventSearchParamsType {
+type EventSearchParamsType = {
   eventId?: string;
   title?: string;
-}
+};
 
 type SearchParams = Promise<EventSearchParamsType>;
 

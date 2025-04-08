@@ -18,18 +18,16 @@ export default function EventTabContent({ events, activeEventId }: EventTabConte
   };
 
   return (
-    <div className='flex justify-center'>
-      <div className='flex overflow-x-auto hide-scrollbar'>
-        {events.map((event) => (
-          <div key={event.eventUuid} className='flex-shrink-0'>
-            <EventTab
-              title={event.title}
-              isActive={activeEventId === event.eventUuid}
-              onClick={() => handleEventClick(event.eventUuid)}
-            />
-          </div>
-        ))}
-      </div>
+    <div className='flex justify-center overflow-x-auto hide-scrollbar'>
+      {events.map((event) => (
+        <div key={event.eventUuid} className='flex-shrink-0'>
+          <EventTab
+            title={event.title}
+            isActive={activeEventId === event.eventUuid}
+            onClick={() => handleEventClick(event.eventUuid)}
+          />
+        </div>
+      ))}
     </div>
   );
 }
