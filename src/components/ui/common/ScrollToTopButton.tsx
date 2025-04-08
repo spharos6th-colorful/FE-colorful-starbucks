@@ -2,7 +2,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { throttle } from 'lodash';
 
-import ScrollToTop from '@/assets/icons/common/scrollToTop.svg';
+import ScrollToTop from '@/assets/icon/common/scrollToTop.svg';
 
 const THROTTLE_WAIT = 300;
 
