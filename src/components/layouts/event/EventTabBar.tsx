@@ -11,10 +11,8 @@ interface EventTabBarProps {
 
 export default function EventTabBar({ events, activeEventId }: EventTabBarProps) {
   return (
-    <div className='w-full border-b border-stroke-100 flex justify-center'>
-      <div className='max-w-3xl w-full'>
-        <EventTabContent events={events} activeEventId={activeEventId} />
-      </div>
+    <div className='max-w-3xl w-full border-b border-stroke-100 flex justify-center'>
+      <EventTabContent events={events} activeEventId={activeEventId} />
     </div>
   );
 }
