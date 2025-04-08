@@ -4,7 +4,15 @@ import { useEffect, useRef } from 'react';
 import { useModalContext } from '@/context/ModalContext';
 import { cn } from '@/lib/utils';
 
-export function Modal({ children }: { children?: React.ReactNode }) {
+export function Modal({
+  children,
+  className,
+  variant = 'card',
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  variant: 'card' | 'bottomSheet';
+}) {
   const { isOpen, closeModal } = useModalContext();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -34,6 +42,25 @@ export function Modal({ children }: { children?: React.ReactNode }) {
     }
   };
 
+  if (variant === 'bottomSheet') {
+    return (
+      <dialog
+        ref={dialogRef}
+        className={cn(
+          'm-0 mt-auto rounded-t-md max-w-3xl',
+          'backdrop:backdrop-blur-[2px] backdrop:h-full backdrop:fixed backdrop:bottom-0',
+          'shadow-1',
+          'overflow-hidden',
+          'transition-all animate-bottom-sheet-slide-up',
+          className,
+        )}
+        onClick={handleBackdropClick}
+      >
+        {children}
+      </dialog>
+    );
+  }
+
   return (
     <dialog
       ref={dialogRef}
@@ -44,6 +71,7 @@ export function Modal({ children }: { children?: React.ReactNode }) {
         'shadow-1',
         'overflow-hidden',
         'animate-card-slide-up transition-all',
+        className,
       )}
       onClick={handleBackdropClick}
     >
