@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
 import { EventResponseType } from '@/actions/event-service';
@@ -12,22 +12,39 @@ interface EventTabContentProps {
 
 export default function EventTabContent({ events, activeEventId }: EventTabContentProps) {
   const router = useRouter();
+  const activeTabRef = useRef<HTMLDivElement>(null);
 
   const handleEventClick = (eventUuid: string) => {
     router.push(`?eventId=${eventUuid}`, { scroll: false });
   };
 
+  useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [activeEventId]);
+
   return (
-    <div className='flex justify-center overflow-x-auto hide-scrollbar'>
-      {events.map((event) => (
-        <div key={event.eventUuid} className='flex-shrink-0'>
-          <EventTab
-            title={event.title}
-            isActive={activeEventId === event.eventUuid}
-            onClick={() => handleEventClick(event.eventUuid)}
-          />
-        </div>
-      ))}
+    <div className='flex justify-center'>
+      <div className='flex overflow-x-auto hide-scrollbar'>
+        {events.map((event) => {
+          const isActive = activeEventId === event.eventUuid;
+          return (
+            <div
+              key={event.eventUuid}
+              className='flex-shrink-0'
+              // 활성화된 탭에 ref 추가
+              ref={isActive ? activeTabRef : null}
+            >
+              <EventTab title={event.title} isActive={isActive} onClick={() => handleEventClick(event.eventUuid)} />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
