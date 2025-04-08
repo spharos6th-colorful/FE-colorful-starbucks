@@ -68,7 +68,6 @@ export default async function Page({ params }: { params: Promise<{ productCode: 
         productPrice={product.price}
         productOptions={productOptions}
       />
-      {/* <ScrollToTopButton /> */}
     </main>
   );
 }
