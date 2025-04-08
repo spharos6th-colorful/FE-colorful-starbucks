@@ -2,11 +2,12 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
 import './globals.css';
+import { MenuProvider } from '@/context/MenuContext';
+import Menu from '@/components/ui/common/Menu';
 
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  weight: ['400', '700'],
 });
 
 export const metadata: Metadata = {
@@ -22,8 +23,14 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={`${inter.className} antialiased bg-gray-100`}>
-        <div className='min-w-xs max-w-3xl w-full mx-auto h-dvh bg-white relative overflow-x-hidden overflow-y-scroll scrollbar-hidden'>
-          {children}
+        <div
+          id='container'
+          className='min-w-xs max-w-3xl w-full mx-auto h-dvh bg-white relative overflow-x-hidden overflow-y-scroll scrollbar-hidden'
+        >
+          <MenuProvider>
+            <Menu />
+            {children}
+          </MenuProvider>
         </div>
       </body>
     </html>
