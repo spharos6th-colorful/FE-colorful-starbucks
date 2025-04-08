@@ -2,7 +2,7 @@
 
 import { useScrollVisibility } from '@/hooks/useScrollVisibility';
 import { Button } from '../common';
-import CartIcon from '@/assets/icon/product/cart.svg';
+import CartIcon from '@/assets/icons/product/cart.svg';
 import { useModal } from '../common/Modal';
 import PurchaseModal from './PurchaseModal';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
