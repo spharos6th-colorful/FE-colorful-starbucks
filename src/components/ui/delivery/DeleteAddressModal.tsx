@@ -8,7 +8,7 @@ import { ModalButtons } from '../common/Modal/ModalButtons';
 import { deleteAddress } from '@/actions/delivery-service';
 
 interface DeleteAddressModalProps {
-  memberAddressId: string;
+  memberAddressId?: string;
 }
 
 export default function DeleteAddressModal({ memberAddressId }: DeleteAddressModalProps) {
@@ -29,6 +29,8 @@ export default function DeleteAddressModal({ memberAddressId }: DeleteAddressMod
       alert('주소 삭제 실패');
     }
   };
+
+  if (!memberAddressId) return;
 
   return (
     <Modal type={MODAL_TYPE.DELETE_ADDRESS} variant='card'>

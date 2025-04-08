@@ -13,14 +13,14 @@ export default async function DeliveryManagementPage({ searchParams }: DeliveryM
   const { memberAddressId } = await searchParams;
 
   return (
-    <>
+    <main className='w-full h-full relative'>
       <Heading.Wrapper>
         <Heading.Title>배송지 관리</Heading.Title>
       </Heading.Wrapper>
 
       <DeliveryAddressList />
 
-      {memberAddressId ? <DeleteAddressModal memberAddressId={memberAddressId} /> : null}
+      <DeleteAddressModal memberAddressId={memberAddressId} />
 
       <BottomSheet>
         <Button variant={'default'} width={'auto'} className='w-full' asChild>
@@ -29,6 +29,6 @@ export default async function DeliveryManagementPage({ searchParams }: DeliveryM
           </Link>
         </Button>
       </BottomSheet>
-    </>
+    </main>
   );
 }
