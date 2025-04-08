@@ -1,5 +1,6 @@
 'use client';
 import React from 'react';
+
 import EventTabContent from '@/components/modules/event/EventTabContent';
 import { EventResponseType } from '@/actions/event-service';
 

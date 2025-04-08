@@ -1,4 +1,5 @@
 import React from 'react';
+
 import EventTabBar from '@/components/layouts/event/EventTabBar';
 import { getEventsDummy } from '@/actions/event-service';
 
