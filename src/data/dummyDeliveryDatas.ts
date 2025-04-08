@@ -1,4 +1,4 @@
-import { DeliveryDataType } from '@/types/responseDataTypes';
+import { DeliveryDataType } from '@/types/delivery/responseDataTypes';
 
 export const dummyDeliveryDatas: DeliveryDataType[] = [
   {
