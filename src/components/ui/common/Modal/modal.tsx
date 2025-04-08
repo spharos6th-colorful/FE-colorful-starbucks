@@ -52,6 +52,8 @@ export function Modal({
           'shadow-1',
           'overflow-hidden',
           'transition-all animate-bottom-sheet-slide-up',
+          'w-full fixed  left-1/2 transform -translate-x-1/2',
+
           className,
         )}
         onClick={handleBackdropClick}
