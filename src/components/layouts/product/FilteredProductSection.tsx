@@ -51,24 +51,18 @@ export default function FilteredProductSection({ searchParams, initialProductsDa
   const [hasMore, setHasMore] = useState(initialProductsData.hasNext);
 
   const observerRef = useRef<IntersectionObserver | null>(null);
-  const lastProductRef = useCallback(
-    (node: HTMLDivElement) => {
-      if (loading) return;
 
-      if (observerRef.current) observerRef.current.disconnect();
+  const updateUrlWithCursor = useCallback(
+    (newCursor: number) => {
+      const params = new URLSearchParams(searchParamsObj.toString());
+      params.set('cursor', newCursor.toString());
 
-      observerRef.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasMore) {
-          loadMoreProducts();
-        }
-      });
-
-      if (node) observerRef.current.observe(node);
+      router.push(`?${params.toString()}`, { scroll: false });
     },
-    [loading, hasMore, cursor],
+    [router, searchParamsObj],
   );
 
-  const loadMoreProducts = async () => {
+  const loadMoreProducts = useCallback(async () => {
     if (!hasMore || loading) return;
 
     setLoading(true);
@@ -96,14 +90,24 @@ export default function FilteredProductSection({ searchParams, initialProductsDa
     } finally {
       setLoading(false);
     }
-  };
+  }, [loading, hasMore, cursor, searchParams, updateUrlWithCursor]);
 
-  const updateUrlWithCursor = (newCursor: number) => {
-    const params = new URLSearchParams(searchParamsObj.toString());
-    params.set('cursor', newCursor.toString());
+  const lastProductRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (loading) return;
 
-    router.push(`?${params.toString()}`, { scroll: false });
-  };
+      if (observerRef.current) observerRef.current.disconnect();
+
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          loadMoreProducts();
+        }
+      });
+
+      if (node) observerRef.current.observe(node);
+    },
+    [loading, hasMore, loadMoreProducts],
+  );
 
   return (
     <section className='mt-4 px-4'>
