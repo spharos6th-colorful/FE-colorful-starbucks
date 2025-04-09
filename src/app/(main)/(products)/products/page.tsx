@@ -21,10 +21,11 @@ export default async function ProductsPage(props: { searchParams: SearchParams }
   // 필터링된 파라미터 객체 생성
   const filteredParams: SearchParamsType = {};
   Object.entries(searchParams).forEach(([key, value]) => {
+    if (key === 'size') {
+      return (filteredParams[key] = value ? (value as string) : '10');
+    }
     filteredParams[key] = value;
   });
-
-  filteredParams.size = filteredParams.size || '10';
 
   // FIXME: 서버에서 데이터 가져오기 현재는 더미로 할 예정
   // const [subCategories, filterOptions] = await Promise.all([
