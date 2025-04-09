@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import { MenuProvider } from '@/context/MenuContext';
 import Menu from '@/components/ui/common/Menu';
+import ScrollToTopButton from '@/components/ui/common/ScrollToTopButton';
 
 const inter = Inter({
   subsets: ['latin'],
