@@ -1,11 +1,12 @@
 'use client';
 import { useEffect, useRef } from 'react';
+
 import { cn } from '@/lib/utils';
 import { useMenuContext } from '@/context/MenuContext';
 import MenuText from '@/components/modules/Menu/MenuText';
 import MenuNav from '@/components/modules/Menu/MenuCategory';
 import MenuList from '@/components/modules/Menu/MenuList';
-import MenuHeader from '@/components/layouts/Menu/MenuHeader';
+import MenuHeader from '@/components/layouts/menu/MenuHeader';
 
 export default function Menu() {
   const asideRef = useRef<HTMLElement>(null);
@@ -44,7 +45,7 @@ export default function Menu() {
     <div
       className={cn(
         'max-w-3xl fixed left-1/2 -translate-x-1/2 z-[9999]',
-        'w-full max-h-dvh h-full overflow-hidden bg-black/10',
+        'w-full h-dvh overflow-hidden bg-black/10',
         'transition-opacity duration-[200ms] ease-in-out',
         isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none',
       )}
@@ -54,20 +55,20 @@ export default function Menu() {
         onClick={(e) => e.stopPropagation()}
         className={cn(
           'absolute left-0 top-0 max-w-3xl',
-          'w-full h-full lg:w-4/5 bg-white',
+          'w-full h-dvh lg:w-4/5 bg-white',
           'transition-all duration-500 ease-in-out',
+          'flex flex-col justify-between',
           'overflow-y-scroll scrollbar-hidden',
           isOpen ? 'translate-x-0 shadow-1' : '-translate-x-full shadow-none',
         )}
       >
         <MenuHeader />
-
         <MenuText title='Welcome !' text='온라인 스토어에 오신 것을 환영합니다.' />
         <hr className='mx-6' />
-        <div className='grid  grid-rows-2'>
-          <MenuNav />
-          <MenuList />
-        </div>
+
+        <MenuNav />
+
+        <MenuList />
       </aside>
     </div>
   );

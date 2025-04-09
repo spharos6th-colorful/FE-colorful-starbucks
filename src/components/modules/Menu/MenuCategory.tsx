@@ -1,6 +1,7 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+
 import { mainCategoryDatas } from '@/data/main/initData';
 import { useMenuContext } from '@/context/MenuContext';
 import { Body } from '@/components/ui/common';
@@ -16,8 +17,8 @@ export default function MenuNav() {
   };
 
   return (
-    <nav className='px-6 py-8'>
-      <div className='grid justify-end pb-4 text-text-900 hover:text-black focus:text-black transition-colors'>
+    <nav className='px-6 py-8 grow space-y-4 lg:space-y-6'>
+      <div className='grid justify-end text-text-900 hover:text-black focus:text-black transition-colors'>
         <button onClick={() => setIsOpen(false)}>
           <MoreButton href='/products' title='전체 상품 보기' />
         </button>
