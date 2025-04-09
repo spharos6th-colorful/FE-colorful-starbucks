@@ -6,6 +6,17 @@ export type EventResponseType = {
   thumbnailUrl: string;
 };
 
+export type DetailEventResponseType = {
+  title: string;
+  description: string;
+  imageUrl: string;
+  thumbnailUrl: string;
+  startDate: Date;
+  endDate: Date;
+  policy: string;
+  status: string;
+};
+
 export const getEvents = async (page: number, size: number): Promise<EventResponseType[]> => {
   try {
     const response = await fetch(`http://localhost:8080/api/v1/events?size=${size}&page=${page}`);
@@ -53,4 +64,29 @@ export const getEventsDummy = async (): Promise<EventResponseType[]> => {
   ];
 
   return dummyEvents;
+};
+
+export const getDetailEvent = async (eventUuid: string): Promise<DetailEventResponseType> => {
+  try {
+    const response = await fetch(`http://localhost:8080/api/v1/events/${eventUuid}`);
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getDetailEventDummy = async (eventUuid: string): Promise<DetailEventResponseType> => {
+  const result: DetailEventResponseType = {
+    title: '이벤트라능',
+    description: '이 이벤트는 아주 좋지',
+    imageUrl: `/images/eventDetailImages/event_detail.webp`,
+    thumbnailUrl: eventUuid,
+    startDate: new Date(),
+    endDate: new Date(),
+    policy: 'string',
+    status: 'string',
+  };
+  return result;
 };
