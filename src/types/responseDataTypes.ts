@@ -8,3 +8,8 @@ export interface DeliveryDataType {
   phoneNumber: string;
   isDefaultAddress: boolean;
 }
+
+export interface signInDataType {
+  accessToken: string;
+  refreshToken: string;
+}
