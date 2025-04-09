@@ -1,6 +1,6 @@
-import IconLimited from '@/assets/icon-limited.svg';
-import IconBest from '@/assets/icon-best.svg';
-import IconNew from '@/assets/icon-new.svg';
+import IconLimited from '@/assets/icons/product/Icon-Limited.svg';
+import IconBest from '@/assets/icons/product/Icon-Best.svg';
+import IconNew from '@/assets/icons/product/Icon-New.svg';
 
 interface TagProps {
   isMarkable?: boolean;
@@ -10,10 +10,10 @@ interface TagProps {
 
 export default function Tag({ isMarkable, isNew, isBest }: TagProps) {
   return (
-    <span className='inline'>
+    <div className='flex items-center space-x-1 whitespace-nowrap overflow-hidden mt-2'>
       {isMarkable && <IconLimited />}
       {isNew && <IconNew />}
       {isBest && <IconBest />}
-    </span>
+    </div>
   );
 }

@@ -1,18 +1,64 @@
 import React from 'react';
 
-import ProductCategoryTopLayout from '@/components/layouts/ProductCategoryTopLayout';
+import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
+import ProductCategoryTopTabBar from '@/components/layouts/product/ProductCategoryTopTabBar';
+import ProductDetailCategorySection from '@/components/layouts/product/ProductDetailCategorySection';
+// import { getProductCategories, getProductFilters } from '@/actions/product-service';
+import { sampleFilterData } from '@/data/productDummy/productCategoryTopDummyDatas';
+import {
+  // getFilteredProductsWithDetails,
+  getSubCategoriesAndVolume,
+} from '@/actions/product-service';
+import FilteredProductSection from '@/components/layouts/product/FilteredProductSection';
+import { getInitialProductsDummyData } from '@/data/productDummy/filteredProductDummy';
 
-export default async function ProductsPage({ searchParams }: { searchParams: { category?: string } }) {
-  const params = await searchParams;
-  const currentCategory = params.category || 'all';
+type SearchParams = Promise<SearchParamsType>;
 
+export default async function ProductsPage(props: {
+  searchParams: SearchParams;
+}) {
+  const searchParams = await props.searchParams;
+  const topCategoryId = searchParams.topCategoryId || '1';
+
+  // 필터링된 파라미터 객체 생성
+  const filteredParams: SearchParamsType = {};
+  Object.entries(searchParams).forEach(([key, value]) => {
+    if (key === 'size') {
+      return (filteredParams[key] = value ? (value as string) : '10');
+    }
+    filteredParams[key] = value;
+  });
+
+  // FIXME: 서버에서 데이터 가져오기 현재는 더미로 할 예정
+  // const [subCategories, filterOptions] = await Promise.all([
+  //   getProductCategories(topCategoryId),
+  //   getProductFilters(topCategoryId),
+  // ]);
+
+  // FIXME: 더미로 우선은 할 예정
+  const { subDetailCategories, subVolumeCategories } =
+    await getSubCategoriesAndVolume(Number(topCategoryId));
+
+  // FIXME: API호출 우선 구현은 되었고, 더미로 진행 예정
+  // const initialProductsData = getInitialProductsData();
+
+  const initialProductsData = getInitialProductsDummyData();
+
+  // 초기 상품들 랜더링
   return (
-    // 가장 큰 속성에는 대부분 스타일은 뺀다.(안에 있는걸 줄이면 됨)
     <main>
-      <ProductCategoryTopLayout initialCategory={currentCategory} />
-      {/* 상품 소분류 카테고리 및 옵션들이 들어갈 예정 */}
-      {/* 상품 리스트 나타낼 페에지가 들어갈 예정 */}
-      {/* <ProductList categoryId={activeCategoryId} /> */}
+      <ProductCategoryTopTabBar initialCategory={topCategoryId} />
+      <ProductDetailCategorySection
+        searchParams={filteredParams}
+        subCategories={subDetailCategories}
+        subVolumeCategories={subVolumeCategories}
+        filterOptions={sampleFilterData}
+      />
+      {/* TODO: 상품 리스트 영역 */}
+      <FilteredProductSection
+        searchParams={filteredParams}
+        initialProductsData={initialProductsData}
+      />
     </main>
   );
 }

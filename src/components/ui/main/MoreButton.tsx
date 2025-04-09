@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import IconSeeMore from '@/assets/Icon-SeeMore.svg';
+import IconSeeMore from '@/assets/icons/product/Icon-SeeMore.svg';
 
 interface MoreButtonProps {
   href: string;

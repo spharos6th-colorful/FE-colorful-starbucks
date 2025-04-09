@@ -31,14 +31,19 @@ function MainBanner() {
               fill
               style={{ objectFit: 'cover' }}
               sizes='100vw'
+              priority
             />
 
             <div className='absolute inset-0 flex flex-col justify-center p-8 md:p-12 lg:p-16 z-10'>
               {banner.badge && <Badge>{banner.badge}</Badge>}
 
-              <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 md:mb-4'>{banner.title}</h2>
+              <h2 className='text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-2 md:mb-4'>
+                {banner.title}
+              </h2>
 
-              <p className='text-lg md:text-xl text-white mb-4 md:mb-6 max-w-md'>{banner.description}</p>
+              <p className='text-lg md:text-xl text-white mb-4 md:mb-6 max-w-md'>
+                {banner.description}
+              </p>
             </div>
           </div>
         </SwiperSlide>
