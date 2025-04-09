@@ -3,9 +3,9 @@ import { useEffect, useRef } from 'react';
 
 import { cn } from '@/lib/utils';
 import { useMenuContext } from '@/context/MenuContext';
-import MenuText from '@/components/modules/Menu/MenuText';
-import MenuNav from '@/components/modules/Menu/MenuCategory';
-import MenuList from '@/components/modules/Menu/MenuList';
+import MenuText from '@/components/modules/menu/MenuText';
+import MenuNav from '@/components/modules/menu/MenuCategory';
+import MenuList from '@/components/modules/menu/MenuList';
 import MenuHeader from '@/components/layouts/menu/MenuHeader';
 
 export default function Menu() {
