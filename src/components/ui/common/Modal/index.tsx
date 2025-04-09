@@ -1,89 +1,110 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
+import { useEffect, useRef } from 'react';
 
-import { ModalContainerProps, ModalProps } from '@/types/modalTypes';
-import { useModalStore } from '@/context/modalStore';
+import { useModalContext } from '@/context/ModalContext';
 import { cn } from '@/lib/utils';
 
-export const useModal = () => {
-  const { modal, setModal, clearModal } = useModalStore();
-
-  return {
-    modal,
-    openModal: setModal,
-    closeModal: clearModal,
-  };
-};
-
-export const Modal = ({ children, type, variant = 'slide', className = '' }: ModalProps) => {
-  const { modal, closeModal } = useModal();
-  const [body, setBody] = useState<HTMLElement | null>(null);
+export function Modal({
+  children,
+  className,
+  variant = 'card',
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  variant: 'card' | 'bottomSheet';
+}) {
+  const { isOpen, closeModal } = useModalContext();
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
-    if (typeof document !== 'undefined') setBody(document.body);
-  }, []);
+    const dialog = dialogRef.current;
+    if (!dialog) return;
 
-  const removeModal = (e: React.MouseEvent<HTMLDivElement, globalThis.MouseEvent>) => {
-    e.preventDefault();
+    if (isOpen) {
+      dialog.showModal();
+    } else {
+      dialog.close();
+    }
+  }, [isOpen]);
+
+  const handleBackdropClick = (e: React.MouseEvent) => {
+    const dialogDimensions = dialogRef.current?.getBoundingClientRect();
+
+    if (!dialogDimensions) return;
+
+    if (
+      e.clientX < dialogDimensions.left ||
+      e.clientX > dialogDimensions.right ||
+      e.clientY < dialogDimensions.top ||
+      e.clientY > dialogDimensions.bottom
+    ) {
+      closeModal();
+    }
+  };
+
+  if (variant === 'bottomSheet') {
+    return (
+      <dialog
+        ref={dialogRef}
+        className={cn(
+          'm-0 mt-auto rounded-t-md max-w-3xl',
+          'backdrop:backdrop-blur-[2px] backdrop:h-full backdrop:fixed backdrop:bottom-0',
+          'shadow-1',
+          'overflow-hidden',
+          'transition-all animate-bottom-sheet-slide-up',
+          'w-full fixed left-1/2 transform -translate-x-1/2',
+
+          className,
+        )}
+        onClick={handleBackdropClick}
+      >
+        {children}
+      </dialog>
+    );
+  }
+
+  return (
+    <dialog
+      ref={dialogRef}
+      className={cn(
+        'absolute left-1/2 top-1/2 -translate-1/2',
+        'max-w-md w-[calc(100%-48px)] sm:w-full min-h-40 rounded-md',
+        'backdrop:backdrop-blur-[2px]',
+        'shadow-1',
+        'overflow-hidden',
+        'animate-card-slide-up transition-all',
+        className,
+      )}
+      onClick={handleBackdropClick}
+    >
+      {children}
+    </dialog>
+  );
+}
+
+interface ButtonProps<T> extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+  handleClose?: (data?: T) => void;
+}
+
+export function CloseModal<T>({
+  className,
+  children,
+  handleClose,
+  ...props
+}: ButtonProps<T>) {
+  const { closeModal } = useModalContext();
+
+  const onclick = () => {
+    if (handleClose) {
+      handleClose();
+    }
     closeModal();
   };
 
-  const modalContent =
-    modal === type ? (
-      <div
-        onClick={(e) => removeModal(e)}
-        className='fixed max-w-3xl z-20 left-1/2 bg-black/30 bottom-0 -translate-x-1/2 w-full h-full'
-      >
-        <ModalContainer variant={variant} className={cn(className)}>
-          {children}
-        </ModalContainer>
-      </div>
-    ) : null;
-
-  if (!body) return;
-
-  return createPortal(modalContent, body);
-};
-
-/**
- * Modal 생성 시에 useEffect 실행되서 Modal 을 제외하고, scroll 동작 막기 위함.
- */
-const ModalContainer = ({ children, variant, className }: ModalContainerProps) => {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, []);
-
-  if (variant === 'card')
-    return (
-      <div
-        onClick={(e) => e.stopPropagation()}
-        className={cn(
-          'animate-slide-up absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2',
-          'shadow-[0_4px_10px_rgba(0,0,0,0.06)]',
-          'max-w-lg w-[calc(100%-48px)] mx-auto overflow-hidden',
-          'bg-white rounded-lg',
-          className,
-        )}
-      >
-        {children}
-      </div>
-    );
-
   return (
-    <div
-      onClick={(e) => e.stopPropagation()}
-      className={cn(
-        'animate-slide-up absolute left-0 bottom-0',
-        'w-full px-6 pt-6 pb-8',
-        'shadow-[0_-4px_10px_rgba(0,0,0,0.06)] rounded-t-lg bg-white flex flex-col',
-        className,
-      )}
-    >
+    <button className={cn(className)} onClick={onclick} {...props}>
       {children}
-    </div>
+    </button>
   );
-};
+}
