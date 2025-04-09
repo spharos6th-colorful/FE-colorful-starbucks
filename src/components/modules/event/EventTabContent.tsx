@@ -15,7 +15,7 @@ export default function EventTabContent({ events, activeEventId }: EventTabConte
   const activeTabRef = useRef<HTMLDivElement>(null);
 
   const handleEventClick = (eventUuid: string) => {
-    router.push(`?eventId=${eventUuid}`, { scroll: false });
+    router.push(`?eventId=${eventUuid}`);
   };
 
   useEffect(() => {

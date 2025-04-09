@@ -11,7 +11,7 @@ interface EventTabBarProps {
 
 export default function EventTabBar({ events, activeEventId }: EventTabBarProps) {
   return (
-    <section className='max-w-3xl w-full border-b border-stroke-100 flex justify-center'>
+    <section className='sticky top-0 z-10 max-w-3xl w-full border-b border-stroke-100 flex justify-center bg-white'>
       <EventTabContent events={events} activeEventId={activeEventId} />
     </section>
   );

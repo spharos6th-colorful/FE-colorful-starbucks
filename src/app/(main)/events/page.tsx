@@ -1,11 +1,12 @@
 import React from 'react';
 
 import EventTabBar from '@/components/layouts/event/EventTabBar';
-import { getEventsDummy } from '@/actions/event-service';
+import { getDetailEventDummy, getEventsDummy } from '@/actions/event-service';
+import EventDetailSection from '@/components/layouts/event/EventDetailSection';
 
 type EventSearchParamsType = {
-  eventId?: string;
-  title?: string;
+  eventId: string;
+  title: string;
 };
 
 type SearchParams = Promise<EventSearchParamsType>;
@@ -16,11 +17,16 @@ export default async function EventsPage(props: { searchParams: SearchParams }) 
 
   const searchParams = await props.searchParams;
 
-  const activeEventId = searchParams.eventId || (events.length > 0 ? events[0].eventUuid : '');
+  const activeEventId = searchParams.eventId;
+  //   const eventDetail = await getDetailEvent(searchParams.eventId);
 
+  const eventDetail = await getDetailEventDummy(searchParams.eventId);
   return (
     <main>
       <EventTabBar events={events} activeEventId={activeEventId} />
+
+      {/* TODO: 이벤트 상세 정보 와야함 */}
+      <EventDetailSection eventDetail={eventDetail} />
     </main>
   );
 }
