@@ -5,7 +5,12 @@ import ProductCategoryTopTabBar from '@/components/layouts/product/ProductCatego
 import ProductDetailCategorySection from '@/components/layouts/product/ProductDetailCategorySection';
 // import { getProductCategories, getProductFilters } from '@/actions/product-service';
 import { sampleFilterData } from '@/data/productDummy/productCategoryTopDummyDatas';
-import { getSubCategoriesAndVolume } from '@/actions/product-service';
+import {
+  // getFilteredProductsWithDetails,
+  getSubCategoriesAndVolume,
+} from '@/actions/product-service';
+import FilteredProductSection from '@/components/layouts/product/FilteredProductSection';
+import { getInitialProductsDummyData } from '@/data/productDummy/filteredProductDummy';
 
 type SearchParams = Promise<SearchParamsType>;
 
@@ -16,6 +21,9 @@ export default async function ProductsPage(props: { searchParams: SearchParams }
   // 필터링된 파라미터 객체 생성
   const filteredParams: SearchParamsType = {};
   Object.entries(searchParams).forEach(([key, value]) => {
+    if (key === 'size') {
+      return (filteredParams[key] = value ? (value as string) : '10');
+    }
     filteredParams[key] = value;
   });
 
@@ -26,8 +34,14 @@ export default async function ProductsPage(props: { searchParams: SearchParams }
   // ]);
 
   // FIXME: 더미로 우선은 할 예정
-  const { subDetailCategories, subVolumeCategories } = await getSubCategoriesAndVolume(topCategoryId);
+  const { subDetailCategories, subVolumeCategories } = await getSubCategoriesAndVolume(Number(topCategoryId));
 
+  // FIXME: API호출 우선 구현은 되었고, 더미로 진행 예정
+  // const initialProductsData = getInitialProductsData();
+
+  const initialProductsData = getInitialProductsDummyData();
+
+  // 초기 상품들 랜더링
   return (
     <main>
       <ProductCategoryTopTabBar initialCategory={topCategoryId} />
@@ -38,7 +52,7 @@ export default async function ProductsPage(props: { searchParams: SearchParams }
         filterOptions={sampleFilterData}
       />
       {/* TODO: 상품 리스트 영역 */}
-      {/* <ProductList data={productListData} /> */}
+      <FilteredProductSection searchParams={filteredParams} initialProductsData={initialProductsData} />
     </main>
   );
 }

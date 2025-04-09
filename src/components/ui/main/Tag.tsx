@@ -10,10 +10,10 @@ interface TagProps {
 
 export default function Tag({ isMarkable, isNew, isBest }: TagProps) {
   return (
-    <span className='inline'>
+    <div className='flex items-center space-x-1 whitespace-nowrap overflow-hidden mt-2'>
       {isMarkable && <IconLimited />}
       {isNew && <IconNew />}
       {isBest && <IconBest />}
-    </span>
+    </div>
   );
 }
