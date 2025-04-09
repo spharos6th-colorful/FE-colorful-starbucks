@@ -68,7 +68,7 @@ export function Modal({
       ref={dialogRef}
       className={cn(
         'absolute left-1/2 top-1/2 -translate-1/2',
-        'max-w-md w-[calc(100%-48px)] sm:w-full min-h-40 rounded-md',
+        'max-w-md w-[calc(100%-48px)] sm:w-full rounded-md',
         'backdrop:backdrop-blur-[2px]',
         'shadow-1',
         'overflow-hidden',
