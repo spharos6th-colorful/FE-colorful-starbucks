@@ -12,7 +12,7 @@ interface EventTabContentProps {
 
 export default function EventTabContent({ events, activeEventId }: EventTabContentProps) {
   const router = useRouter();
-  const activeTabRef = useRef<HTMLDivElement>(null);
+  const activeTabRef = useRef<HTMLLIElement>(null);
 
   const handleEventClick = (eventUuid: string) => {
     router.push(`?eventId=${eventUuid}`);
@@ -29,22 +29,20 @@ export default function EventTabContent({ events, activeEventId }: EventTabConte
   }, [activeEventId]);
 
   return (
-    <div className='flex justify-center'>
-      <div className='flex overflow-x-auto hide-scrollbar'>
-        {events.map((event) => {
-          const isActive = activeEventId === event.eventUuid;
-          return (
-            <div
-              key={event.eventUuid}
-              className='flex-shrink-0'
-              // 활성화된 탭에 ref 추가
-              ref={isActive ? activeTabRef : null}
-            >
-              <EventTab title={event.title} isActive={isActive} onClick={() => handleEventClick(event.eventUuid)} />
-            </div>
-          );
-        })}
-      </div>
-    </div>
+    <ul className='flex overflow-x-auto hide-scrollbar'>
+      {events.map((event) => {
+        const isActive = activeEventId === event.eventUuid;
+        return (
+          <li
+            key={event.eventUuid}
+            className='flex-shrink-0'
+            // 활성화된 탭에 ref 추가
+            ref={isActive ? activeTabRef : null}
+          >
+            <EventTab title={event.title} isActive={isActive} onClick={() => handleEventClick(event.eventUuid)} />
+          </li>
+        );
+      })}
+    </ul>
   );
 }
