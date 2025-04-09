@@ -12,8 +12,9 @@ export default function DeliveryActionList({ memberAddressId }: { memberAddressI
 
   const handleClickDeleteButton = () => {
     openModal(MODAL_TYPE.DELETE_ADDRESS);
-    router.push(`/delivery/management?memberAddressId=${memberAddressId}`);
+    router.push(`/delivery?memberAddressId=${memberAddressId}`);
   };
+
   return (
     <ActionList.Group className='[&_li]:px-2'>
       <ActionList.Item>
