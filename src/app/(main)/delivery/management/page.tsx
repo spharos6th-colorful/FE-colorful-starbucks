@@ -2,16 +2,9 @@ import Link from 'next/link';
 
 import { BottomSheet, Button, Heading } from '@/components/ui/common';
 import DeliveryAddressList from '@/components/modules/delivery/DeliveryAddressList';
-import DeleteAddressModal from '@/components/ui/delivery/DeleteAddressModal';
 import IconPlus from '@/assets/icon/delivery/plusIcon.svg';
 
-interface DeliveryManagementPageProps {
-  searchParams: Promise<{ memberAddressId?: string }>;
-}
-
-export default async function DeliveryManagementPage({ searchParams }: DeliveryManagementPageProps) {
-  const { memberAddressId } = await searchParams;
-
+export default async function DeliveryManagementPage() {
   return (
     <>
       <Heading.Wrapper>
@@ -19,8 +12,6 @@ export default async function DeliveryManagementPage({ searchParams }: DeliveryM
       </Heading.Wrapper>
 
       <DeliveryAddressList />
-
-      {memberAddressId ? <DeleteAddressModal memberAddressId={memberAddressId} /> : null}
 
       <BottomSheet>
         <Button variant={'default'} width={'auto'} className='w-full' asChild>
