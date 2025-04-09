@@ -17,7 +17,10 @@ export default async function EventsPage(props: { searchParams: SearchParams }) 
 
   const searchParams = await props.searchParams;
 
-  const activeEventId = searchParams.eventId;
+  let activeEventId = searchParams.eventId;
+  if (!activeEventId && events.length > 0) {
+    activeEventId = events[0].eventUuid;
+  }
   //   const eventDetail = await getDetailEvent(searchParams.eventId);
 
   const eventDetail = await getDetailEventDummy(searchParams.eventId);
