@@ -26,7 +26,7 @@ export const deleteAddress = async (memberAddressId: string) => {
   }
 };
 
-export const getAddressDatas = ({ keyword, countPerPage = 10, currentPage = 1 }: AddressRequestDataType) => {
+export const getAddressDatas = async ({ keyword, countPerPage = 10, currentPage = 1 }: AddressRequestDataType) => {
   const confmKey = process.env.ADDRESS_SEARCH_API_KEY;
 
   const searchQuery = Object.entries({
