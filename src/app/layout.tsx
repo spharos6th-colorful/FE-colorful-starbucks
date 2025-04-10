@@ -3,6 +3,8 @@ import { Inter } from 'next/font/google';
 import { getServerSession } from 'next-auth';
 
 import './globals.css';
+import { MenuProvider } from '@/context/MenuContext';
+import Menu from '@/components/ui/common/Menu';
 import ScrollToTopButton from '@/components/ui/common/ScrollToTopButton';
 import { ModalProvider } from '@/context/ModalContext';
 import AuthContextProvider from '@/provider/AuthContextProvider';
@@ -41,10 +43,13 @@ export default async function RootLayout({
       <body className={`${inter.className} antialiased bg-gray-100`}>
         <div className='min-w-xs max-w-3xl w-full mx-auto h-dvh bg-white relative overflow-x-hidden overflow-y-scroll scrollbar-hidden'>
           <AuthContextProvider isAuth={isAuth}>
-            <ModalProvider>
-              {children}
-              <ScrollToTopButton />
-            </ModalProvider>
+            <MenuProvider>
+              <ModalProvider>
+                <Menu />
+                {children}
+                <ScrollToTopButton />
+              </ModalProvider>
+            </MenuProvider>
           </AuthContextProvider>
         </div>
       </body>
