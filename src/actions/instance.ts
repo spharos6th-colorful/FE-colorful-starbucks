@@ -1,12 +1,6 @@
+import { ApiResponse } from '@/types/common';
 import { revalidateTag } from 'next/cache';
 // import { auth } from '@/lib/auth'; // 아직 구현되지 않음
-
-interface ApiResponse<T> {
-  code: number;
-  status: string;
-  message: string;
-  data: T;
-}
 
 interface NextFetchRequestConfig {
   tags?: string[];

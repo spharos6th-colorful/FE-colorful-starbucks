@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
 import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
@@ -10,22 +11,28 @@ import {
   SubSizeCateogryType,
 } from '@/types/products/productCategoryType';
 import UpIcon from '@/assets/icons/common/up.svg';
+import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 
 type ProductDetailCategorySectionProps = {
-  searchParams: Record<string, string | string[] | undefined>;
   subCategories: SubDetailCategoryType[];
   subVolumeCategories: SubSizeCateogryType[];
   filterOptions: FilterDataType;
 };
 
 export default function ProductDetailCategorySection({
-  searchParams,
   subCategories,
   subVolumeCategories,
   filterOptions,
 }: ProductDetailCategorySectionProps) {
   // 접기/펼치기 상태만 클라이언트 측에서 관리
   const [isExpanded, setIsExpanded] = useState(true);
+  const rawSearchParams = useSearchParams();
+  const searchParams: SearchParamsType = {
+    bottomCategoryIds: rawSearchParams.getAll('bottomCategoryIds'),
+    seasons: rawSearchParams.getAll('seasons'),
+    sizes: rawSearchParams.getAll('sizes'),
+    price: rawSearchParams.get('price') || '',
+  };
 
   // 가격 필터 옵션 (모든 카테고리에 공통)
   const priceOptions = [
