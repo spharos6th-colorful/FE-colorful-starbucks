@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ApiResponse } from '@/types/common';
-import { signInDataType } from '@/types/responseDataTypes';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import KakaoProvider from 'next-auth/providers/kakao';
+
+import { signInDataType } from '@/types/responseDataTypes';
+import { ApiResponse } from '@/types/common';
 
 export const options: NextAuthOptions = {
   providers: [
@@ -18,8 +19,10 @@ export const options: NextAuthOptions = {
           return null;
         }
 
-        console.log('credentials', credentials);
-        console.log('process.env.NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
+        if (false) {
+          console.log('credentials', credentials);
+          console.log('process.env.NEXT_PUBLIC_API_URL', process.env.NEXT_PUBLIC_API_URL);
+        }
         try {
           const response = await fetch(`${process.env.NEXT_PUBLIC_API_UR}/auth/sign-in`, {
             method: 'POST',
