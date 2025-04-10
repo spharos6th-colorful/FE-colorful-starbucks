@@ -24,6 +24,7 @@ if [ ! -z "$CONTAINER_ID" ]; then
 fi
 
 docker run --name ${FRONTEND_ECR_REPOSITORY} -d -p 3000:3000 \
+  --network app-network \
   -e TZ=Asia/Seoul \
   ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/${FRONTEND_ECR_REPOSITORY}:latest
 
