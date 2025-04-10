@@ -11,10 +11,19 @@ import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import { ProductListDataType, ProductTypes } from '@/types/products/productTypes';
 import { instance } from '../instance';
+import { CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
+
+const BASE_URL = 'http://13.209.230.182:8080/api/v1';
+
+export const getTopCategories = async (page: number, size: number): Promise<CategoryTopResponseType[]> => {
+  const response = await fetch(BASE_URL + `/top-categories?page=${page}&size=${size}`);
+  const result = await response.json();
+  return result.data.content;
+};
 
 export const getProductDetail = async (productCode: number): Promise<ProductTypes> => {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/products/${productCode}`);
+    const response = await fetch(BASE_URL + `http://localhost:8080/api/v1/products/${productCode}`);
     if (!response.ok) {
       throw new Error(`상품 정보를 가져오는데 실패했습니다: ${response.status}`);
     }

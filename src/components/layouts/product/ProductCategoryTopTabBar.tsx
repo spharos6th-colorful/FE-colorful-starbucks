@@ -2,12 +2,17 @@
 import React from 'react';
 
 import CategoryContent from '../../modules/product/CategoryContent';
+import { CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
 
-export default function ProductCategoryTopTabBar({ initialCategory }: { initialCategory: string }) {
+type ProductCategoryTopTabBarProps = {
+  categoryTop: CategoryTopResponseType[];
+};
+
+export default function ProductCategoryTopTabBar({ categoryTop }: ProductCategoryTopTabBarProps) {
   return (
     <div className='w-full border-b boarder-stroke-100 flex justify-center'>
       <div className='max-w-3xl w-full'>
-        <CategoryContent initialCategory={initialCategory} />
+        <CategoryContent categoryTop={categoryTop} />
       </div>
     </div>
   );
