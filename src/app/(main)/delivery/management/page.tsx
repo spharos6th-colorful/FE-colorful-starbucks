@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 import { BottomSheet, Button, Heading } from '@/components/ui/common';
 import DeliveryAddressList from '@/components/modules/delivery/DeliveryAddressList';
-import IconPlus from '@/assets/icon/delivery/plusIcon.svg';
+import IconPlus from '@/assets/icons/delivery/plusIcon.svg';
 
 export default async function DeliveryManagementPage() {
   return (
