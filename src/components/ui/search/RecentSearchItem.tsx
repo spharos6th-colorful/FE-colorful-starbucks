@@ -8,7 +8,10 @@ type RecentSearchItemProps = {
   callbackUrl?: string;
 };
 
-export default function RecentSearchItem({ recentSearchHistory, callbackUrl }: RecentSearchItemProps) {
+export default function RecentSearchItem({
+  recentSearchHistory,
+  callbackUrl,
+}: RecentSearchItemProps) {
   return (
     <li className='flex justify-between items-center gap-3'>
       <Link

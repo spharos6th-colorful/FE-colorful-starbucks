@@ -6,7 +6,11 @@ import ProductCategoryTop from '@/components/ui/products/ProductCategoryTop';
 import { sampleCategories } from '@/data/productDummy/productCategoryTopDummyDatas';
 import { ProductCategoryTopType } from '@/types/products/productCategoryType';
 
-export default function CategoryContent({ initialCategory }: { initialCategory: string }) {
+export default function CategoryContent({
+  initialCategory,
+}: {
+  initialCategory: string;
+}) {
   const router = useRouter();
   const currentCategoryCode = initialCategory;
   const activeTabRef = useRef<HTMLDivElement>(null);
@@ -27,11 +31,16 @@ export default function CategoryContent({ initialCategory }: { initialCategory: 
 
   return (
     <div className='flex justify-center'>
-      <div className='flex overflow-x-auto hide-scrollbar'>
+      <div className='flex overflow-x-auto scrollbar-hidden'>
         {sampleCategories.map((category) => {
-          const isActive = currentCategoryCode === category.topCategoryId.toString();
+          const isActive =
+            currentCategoryCode === category.topCategoryId.toString();
           return (
-            <div key={category.topCategoryId} className='flex-shrink-0' ref={isActive ? activeTabRef : null}>
+            <div
+              key={category.topCategoryId}
+              className='flex-shrink-0'
+              ref={isActive ? activeTabRef : null}
+            >
               <ProductCategoryTop
                 name={category.categoryName}
                 isActive={isActive}

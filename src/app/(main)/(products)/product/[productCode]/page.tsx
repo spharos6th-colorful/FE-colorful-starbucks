@@ -35,7 +35,11 @@ const dummyOptions: ProductOptionType[] = [
   },
 ];
 
-export default async function Page({ params }: { params: Promise<{ productCode: string }> }) {
+export default async function Page({
+  params,
+}: {
+  params: Promise<{ productCode: string }>;
+}) {
   const { productCode } = await params;
   console.log(productCode);
 
@@ -53,7 +57,10 @@ export default async function Page({ params }: { params: Promise<{ productCode: 
 
   return (
     <main className='flex flex-col min-h-screen bg-white'>
-      <section className='w-full relative' style={{ height: 'min(100vw, 100vh)' }}>
+      <section
+        className='w-full relative'
+        style={{ height: 'min(100vw, 100vh)' }}
+      >
         <ProductImage
           imageUrl={product.productThumbnailUrl}
           name={`${product.productName} 썸네일 이미지`}

@@ -10,7 +10,10 @@ interface EventTabContentProps {
   activeEventId?: string;
 }
 
-export default function EventTabContent({ events, activeEventId }: EventTabContentProps) {
+export default function EventTabContent({
+  events,
+  activeEventId,
+}: EventTabContentProps) {
   const router = useRouter();
   const activeTabRef = useRef<HTMLLIElement>(null);
 
@@ -29,7 +32,7 @@ export default function EventTabContent({ events, activeEventId }: EventTabConte
   }, [activeEventId]);
 
   return (
-    <ul className='flex overflow-x-auto hide-scrollbar'>
+    <ul className='flex overflow-x-auto scrollbar-hidden'>
       {events.map((event) => {
         const isActive = activeEventId === event.eventUuid;
         return (
@@ -39,7 +42,11 @@ export default function EventTabContent({ events, activeEventId }: EventTabConte
             // 활성화된 탭에 ref 추가
             ref={isActive ? activeTabRef : null}
           >
-            <EventTab title={event.title} isActive={isActive} onClick={() => handleEventClick(event.eventUuid)} />
+            <EventTab
+              title={event.title}
+              isActive={isActive}
+              onClick={() => handleEventClick(event.eventUuid)}
+            />
           </li>
         );
       })}

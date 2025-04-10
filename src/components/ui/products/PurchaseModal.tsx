@@ -1,8 +1,11 @@
 'use client';
 import React from 'react';
 
-import { ProductOptionType, SelectedOption } from '@/types/products/productPurchaseTypes';
-import { Modal, useModal } from '../common/Modal';
+import {
+  ProductOptionType,
+  SelectedOption,
+} from '@/types/products/productPurchaseTypes';
+import { Modal, useModal } from '../common/Modal/LegacyModal';
 import { ProductOptionsProvider } from '@/context/ProductOptionsContext';
 import PurchaseForm from '@/components/modules/product/PurchaseForm';
 
@@ -12,7 +15,11 @@ interface PurchaseModalProps {
   productOptions: ProductOptionType[];
 }
 
-export default function PurchaseModal({ productId, productPrice, productOptions }: PurchaseModalProps) {
+export default function PurchaseModal({
+  productId,
+  productPrice,
+  productOptions,
+}: PurchaseModalProps) {
   const { closeModal } = useModal();
 
   const handleAddToCart = (options: SelectedOption[]) => {
@@ -32,9 +39,21 @@ export default function PurchaseModal({ productId, productPrice, productOptions 
   };
 
   return (
-    <Modal type='purchase-modal' variant='slide' className='max-h-[80vh] overflow-y-auto'>
-      <ProductOptionsProvider productId={productId} productPrice={productPrice} productOptions={productOptions}>
-        <PurchaseForm product={product} onAddToCart={handleAddToCart} onPurchase={handlePurchase} />
+    <Modal
+      type='purchase-modal'
+      variant='slide'
+      className='max-h-[80vh] overflow-y-auto'
+    >
+      <ProductOptionsProvider
+        productId={productId}
+        productPrice={productPrice}
+        productOptions={productOptions}
+      >
+        <PurchaseForm
+          product={product}
+          onAddToCart={handleAddToCart}
+          onPurchase={handlePurchase}
+        />
       </ProductOptionsProvider>
     </Modal>
   );

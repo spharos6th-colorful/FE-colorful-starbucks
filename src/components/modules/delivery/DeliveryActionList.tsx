@@ -1,19 +1,24 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import { ActionList } from '@/components/ui/common';
-import { useModal } from '@/components/ui/common/Modal';
-import { useRouter } from 'next/navigation';
-import { MODAL_TYPE } from '@/data/modalData';
+import { useModalContext } from '@/context/ModalContext';
+import DeleteAddressModal from '@/components/ui/delivery/DeleteAddressModal';
 
-export default function DeliveryActionList({ memberAddressId }: { memberAddressId?: string }) {
+export default function DeliveryActionList({
+  memberAddressId,
+}: {
+  memberAddressId: string;
+}) {
   const router = useRouter();
-  const { openModal } = useModal();
+  const { openModal } = useModalContext();
 
   const handleClickDeleteButton = () => {
-    openModal(MODAL_TYPE.DELETE_ADDRESS);
-    router.push(`/delivery/management?memberAddressId=${memberAddressId}`);
+    openModal(<DeleteAddressModal memberAddressId={memberAddressId} />);
+    router.push(`/delivery?memberAddressId=${memberAddressId}`);
   };
+
   return (
     <ActionList.Group className='[&_li]:px-2'>
       <ActionList.Item>

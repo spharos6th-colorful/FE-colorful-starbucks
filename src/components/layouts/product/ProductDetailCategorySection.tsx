@@ -5,7 +5,11 @@ import { useSearchParams } from 'next/navigation';
 
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
 import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
-import { FilterDataType, SubDetailCategoryType, SubSizeCateogryType } from '@/types/products/productCategoryType';
+import {
+  FilterDataType,
+  SubDetailCategoryType,
+  SubSizeCateogryType,
+} from '@/types/products/productCategoryType';
 import UpIcon from '@/assets/icons/common/up.svg';
 import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 
@@ -42,7 +46,10 @@ export default function ProductDetailCategorySection({
     <section className='w-full border-b border-stroke-100'>
       {/* 하위 카테고리 탭바 (있을 때만 표시) */}
       {subCategories.length > 0 && (
-        <ProductDetailCategoryTabBar categories={subCategories} selectedIds={searchParams.bottomCategoryIds} />
+        <ProductDetailCategoryTabBar
+          categories={subCategories}
+          selectedIds={searchParams.bottomCategoryIds}
+        />
       )}
 
       {isExpanded && (
@@ -87,7 +94,9 @@ export default function ProductDetailCategorySection({
           className='flex items-center text-body3 text-[var(--color-text-700)]'
         >
           {isExpanded ? '접기' : '펼치기'}
-          <span className='ml-1'>{isExpanded ? <UpIcon /> : <UpIcon className='rotate-180' />}</span>
+          <span className='ml-1'>
+            {isExpanded ? <UpIcon /> : <UpIcon className='rotate-180' />}
+          </span>
         </button>
       </div>
     </section>

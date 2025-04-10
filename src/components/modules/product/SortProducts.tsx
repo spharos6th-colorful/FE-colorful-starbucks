@@ -23,7 +23,9 @@ export default function SortProducts() {
   const currentSortValue = searchParamsObj.get('sortBy') || '';
 
   // 현재 정렬 라벨 찾기
-  const currentSortLabel = sortOptions.find((option) => option.value === currentSortValue)?.label || '추천순';
+  const currentSortLabel =
+    sortOptions.find((option) => option.value === currentSortValue)?.label ||
+    '추천순';
 
   const handleSortSelect = (sortValue: string) => {
     const params = new URLSearchParams(searchParamsObj.toString());
@@ -42,7 +44,10 @@ export default function SortProducts() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -70,7 +75,9 @@ export default function SortProducts() {
               <button
                 className={cn(
                   'block w-full text-center px-4 py-3 text-sm hover:bg-gray-100',
-                  currentSortValue === option.value ? 'text-primary-100 font-medium' : 'text-gray-700',
+                  currentSortValue === option.value
+                    ? 'text-primary-100 font-medium'
+                    : 'text-gray-700',
                 )}
                 onClick={() => handleSortSelect(option.value)}
               >

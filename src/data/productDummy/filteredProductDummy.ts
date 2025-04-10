@@ -74,7 +74,9 @@ export const dummyProductDetail: ProductDetail = {
 };
 
 // 상품 상세 정보를 가져오는 더미 함수
-export async function getProductDetail(productCode: number): Promise<ProductDetail> {
+export async function getProductDetail(
+  productCode: number,
+): Promise<ProductDetail> {
   // 항상 같은 더미 데이터 반환
   console.log(productCode);
 
@@ -88,13 +90,16 @@ export function getInitialProductsDummyData(cursor?: number): {
   nextCursor: number | null;
 } {
   const pageSize = 10;
-  const startIndex = cursor ? productItemList.findIndex((p) => p.productCode === cursor) + 1 : 0;
+  const startIndex = cursor
+    ? productItemList.findIndex((p) => p.productCode === cursor) + 1
+    : 0;
 
   const content = productItemList.slice(startIndex, startIndex + pageSize);
 
   return {
     content,
     hasNext: startIndex + pageSize < productItemList.length,
-    nextCursor: content.length > 0 ? content[content.length - 1].productCode : null,
+    nextCursor:
+      content.length > 0 ? content[content.length - 1].productCode : null,
   };
 }

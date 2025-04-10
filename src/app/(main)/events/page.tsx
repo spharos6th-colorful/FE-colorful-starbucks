@@ -11,7 +11,9 @@ type EventSearchParamsType = {
 
 type SearchParams = Promise<EventSearchParamsType>;
 
-export default async function EventsPage(props: { searchParams: SearchParams }) {
+export default async function EventsPage(props: {
+  searchParams: SearchParams;
+}) {
   // const events = await getEvents(0,10);
   const events = await getEventsDummy();
 

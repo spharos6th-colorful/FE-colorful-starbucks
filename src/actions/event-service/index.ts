@@ -17,9 +17,14 @@ export type DetailEventResponseType = {
   status: string;
 };
 
-export const getEvents = async (page: number, size: number): Promise<EventResponseType[]> => {
+export const getEvents = async (
+  page: number,
+  size: number,
+): Promise<EventResponseType[]> => {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/events?size=${size}&page=${page}`);
+    const response = await fetch(
+      `http://localhost:8080/api/v1/events?size=${size}&page=${page}`,
+    );
 
     const result = await response.json();
     return result.data.content;
@@ -66,9 +71,13 @@ export const getEventsDummy = async (): Promise<EventResponseType[]> => {
   return dummyEvents;
 };
 
-export const getDetailEvent = async (eventUuid: string): Promise<DetailEventResponseType> => {
+export const getDetailEvent = async (
+  eventUuid: string,
+): Promise<DetailEventResponseType> => {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/events/${eventUuid}`);
+    const response = await fetch(
+      `http://localhost:8080/api/v1/events/${eventUuid}`,
+    );
     const result = await response.json();
     return result.data;
   } catch (error) {
@@ -77,7 +86,9 @@ export const getDetailEvent = async (eventUuid: string): Promise<DetailEventResp
   }
 };
 
-export const getDetailEventDummy = async (eventUuid: string): Promise<DetailEventResponseType> => {
+export const getDetailEventDummy = async (
+  eventUuid: string,
+): Promise<DetailEventResponseType> => {
   const result: DetailEventResponseType = {
     title: '이벤트라능',
     description: '이 이벤트는 아주 좋지',

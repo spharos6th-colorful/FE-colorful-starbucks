@@ -58,7 +58,11 @@ export default function ScrollToTopButton() {
           className='absolute bottom-15 right-6 p-3 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 pointer-events-auto'
           aria-label='최상단 이동'
         >
-          <ScrollToTop width={18} height={18} className='text-text-900 cursor-pointer' />
+          <ScrollToTop
+            width={18}
+            height={18}
+            className='text-text-900 cursor-pointer'
+          />
         </button>
       </div>
     </div>
