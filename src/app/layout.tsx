@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { getServerSession } from 'next-auth';
 
 import './globals.css';
 import ScrollToTopButton from '@/components/ui/common/ScrollToTopButton';
 import AuthContextProvider from '@/provider/AuthContextProvider';
-import { getServerSession } from 'next-auth';
 import { options } from './api/auth/[...nextauth]/options';
 
 const inter = Inter({
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
   },
   description: '1차프로젝트 SPHAROS 6TH Rebuilding',
   icons: { icon: '/assets/images/icons/icon.png' },
-  metadataBase: new URL('https://spharos5th.com'),
+  metadataBase: new URL('https://colorful-starbucks.store'),
   openGraph: {
-    url: 'https://spharos6th.com',
+    url: 'https://colorful-starbucks.store',
     title: 'SPHAROS 6TH',
     description: '1차프로젝트 SPHAROS 6TH',
     images: [{ url: '/assets/images/og/og_image.png' }],

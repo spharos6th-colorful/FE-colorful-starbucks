@@ -1,8 +1,8 @@
 'use client';
 import React from 'react';
 import { signIn } from 'next-auth/react';
-import LogInForm from './LogInInForm';
 
+import LogInForm from './LogInInForm';
 import { BottomSheet, Button } from '@/components/ui/common';
 
 export default function LogInSection() {
@@ -23,9 +23,7 @@ export default function LogInSection() {
 
   return (
     <form className='h-full' onSubmit={handleSubmit}>
-      {/* 버튼까지 포함해서 */}
       <LogInForm />
-      {/* <AuthMenu /> */}
       <BottomSheet>
         <Button type='submit' className='w-full h-10'>
           로그인

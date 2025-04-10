@@ -1,12 +1,12 @@
 'use client';
 
 import React, { useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
 import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
 import { FilterDataType, SubDetailCategoryType, SubSizeCateogryType } from '@/types/products/productCategoryType';
 import UpIcon from '@/assets/icons/common/up.svg';
-import { useSearchParams } from 'next/navigation';
 import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 
 type ProductDetailCategorySectionProps = {

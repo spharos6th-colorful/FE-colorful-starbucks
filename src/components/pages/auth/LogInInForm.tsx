@@ -3,7 +3,6 @@ import React from 'react';
 export default function LogInForm() {
   return (
     <>
-      {/* div */}
       <input
         placeholder='아이디'
         name='email'
