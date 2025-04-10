@@ -10,6 +10,7 @@ import {
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import { ProductListDataType, ProductTypes } from '@/types/products/productTypes';
+import { instance } from '../instance';
 
 export const getProductDetail = async (productCode: number): Promise<ProductTypes> => {
   try {
@@ -77,18 +78,10 @@ export const getProductOptions = async (productCode: number): Promise<ProductOpt
 };
 
 export async function getProductCategories(topCategoryId: number): Promise<ProductCategoryTopType[]> {
-  try {
-    const response = await fetch(`http://localhost:8080/api/v1/categories/${topCategoryId}/subcategories`);
-    if (!response.ok) {
-      throw new Error(`하위 카테고리 정보를 가져오는데 실패했습니다: ${response.status}`);
-    }
-
-    const result = await response.json();
-    return result.data;
-  } catch (error) {
-    console.error('하위 카테고리 정보 조회 중 오류 발생:', error);
-    throw error;
-  }
+  const res = await instance.get<ProductCategoryTopType[]>(`/api/v1/categories/${topCategoryId}/subcategories`);
+  console.log('res', res);
+  const data = res.data;
+  return data;
 }
 
 // 카테고리 ID에 따른 필터 옵션 조회

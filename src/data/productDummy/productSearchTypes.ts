@@ -3,7 +3,7 @@ export interface SearchParamsType {
   topCategoryId?: string;
 
   // 하위 카테고리 ID 리스트 (다중 선택 가능)
-  bottomCategoryIds?: string;
+  bottomCategoryIds?: string[];
 
   // 가격 필터
   minPrice?: string;
