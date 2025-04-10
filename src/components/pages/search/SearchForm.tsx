@@ -38,10 +38,10 @@ export default function SearchForm({ params }: SearchFormProps) {
   return (
     <form
       onSubmit={(e) => handleSubmitSearch(e)}
-      className='flex justify-between gap-2 px-6 pt-3 pb-2.5 shadow-[0_2px_6px_rgba(0,0,0,0.1)]'
+      className='flex justify-between gap-2 px-6 py-3 shadow-[0_2px_6px_rgba(0,0,0,0.1)]'
     >
       <div
-        className={`grid grid-cols-[1fr_auto_auto] items-center w-full bg-[#F7F7F7] placeholder-text-[#d9d9d9] text-[13px] font-semibold px-2 py-2 rounded-sm`}
+        className={`grid grid-cols-[1fr_auto_auto] items-center w-full bg-[#F7F7F7] placeholder-text-[#d9d9d9] text-[13px] font-semibold px-2 rounded-sm`}
       >
         <input type='text' name='query' placeholder='검색어를 입력해주세요' className='outline-none px-2' />
         <button type='submit' className='w-fit'>
