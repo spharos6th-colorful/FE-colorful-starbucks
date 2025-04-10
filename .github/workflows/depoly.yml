@@ -2,7 +2,7 @@ name: Deploy Next.js to ECR and CodeDeploy
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main, dev, reractor/setting-infra]
 
 permissions:
   id-token: write
@@ -19,8 +19,8 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: arn:aws:iam::065676097951:role/gitActionsRole
-          aws-region: ap-northeast-2
+          role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
+          aws-region: ${{ secrets.AWS_REGION }}
           audience: sts.amazonaws.com
 
       - name: Login to Amazon ECR
@@ -40,7 +40,7 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: colorful-stabucks-frontend
+          ECR_REPOSITORY: ${{ secrets.FRONTEND_ECR_REPOSITORY }}
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:latest .
@@ -50,6 +50,6 @@ jobs:
       - name: Create CodeDeploy Deployment
         run: |
           aws deploy create-deployment \
-            --application-name colorful-starbucks-frontend \
-            --deployment-group-name production \
+            --application-name ${{ secrets.CODEDEPLOY_APPLICATION_NAME }} \
+            --deployment-group-name ${{ secrets.CODEDEPLOY_DEPLOYMENT_GROUP }} \
             --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
