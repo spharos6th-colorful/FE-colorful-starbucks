@@ -6,7 +6,7 @@ import { useMenuContext } from '@/context/MenuContext';
 import MenuText from '@/components/modules/menu/MenuText';
 import MenuNav from '@/components/modules/menu/MenuCategory';
 import MenuList from '@/components/modules/menu/MenuList';
-import MenuHeader from '@/components/layouts/menu/MenuHeader';
+import MenuHeader from '@/components/layouts/Menu/MenuHeader';
 
 export default function Menu() {
   const asideRef = useRef<HTMLElement>(null);
