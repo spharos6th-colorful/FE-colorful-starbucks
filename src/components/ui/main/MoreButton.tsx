@@ -8,7 +8,7 @@ interface MoreButtonProps {
 }
 function MoreButton({ href, title }: MoreButtonProps) {
   return (
-    <Link href={href} className='flex items-center'>
+    <Link href={href} className='flex items-center text-caption2'>
       <span>{title}</span>
       <IconSeeMore />
     </Link>
