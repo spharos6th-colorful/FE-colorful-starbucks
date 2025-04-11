@@ -31,7 +31,7 @@ export default function CategoryContent({ topCategory }: CategoryContentProps) {
   }, [currentCategoryCode]);
 
   return (
-    <div className='flex justify-center'>
+    <div className='flex justify-center '>
       <div className='flex overflow-x-auto hide-scrollbar'>
         {topCategory.map((category) => {
           const isActive = currentCategoryCode === String(category.topCategoryId);

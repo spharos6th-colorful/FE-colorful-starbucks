@@ -17,7 +17,13 @@ const BASE_URL = 'http://13.209.230.182:8080/api/v1';
 
 export const getTopCategories = async (page: number, size: number): Promise<CategoryTopResponseType[]> => {
   try {
-    const response = await fetch(BASE_URL + `/top-categories?page=${page}&size=${size}`);
+    const response = await fetch(BASE_URL + `/top-categories?page=${page}&size=${size}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 60 * 60 * 24 }, // 1일
+    });
     const result = await response.json();
     return result.data.content;
   } catch (error) {
@@ -34,6 +40,13 @@ export const getBottomCategories = async (
   try {
     const response = await fetch(
       BASE_URL + `/bottom-categories?topCategoryId=${topCategoryId}&page=${page}&size=${size}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { revalidate: 60 * 60 * 24 }, // 1일
+      },
     );
     const result = await response.json();
     return result.data.content;
