@@ -6,13 +6,13 @@ import ProductCategoryTop from '@/components/ui/products/ProductCategoryTop';
 import { CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
 
 type CategoryContentProps = {
-  categoryTop: CategoryTopResponseType[];
+  topCategory: CategoryTopResponseType[];
 };
 
-export default function CategoryContent({ categoryTop }: CategoryContentProps) {
+export default function CategoryContent({ topCategory }: CategoryContentProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentCategoryCode = searchParams.get('topCategoryId');
+  const currentCategoryCode = searchParams.get('topCategoryId') || '1';
 
   const activeTabRef = useRef<HTMLDivElement>(null);
 
@@ -33,7 +33,7 @@ export default function CategoryContent({ categoryTop }: CategoryContentProps) {
   return (
     <div className='flex justify-center'>
       <div className='flex overflow-x-auto hide-scrollbar'>
-        {categoryTop.map((category) => {
+        {topCategory.map((category) => {
           const isActive = currentCategoryCode === String(category.topCategoryId);
           return (
             <div key={category.topCategoryId} className='flex-shrink-0' ref={isActive ? activeTabRef : null}>

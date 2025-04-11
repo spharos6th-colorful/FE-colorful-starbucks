@@ -1,17 +1,21 @@
-'use client';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-type ProductBottomTabBarWrapperProps = {
+// 컴포넌트의 props 타입 정의
+interface ProductBottomTabBarWrapperProps {
   title: string;
-  children: ReactNode;
-};
+  children: React.ReactNode;
+}
 
+// 제품 하단 탭 바 래퍼 컴포넌트
 export function ProductBottomTabBarWrapper({ title, children }: ProductBottomTabBarWrapperProps) {
   return (
-    <div className='w-full overflow-x-auto hide-scrollbar py-4 border-b border-stroke-100'>
-      <div className='flex min-w-max px-4'>
-        <span className='text-body3 text-black w-20'>{title}</span>
-        <div className='flex gap-6'>{children}</div>
+    <div className='w-full border-b border-stroke-100 py-4'>
+      <div className='flex items-center px-4'>
+        <span className='text-body3 text-black font-bold w-20 shrink-0'>{title}</span>
+
+        <div className='overflow-x-auto hide-scrollbar ml-4'>
+          <div className='flex gap-6 min-w-max'>{children}</div>
+        </div>
       </div>
     </div>
   );

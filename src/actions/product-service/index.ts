@@ -11,14 +11,35 @@ import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import { ProductListDataType, ProductTypes } from '@/types/products/productTypes';
 import { instance } from '../instance';
-import { CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
+import { CategoryBottomResponseType, CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
 
 const BASE_URL = 'http://13.209.230.182:8080/api/v1';
 
 export const getTopCategories = async (page: number, size: number): Promise<CategoryTopResponseType[]> => {
-  const response = await fetch(BASE_URL + `/top-categories?page=${page}&size=${size}`);
-  const result = await response.json();
-  return result.data.content;
+  try {
+    const response = await fetch(BASE_URL + `/top-categories?page=${page}&size=${size}`);
+    const result = await response.json();
+    return result.data.content;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getBottomCategories = async (
+  topCategoryId: number,
+  page: number,
+  size: number,
+): Promise<CategoryBottomResponseType[]> => {
+  try {
+    const response = await fetch(
+      BASE_URL + `/bottom-categories?topCategoryId=${topCategoryId}&page=${page}&size=${size}`,
+    );
+    const result = await response.json();
+    return result.data.content;
+  } catch (error) {
+    throw error;
+  }
 };
 
 export const getProductDetail = async (productCode: number): Promise<ProductTypes> => {
