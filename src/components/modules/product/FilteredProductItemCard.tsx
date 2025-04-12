@@ -4,14 +4,19 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Tag from '../../ui/main/Tag';
-import { getProductDetailDummy, ProductDetail } from '@/actions/product-service';
+import {
+  getProductDetailDummy,
+  ProductDetail,
+} from '@/actions/product-service';
 import FilteredProductItemCardSkelton from './FilteredProductItemCardSkelton';
 
 interface FilteredProductCardProps {
   productCode: number;
 }
 
-export default function FilteredProductItemCard({ productCode }: FilteredProductCardProps) {
+export default function FilteredProductItemCard({
+  productCode,
+}: FilteredProductCardProps) {
   const [product, setProduct] = useState<ProductDetail | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -36,7 +41,11 @@ export default function FilteredProductItemCard({ productCode }: FilteredProduct
   if (!product) return;
 
   return (
-    <Link href={`/products/${product.productCode}`} scroll={false} className='block w-full'>
+    <Link
+      href={`/products/${product.productCode}`}
+      scroll={false}
+      className='block w-full'
+    >
       <div className='w-full'>
         <div className='relative aspect-square w-full mb-2'>
           <Image
@@ -47,7 +56,11 @@ export default function FilteredProductItemCard({ productCode }: FilteredProduct
             sizes='100%'
           />
         </div>
-        <Tag isMarkable={product.isMarkable} isNew={product.isNew} isBest={product.isBest} />
+        <Tag
+          isMarkable={product.isMarkable}
+          isNew={product.isNew}
+          isBest={product.isBest}
+        />
         <h3 className='text-button2 my-3'>{product.productName}</h3>
         <p className='text-subtitle2'>{product.price.toLocaleString()}원</p>
       </div>

@@ -3,12 +3,19 @@ import { SubTitle, Body } from '@/components/ui/common';
 import RecentSearchItem from '@/components/ui/search/RecentSearchItem';
 import SearchSection from '@/components/ui/search/SearchSection';
 
-export default async function RecentSearchList({ callbackUrl }: { callbackUrl?: string }) {
+export default async function RecentSearchList({
+  callbackUrl,
+}: {
+  callbackUrl?: string;
+}) {
   // FIXME: api 패칭 연결 필요
   // const recentSearchHistoryDatas = await getRecentSearchHistory();
 
   const recentSearchHistoryDatas = [
-    { id: 1, query: '아무말이나 엄청 길게 써봅시다. 글 줄임말 처리는 어떻게 할까요' },
+    {
+      id: 1,
+      query: '아무말이나 엄청 길게 써봅시다. 글 줄임말 처리는 어떻게 할까요',
+    },
     { id: 2, query: '스탠' },
     { id: 3, query: '케이크' },
     { id: 4, query: '대용량' },

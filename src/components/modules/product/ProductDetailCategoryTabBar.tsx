@@ -12,7 +12,10 @@ type ProductDetailCategoryTabBarProps = {
   selectedIds: string | string[] | undefined;
 };
 
-export default function ProductDetailCategoryTabBar({ categories, selectedIds }: ProductDetailCategoryTabBarProps) {
+export default function ProductDetailCategoryTabBar({
+  categories,
+  selectedIds,
+}: ProductDetailCategoryTabBarProps) {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const selectedArray = getSelectedArray(selectedIds);

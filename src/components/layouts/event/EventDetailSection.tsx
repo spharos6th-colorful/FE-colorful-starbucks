@@ -2,7 +2,11 @@ import { DetailEventResponseType } from '@/actions/event-service';
 import Image from 'next/image';
 import React from 'react';
 
-export default function EventDetailSection({ eventDetail }: { eventDetail: DetailEventResponseType }) {
+export default function EventDetailSection({
+  eventDetail,
+}: {
+  eventDetail: DetailEventResponseType;
+}) {
   return (
     <section className='h-screen overflow-y-auto'>
       <div className='relative w-full'>

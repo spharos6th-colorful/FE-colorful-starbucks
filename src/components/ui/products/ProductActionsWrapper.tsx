@@ -9,11 +9,19 @@ interface ProductActionsWrapperProps {
   productOptions: ProductOptionType[];
 }
 
-export default function ProductActionsWrapper({ productId, productPrice, productOptions }: ProductActionsWrapperProps) {
+export default function ProductActionsWrapper({
+  productId,
+  productPrice,
+  productOptions,
+}: ProductActionsWrapperProps) {
   return (
     <section>
       <div className='w-full z-30'>
-        <ProductActions productId={productId} productPrice={productPrice} productOptions={productOptions} />
+        <ProductActions
+          productId={productId}
+          productPrice={productPrice}
+          productOptions={productOptions}
+        />
       </div>
     </section>
   );
