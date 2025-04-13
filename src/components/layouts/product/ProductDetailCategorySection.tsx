@@ -12,10 +12,12 @@ import { ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type ProductDetailCategorySectionProps = {
+  topCategoryId: string;
   bottomCategory: CategoryBottomResponseType[];
 };
 
 export default function ProductDetailCategorySection({
+  topCategoryId,
   bottomCategory,
 }: ProductDetailCategorySectionProps) {
   const [isExpanded, setIsExpanded] = useState(true);
@@ -23,10 +25,12 @@ export default function ProductDetailCategorySection({
   const rawSearchParams = useSearchParams();
 
   useEffect(() => {
-    if (bottomCategory.length > 0) {
+    if (bottomCategory.length > 0 && topCategoryId !== '0') {
       setIsAll(true);
+    } else {
+      setIsAll(false);
     }
-  }, [bottomCategory]);
+  }, [bottomCategory, topCategoryId]);
 
   const searchParams: SearchParamsType = useMemo(() => {
     const rawBottomCategoryIds = rawSearchParams.get('bottomCategoryIds');
@@ -44,7 +48,7 @@ export default function ProductDetailCategorySection({
       <section
         className={cn(
           isExpanded ? 'h-[100px]' : 'h-[1px]',
-          'w-full border-b border-stroke-100 transition-all duration-[1s] overflow-hidden bg-white',
+          'w-full  transition-all duration-[1s] overflow-hidden bg-white',
         )}
       >
         {isAll && (
@@ -56,22 +60,24 @@ export default function ProductDetailCategorySection({
         <ProductPriceFilterRow title='가격' priceOptions={priceOptions} />
       </section>
 
-      <div className='w-full py-3 flex justify-center border-b border-stroke-100'>
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className='flex items-center text-body3 text-[var(--color-text-700)]'
-          type='button'
-        >
-          {isExpanded ? '접기' : '펼치기'}
-          <ChevronUp
-            size={16}
-            className={cn(
-              isExpanded ? 'rotate-0' : 'rotate-180',
-              'transition-all ml-1',
-            )}
-          />
-        </button>
-      </div>
+      {isAll && (
+        <div className='w-full py-3 flex justify-center border-b border-stroke-100'>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className='flex items-center text-body3 text-[var(--color-text-700)]'
+            type='button'
+          >
+            {isExpanded ? '접기' : '펼치기'}
+            <ChevronUp
+              size={16}
+              className={cn(
+                isExpanded ? 'rotate-0' : 'rotate-180',
+                'transition-all ml-1',
+              )}
+            />
+          </button>
+        </div>
+      )}
     </>
   );
 }

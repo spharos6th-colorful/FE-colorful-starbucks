@@ -18,7 +18,7 @@ export function ProductBottomTabBarWrapper({
           {title}
         </span>
 
-        <div className='overflow-x-auto hide-scrollbar ml-4'>
+        <div className='overflow-x-auto scrollbar-hidden ml-4'>
           <div className='flex gap-6 min-w-max'>{children}</div>
         </div>
       </div>

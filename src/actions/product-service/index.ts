@@ -21,23 +21,19 @@ import {
 
 const BASE_URL = 'http://13.209.230.182:8080/api/v1';
 
-export const getTopCategories = async (
-  page: number,
-  size: number,
-): Promise<CategoryTopResponseType[]> => {
+export const getTopCategories = async (): Promise<
+  CategoryTopResponseType[]
+> => {
   try {
-    const response = await fetch(
-      BASE_URL + `/top-categories?page=${page}&size=${size}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        next: { revalidate: 60 * 60 * 24 }, // 1일
+    const response = await fetch(BASE_URL + `/top-categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+      next: { revalidate: 60 * 60 * 24 },
+    });
     const result = await response.json();
-    return result.data.content;
+    return result.data.categories;
   } catch (error) {
     console.log(error);
     throw error;
@@ -46,13 +42,10 @@ export const getTopCategories = async (
 
 export const getBottomCategories = async (
   topCategoryId: number,
-  page: number,
-  size: number,
 ): Promise<CategoryBottomResponseType[]> => {
   try {
     const response = await fetch(
-      BASE_URL +
-        `/bottom-categories?topCategoryId=${topCategoryId}&page=${page}&size=${size}`,
+      BASE_URL + `/bottom-categories?topCategoryId=${topCategoryId}`,
       {
         method: 'GET',
         headers: {
@@ -62,7 +55,7 @@ export const getBottomCategories = async (
       },
     );
     const result = await response.json();
-    return result.data.content;
+    return result.data.categories;
   } catch (error) {
     throw error;
   }
