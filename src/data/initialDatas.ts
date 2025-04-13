@@ -43,3 +43,17 @@ export const pageSubHeaderData: PageSubHeaderDataType[] = [
     title: '결제하기',
   },
 ];
+
+export const infoListData = [
+  { id: 1, text: '대표이사 : 손정현' },
+  { id: 2, text: '사업자등록번호 : 201-81-21515' },
+  { id: 3, type: 'tel', text: 'TEL : 1522-3232' },
+  { id: 4, text: '사업자등록번호 : 201-81-21515' },
+  { id: 5, text: '통신판매업신고번호 : 2011-서울중구-1066' },
+];
+
+export const termConditionData = [
+  { id: 1, href: '/terms?type=privacy', text: '개인정보처리방침' },
+  { id: 2, href: '/terms?type=website', text: '홈페이지 이용약관' },
+  { id: 3, href: '/terms?type=card', text: '스타벅스카드 이용약관' },
+];
