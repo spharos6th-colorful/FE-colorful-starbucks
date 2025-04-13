@@ -9,21 +9,33 @@ import {
 } from '@/types/products/productCategoryType';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
-import { ProductListDataType, ProductTypes } from '@/types/products/productTypes';
+import {
+  ProductListDataType,
+  ProductTypes,
+} from '@/types/products/productTypes';
 import { instance } from '../instance';
-import { CategoryBottomResponseType, CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
+import {
+  CategoryBottomResponseType,
+  CategoryTopResponseType,
+} from '@/types/products/categoryResponseTypes';
 
 const BASE_URL = 'http://13.209.230.182:8080/api/v1';
 
-export const getTopCategories = async (page: number, size: number): Promise<CategoryTopResponseType[]> => {
+export const getTopCategories = async (
+  page: number,
+  size: number,
+): Promise<CategoryTopResponseType[]> => {
   try {
-    const response = await fetch(BASE_URL + `/top-categories?page=${page}&size=${size}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
+    const response = await fetch(
+      BASE_URL + `/top-categories?page=${page}&size=${size}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { revalidate: 60 * 60 * 24 }, // 1일
       },
-      next: { revalidate: 60 * 60 * 24 }, // 1일
-    });
+    );
     const result = await response.json();
     return result.data.content;
   } catch (error) {
@@ -39,7 +51,8 @@ export const getBottomCategories = async (
 ): Promise<CategoryBottomResponseType[]> => {
   try {
     const response = await fetch(
-      BASE_URL + `/bottom-categories?topCategoryId=${topCategoryId}&page=${page}&size=${size}`,
+      BASE_URL +
+        `/bottom-categories?topCategoryId=${topCategoryId}&page=${page}&size=${size}`,
       {
         method: 'GET',
         headers: {
@@ -55,11 +68,18 @@ export const getBottomCategories = async (
   }
 };
 
-export const getProductDetail = async (productCode: number): Promise<ProductTypes> => {
+export const getProductDetail = async (
+  productCode: number,
+): Promise<ProductTypes> => {
   try {
-    const response = await fetch(BASE_URL + `http://localhost:8080/api/v1/products/${productCode}`);
+    const response = await fetch(
+      BASE_URL + `http://localhost:8080/api/v1/products/${productCode}`,
+    );
+
     if (!response.ok) {
-      throw new Error(`상품 정보를 가져오는데 실패했습니다: ${response.status}`);
+      throw new Error(
+        `상품 정보를 가져오는데 실패했습니다: ${response.status}`,
+      );
     }
 
     const result = await response.json();
@@ -70,11 +90,17 @@ export const getProductDetail = async (productCode: number): Promise<ProductType
   }
 };
 
-export const getProductTags = async (productCode: number): Promise<ProductTagsType> => {
+export const getProductTags = async (
+  productCode: number,
+): Promise<ProductTagsType> => {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/products/${productCode}/tags`);
+    const response = await fetch(
+      `http://localhost:8080/api/v1/products/${productCode}/tags`,
+    );
     if (!response.ok) {
-      throw new Error(`상품 태그 정보를 가져오는데 실패했습니다: ${response.status}`);
+      throw new Error(
+        `상품 태그 정보를 가져오는데 실패했습니다: ${response.status}`,
+      );
     }
 
     const result = await response.json();
@@ -85,11 +111,17 @@ export const getProductTags = async (productCode: number): Promise<ProductTagsTy
   }
 };
 
-export const getProductOptions = async (productCode: number): Promise<ProductOptionType[]> => {
+export const getProductOptions = async (
+  productCode: number,
+): Promise<ProductOptionType[]> => {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/products/${productCode}/options`);
+    const response = await fetch(
+      `http://localhost:8080/api/v1/products/${productCode}/options`,
+    );
     if (!response.ok) {
-      throw new Error(`상품 옵션 정보를 가져오는데 실패했습니다: ${response.status}`);
+      throw new Error(
+        `상품 옵션 정보를 가져오는데 실패했습니다: ${response.status}`,
+      );
     }
 
     const result = await response.json();
@@ -101,7 +133,9 @@ export const getProductOptions = async (productCode: number): Promise<ProductOpt
       formattedOptions.push({
         id: 'size',
         name: '사이즈',
-        values: optionsData.size.map((item: { sizeName: string }) => item.sizeName),
+        values: optionsData.size.map(
+          (item: { sizeName: string }) => item.sizeName,
+        ),
       });
     }
 
@@ -109,7 +143,9 @@ export const getProductOptions = async (productCode: number): Promise<ProductOpt
       formattedOptions.push({
         id: 'color',
         name: '색상',
-        values: optionsData.color.map((item: { colorName: string }) => item.colorName),
+        values: optionsData.color.map(
+          (item: { colorName: string }) => item.colorName,
+        ),
       });
     }
 
@@ -120,19 +156,29 @@ export const getProductOptions = async (productCode: number): Promise<ProductOpt
   }
 };
 
-export async function getProductCategories(topCategoryId: number): Promise<ProductCategoryTopType[]> {
-  const res = await instance.get<ProductCategoryTopType[]>(`/api/v1/categories/${topCategoryId}/subcategories`);
+export async function getProductCategories(
+  topCategoryId: number,
+): Promise<ProductCategoryTopType[]> {
+  const res = await instance.get<ProductCategoryTopType[]>(
+    `/api/v1/categories/${topCategoryId}/subcategories`,
+  );
   console.log('res', res);
   const data = res.data;
   return data;
 }
 
 // 카테고리 ID에 따른 필터 옵션 조회
-export async function getProductFilters(topCategoryId: number): Promise<FilterDataType> {
+export async function getProductFilters(
+  topCategoryId: number,
+): Promise<FilterDataType> {
   try {
-    const response = await fetch(`http://localhost:8080/api/v1/categories/${topCategoryId}/filters`);
+    const response = await fetch(
+      `http://localhost:8080/api/v1/categories/${topCategoryId}/filters`,
+    );
     if (!response.ok) {
-      throw new Error(`필터 옵션 정보를 가져오는데 실패했습니다: ${response.status}`);
+      throw new Error(
+        `필터 옵션 정보를 가져오는데 실패했습니다: ${response.status}`,
+      );
     }
 
     const result = await response.json();
@@ -151,7 +197,9 @@ type SubCategoriesAndVolume = {
   subDetailCategories: SubDetailCategoryType[];
   subVolumeCategories: SubSizeCateogryType[];
 };
-export async function getSubCategoriesAndVolume(topCategoryId: number): Promise<SubCategoriesAndVolume> {
+export async function getSubCategoriesAndVolume(
+  topCategoryId: number,
+): Promise<SubCategoriesAndVolume> {
   switch (topCategoryId) {
     case 1: // 전체
       return {
@@ -215,13 +263,16 @@ export async function getSubCategoriesAndVolume(topCategoryId: number): Promise<
   }
 }
 
-export async function getFilteredProducts(params: SearchParamsType): Promise<ProductListDataType> {
+export async function getFilteredProducts(
+  params: SearchParamsType,
+): Promise<ProductListDataType> {
   const queryParams = new URLSearchParams();
 
   if (params.cursor) queryParams.append('cursor', params.cursor);
   if (params.minPrice) queryParams.append('minPrice', params.minPrice);
   if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-  if (params.topCategoryId) queryParams.append('topCategoryId', params.topCategoryId);
+  if (params.topCategoryId)
+    queryParams.append('topCategoryId', params.topCategoryId);
 
   if (params.bottomCategoryIds) {
     const bottomCategoryIdsStr = Array.isArray(params.bottomCategoryIds)
@@ -234,7 +285,9 @@ export async function getFilteredProducts(params: SearchParamsType): Promise<Pro
   if (params.sortBy) queryParams.append('sortBy', params.sortBy);
 
   try {
-    const response = await fetch(`http://localhost:8080/api/product-category-list?${queryParams.toString()}`);
+    const response = await fetch(
+      `http://localhost:8080/api/product-category-list?${queryParams.toString()}`,
+    );
     if (!response.ok) {
       throw new Error('상품 목록을 가져오는데 실패했습니다.');
     }
@@ -273,14 +326,17 @@ export const getProductDetailDummy = async (productCode: number) => {
   }
 };
 
-export async function fetchMoreProducts(params: SearchParamsType): Promise<ProductListDataType> {
+export async function fetchMoreProducts(
+  params: SearchParamsType,
+): Promise<ProductListDataType> {
   try {
     const queryParams = new URLSearchParams();
 
     if (params.cursor) queryParams.append('cursor', params.cursor);
     if (params.minPrice) queryParams.append('minPrice', params.minPrice);
     if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-    if (params.topCategoryId) queryParams.append('topCategoryId', params.topCategoryId);
+    if (params.topCategoryId)
+      queryParams.append('topCategoryId', params.topCategoryId);
 
     if (params.bottomCategoryIds) {
       const bottomCategoryIdsStr = Array.isArray(params.bottomCategoryIds)
@@ -292,7 +348,9 @@ export async function fetchMoreProducts(params: SearchParamsType): Promise<Produ
     if (params.size) queryParams.append('size', params.size);
     if (params.sortBy) queryParams.append('sortBy', params.sortBy);
 
-    const response = await fetch(`/product-category-list?${queryParams.toString()}`);
+    const response = await fetch(
+      `/product-category-list?${queryParams.toString()}`,
+    );
 
     if (!response.ok) {
       throw new Error('추가 상품을 불러오는데 실패했습니다.');
@@ -305,7 +363,9 @@ export async function fetchMoreProducts(params: SearchParamsType): Promise<Produ
     throw error;
   }
 }
-export async function getInitialProductsData(searchParams?: SearchParamsType): Promise<ProductListDataType> {
+export async function getInitialProductsData(
+  searchParams?: SearchParamsType,
+): Promise<ProductListDataType> {
   try {
     // 초기 로딩 시 기본 파라미터 설정
     const defaultParams: SearchParamsType = {

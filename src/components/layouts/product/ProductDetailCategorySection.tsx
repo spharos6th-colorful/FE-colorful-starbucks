@@ -15,7 +15,9 @@ type ProductDetailCategorySectionProps = {
   bottomCategory: CategoryBottomResponseType[];
 };
 
-export default function ProductDetailCategorySection({ bottomCategory }: ProductDetailCategorySectionProps) {
+export default function ProductDetailCategorySection({
+  bottomCategory,
+}: ProductDetailCategorySectionProps) {
   const [isExpanded, setIsExpanded] = useState(true);
   const [isAll, setIsAll] = useState(false);
   const rawSearchParams = useSearchParams();
@@ -28,7 +30,9 @@ export default function ProductDetailCategorySection({ bottomCategory }: Product
 
   const searchParams: SearchParamsType = useMemo(() => {
     const rawBottomCategoryIds = rawSearchParams.get('bottomCategoryIds');
-    const bottomCategoryIds = rawBottomCategoryIds ? [...new Set(rawBottomCategoryIds.split(','))] : [];
+    const bottomCategoryIds = rawBottomCategoryIds
+      ? [...new Set(rawBottomCategoryIds.split(','))]
+      : [];
     return {
       bottomCategoryIds: bottomCategoryIds,
       price: rawSearchParams.get('price') || '',
@@ -44,10 +48,14 @@ export default function ProductDetailCategorySection({ bottomCategory }: Product
         )}
       >
         {isAll && (
-          <ProductDetailCategoryTabBar categories={bottomCategory} selectedIds={searchParams.bottomCategoryIds} />
+          <ProductDetailCategoryTabBar
+            categories={bottomCategory}
+            selectedIds={searchParams.bottomCategoryIds}
+          />
         )}
         <ProductPriceFilterRow title='가격' priceOptions={priceOptions} />
       </section>
+
       <div className='w-full py-3 flex justify-center border-b border-stroke-100'>
         <button
           onClick={() => setIsExpanded(!isExpanded)}
@@ -55,7 +63,13 @@ export default function ProductDetailCategorySection({ bottomCategory }: Product
           type='button'
         >
           {isExpanded ? '접기' : '펼치기'}
-          <ChevronUp size={16} className={cn(isExpanded ? 'rotate-0' : 'rotate-180', 'transition-all ml-1')} />
+          <ChevronUp
+            size={16}
+            className={cn(
+              isExpanded ? 'rotate-0' : 'rotate-180',
+              'transition-all ml-1',
+            )}
+          />
         </button>
       </div>
     </>

@@ -4,7 +4,10 @@ import SelectedOptionList from './SelectedOptionList';
 import CartIcon from '@/assets/icons/product/cart.svg';
 import { Button } from '@/components/ui/common';
 import { useProductOptions } from '@/context/ProductOptionsContext';
-import { ProductDetail, SelectedOption } from '@/types/products/productPurchaseTypes';
+import {
+  ProductDetail,
+  SelectedOption,
+} from '@/types/products/productPurchaseTypes';
 import OptionSelectionForm from './OptionSelectionForm';
 
 interface PurchaseFormProps {
@@ -13,7 +16,11 @@ interface PurchaseFormProps {
   onPurchase: (options: SelectedOption[]) => void;
 }
 
-export default function PurchaseForm({ product, onAddToCart, onPurchase }: PurchaseFormProps) {
+export default function PurchaseForm({
+  product,
+  onAddToCart,
+  onPurchase,
+}: PurchaseFormProps) {
   const { selectedOptions } = useProductOptions();
 
   const handlePurchase = () => {

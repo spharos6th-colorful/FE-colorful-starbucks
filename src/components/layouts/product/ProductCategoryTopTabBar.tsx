@@ -9,7 +9,9 @@ type ProductCategoryTopTabBarProps = {
   topCategory: CategoryTopResponseType[];
 };
 
-export default function ProductCategoryTopTabBar({ topCategory }: ProductCategoryTopTabBarProps) {
+export default function ProductCategoryTopTabBar({
+  topCategory,
+}: ProductCategoryTopTabBarProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentCategoryCode = searchParams.get('topCategoryId') || '1';
@@ -35,7 +37,11 @@ export default function ProductCategoryTopTabBar({ topCategory }: ProductCategor
       {topCategory.map((category) => {
         const isActive = currentCategoryCode === String(category.topCategoryId);
         return (
-          <li key={category.topCategoryId} className='flex-shrink-0' ref={isActive ? activeTabRef : null}>
+          <li
+            key={category.topCategoryId}
+            className='flex-shrink-0'
+            ref={isActive ? activeTabRef : null}
+          >
             <ProductCategoryTop
               name={category.categoryName}
               isActive={isActive}

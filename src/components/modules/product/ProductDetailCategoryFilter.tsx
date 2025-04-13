@@ -30,14 +30,16 @@ export default function ProductDetailCategoryFilter() {
 
   return (
     <div className='w-full border-b border-stroke-100'>
-      <div className='flex overflow-x-auto hide-scrollbar'>
+      <div className='flex overflow-x-auto scrollbar-hidden'>
         {filters.map((filter) => (
           <Link
             key={filter.id}
             href={`${pathname}?${updateQueryParams(filter.id)}`}
             className={cn(
               'px-4 py-3 text-body3 whitespace-nowrap',
-              activeFilter === filter.id ? 'text-primary-100 border-b-2 border-primary-100' : 'text-text-700',
+              activeFilter === filter.id
+                ? 'text-primary-100 border-b-2 border-primary-100'
+                : 'text-text-700',
             )}
             scroll={false}
           >

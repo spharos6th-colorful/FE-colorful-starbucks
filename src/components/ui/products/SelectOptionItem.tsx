@@ -10,7 +10,11 @@ interface SelectedOptionItemProps {
   onQuantityChange: (id: string, quantity: number) => void;
 }
 
-export default function SelectedOptionItem({ option, onRemove, onQuantityChange }: SelectedOptionItemProps) {
+export default function SelectedOptionItem({
+  option,
+  onRemove,
+  onQuantityChange,
+}: SelectedOptionItemProps) {
   const { id, options, quantity } = option;
 
   const handleIncrease = () => onQuantityChange(id, quantity + 1);
@@ -33,7 +37,12 @@ export default function SelectedOptionItem({ option, onRemove, onQuantityChange 
       </div>
       <div className='flex justify-between items-center'>
         <span className='text-gray-500'>수량</span>
-        <QuantityControl quantity={quantity} onIncrease={handleIncrease} onDecrease={handleDecrease} size='small' />
+        <QuantityControl
+          quantity={quantity}
+          onIncrease={handleIncrease}
+          onDecrease={handleDecrease}
+          size='small'
+        />
       </div>
     </div>
   );

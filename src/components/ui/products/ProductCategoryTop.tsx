@@ -3,7 +3,11 @@ import React from 'react';
 import { ProductCategoryTopProsType } from '@/types/products/productCategoryTopTypes';
 import { cn } from '@/lib/utils';
 
-export default function ProductCategoryTop({ name, isActive = false, onClick }: ProductCategoryTopProsType) {
+export default function ProductCategoryTop({
+  name,
+  isActive = false,
+  onClick,
+}: ProductCategoryTopProsType) {
   return (
     <div
       className={cn(
