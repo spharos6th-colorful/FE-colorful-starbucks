@@ -23,7 +23,9 @@ interface FilteredProductSectionProps {
   initialProductsData: ProductListDataType;
 }
 
-async function fetchMoreProductsDummy(params: SearchParamsType): Promise<ProductListDataType> {
+async function fetchMoreProductsDummy(
+  params: SearchParamsType,
+): Promise<ProductListDataType> {
   try {
     // 지연 효과를 주기 위한 setTimeout 사용
     return new Promise((resolve) => {
@@ -39,13 +41,19 @@ async function fetchMoreProductsDummy(params: SearchParamsType): Promise<Product
   }
 }
 
-export default function FilteredProductSection({ searchParams, initialProductsData }: FilteredProductSectionProps) {
+export default function FilteredProductSection({
+  searchParams,
+  initialProductsData,
+}: FilteredProductSectionProps) {
   const router = useRouter();
   const searchParamsObj = useSearchParams();
 
-  const cursor = searchParamsObj.get('cursor') ? Number(searchParamsObj.get('cursor')) : initialProductsData.nextCursor;
+  const cursor = searchParamsObj.get('cursor')
+    ? Number(searchParamsObj.get('cursor'))
+    : initialProductsData.nextCursor;
 
-  const [productsData, setProductsData] = useState<ProductListDataType>(initialProductsData);
+  const [productsData, setProductsData] =
+    useState<ProductListDataType>(initialProductsData);
   const [loading, setLoading] = useState(false);
 
   const [hasMore, setHasMore] = useState(initialProductsData.hasNext);
@@ -119,7 +127,10 @@ export default function FilteredProductSection({ searchParams, initialProductsDa
           const isLastItem = index === productsData.content.length - 1;
 
           return (
-            <div key={`${product.id}-${index}`} ref={isLastItem ? lastProductRef : undefined}>
+            <div
+              key={`${product.id}-${index}`}
+              ref={isLastItem ? lastProductRef : undefined}
+            >
               <FilteredProductItemCard productCode={product.productCode} />
             </div>
           );
@@ -127,7 +138,9 @@ export default function FilteredProductSection({ searchParams, initialProductsDa
       </div>
 
       {!hasMore && productsData.content.length > 0 && (
-        <div className='text-center my-8 text-gray-500'>모든 상품을 불러왔습니다.</div>
+        <div className='text-center my-8 text-gray-500'>
+          모든 상품을 불러왔습니다.
+        </div>
       )}
 
       {!loading && productsData.content.length === 0 && (

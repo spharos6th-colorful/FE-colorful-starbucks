@@ -19,7 +19,12 @@ type ProductFilterRowProps = {
   isMultiSelect?: boolean;
 };
 
-function handleMultiSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
+function handleMultiSelect(
+  params: URLSearchParams,
+  filterId: string,
+  selectedArray: string[],
+  optionId: string,
+) {
   const isSelected = selectedArray.includes(optionId);
 
   if (isSelected) {
@@ -35,7 +40,12 @@ function handleMultiSelect(params: URLSearchParams, filterId: string, selectedAr
   }
 }
 
-function handleSingleSelect(params: URLSearchParams, filterId: string, selectedArray: string[], optionId: string) {
+function handleSingleSelect(
+  params: URLSearchParams,
+  filterId: string,
+  selectedArray: string[],
+  optionId: string,
+) {
   if (selectedArray.includes(optionId)) {
     params.delete(filterId);
   } else {
@@ -73,7 +83,9 @@ export default function ProductFilterRow({
           key={option.filterId}
           href={`${pathname}?${updateQueryParams(option.filterId)}`}
           className={`whitespace-nowrap text-body3 ${
-            selectedArray.includes(option.filterId) ? 'text-primary-100 font-black' : 'text-text-700'
+            selectedArray.includes(option.filterId)
+              ? 'text-primary-100 font-black'
+              : 'text-text-700'
           }`}
           scroll={false}
         >

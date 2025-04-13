@@ -15,9 +15,13 @@ interface RequestOptions extends RequestInit {
   revalidate?: number | false; // 재검증 시간 (초)
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api/v1';
+const BASE_URL =
+  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api/v1';
 
-const fetchInstance = async <T = undefined>(url: string, options: RequestOptions = {}): Promise<ApiResponse<T>> => {
+const fetchInstance = async <T = undefined>(
+  url: string,
+  options: RequestOptions = {},
+): Promise<ApiResponse<T>> => {
   try {
     const headers: Record<string, string> = {
       ...(options.headers as Record<string, string>),
@@ -107,15 +111,24 @@ export const revalidateCache = (tag: string) => {
 };
 
 export const instance = {
-  get: async <T>(url: string, options: Omit<RequestOptions, 'body' | 'method'> = {}) => {
+  get: async <T>(
+    url: string,
+    options: Omit<RequestOptions, 'body' | 'method'> = {},
+  ) => {
     return fetchInstance<T>(url, { method: 'GET', ...options });
   },
 
-  post: async <T>(url: string, options: Omit<RequestOptions, 'method'> = {}) => {
+  post: async <T>(
+    url: string,
+    options: Omit<RequestOptions, 'method'> = {},
+  ) => {
     return fetchInstance<T>(url, { method: 'POST', ...options });
   },
 
-  patch: async <T>(url: string, options: Omit<RequestOptions, 'method'> = {}) => {
+  patch: async <T>(
+    url: string,
+    options: Omit<RequestOptions, 'method'> = {},
+  ) => {
     return fetchInstance<T>(url, { method: 'PATCH', ...options });
   },
 
@@ -123,7 +136,10 @@ export const instance = {
     return fetchInstance<T>(url, { method: 'PUT', ...options });
   },
 
-  delete: async <T>(url: string, options: Omit<RequestOptions, 'body' | 'method'> = {}) => {
+  delete: async <T>(
+    url: string,
+    options: Omit<RequestOptions, 'body' | 'method'> = {},
+  ) => {
     return fetchInstance<T>(url, { method: 'DELETE', ...options });
   },
 };
