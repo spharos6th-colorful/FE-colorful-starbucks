@@ -1,4 +1,3 @@
-import Footer from '@/components/layouts/Footer';
 import MainHeader from '@/components/layouts/Header/MainHeader';
 import Nav from '@/components/layouts/Nav';
 
@@ -12,7 +11,6 @@ export default function MainHeaderLayout({
       <MainHeader />
       <main className='pb-16'>{children}</main>
       <Nav />
-      <Footer />
     </>
   );
 }

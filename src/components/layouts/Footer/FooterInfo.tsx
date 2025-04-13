@@ -40,7 +40,7 @@ export default function FooterInfo() {
           className={cn(
             'flex flex-wrap items-center gap-x-1.5 gap-y-1.5',
             '*:relative *:pr-2',
-            '*:last:after:hidden *:after:block *:after:h-2.5 *:after:w-0.5 *:after:bg-text-100 ',
+            '*:last:after:hidden *:after:block *:after:h-2.5 *:after:w-[1px] *:after:bg-text-100 ',
             '*:after:-translate-y-1/2 *:after:top-1/2 *:after:right-0 *:after:absolute',
           )}
         >
