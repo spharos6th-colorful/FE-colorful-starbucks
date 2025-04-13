@@ -31,7 +31,7 @@ export default function ProductCategoryTopTabBar({ topCategory }: ProductCategor
   }, [currentCategoryCode]);
 
   return (
-    <ul className='flex justify-center border-b boarder-stroke-100 overflow-x-auto hide-scrollbar'>
+    <ul className='flex  border-b boarder-stroke-100 overflow-x-auto hide-scrollbar'>
       {topCategory.map((category) => {
         const isActive = currentCategoryCode === String(category.topCategoryId);
         return (
