@@ -22,3 +22,12 @@ export interface ProductListDataType {
 export interface ProductsWithDetailsDataType extends ProductListDataType {
   productDetails: ProductTypes[];
 }
+
+export type RecentlyViewedProductItem = {
+  productCode: number;
+};
+
+export type DailyRecentlyViewedProducts = {
+  viewedAt: string;
+  recentlyViewProducts: RecentlyViewedProductItem[];
+};

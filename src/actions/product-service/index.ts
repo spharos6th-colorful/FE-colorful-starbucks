@@ -10,6 +10,7 @@ import {
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import {
+  DailyRecentlyViewedProducts,
   ProductListDataType,
   ProductTypes,
 } from '@/types/products/productTypes';
@@ -333,5 +334,19 @@ export async function getInitialProductsData(
       hasNext: false,
       nextCursor: null,
     };
+  }
+}
+
+export async function getRecentlyProducts(): Promise<
+  DailyRecentlyViewedProducts[]
+> {
+  try {
+    const response = await fetch(
+      `${process.env.BASE_URL}/users/recently-view-products`,
+    );
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
   }
 }
