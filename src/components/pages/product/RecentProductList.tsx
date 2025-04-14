@@ -9,7 +9,7 @@ export default function RecentProductList({
   recentProducts: DailyRecentlyViewedProducts[];
 }) {
   return (
-    <section className='m-5 bg-white '>
+    <section className='ml-4 m-4 bg-white '>
       {recentProducts.map((products) => (
         <RecentProductGroup key={products.viewedAt} recentProducts={products} />
       ))}

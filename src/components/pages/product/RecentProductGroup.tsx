@@ -18,7 +18,7 @@ export default function RecentProductGroup({
 
   return (
     <section className='mb-6'>
-      <h2 className='text-sm font-medium text-gray-500 mb-2'>
+      <h2 className='text-sm font-medium mb-2'>
         {formatDate(recentProducts.viewedAt)}
       </h2>
       <div className='bg-white rounded-lg '>
