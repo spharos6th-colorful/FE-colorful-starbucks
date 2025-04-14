@@ -1,15 +1,17 @@
 import React from 'react';
 
-// import { getRecentlyProducts } from '@/actions/product-service';
+import { getRecentlyProductsDummy } from '@/actions/product-service';
+import RecentProductList from '@/components/pages/product/RecentProductList';
 
-export default function RecentlyViewedPage() {
-  // const recentProducts = getRecentlyProducts();
-
+export default async function RecentlyViewedPage() {
+  // const recentProducts = await getRecentlyProducts();
+  const recentProducts = await getRecentlyProductsDummy();
   return (
     <>
       <header></header>
-      {/* <RecentProductList recentProducts={recentProducts} /> */}
-      <main></main>
+      <main>
+        <RecentProductList recentProducts={recentProducts} />
+      </main>
     </>
   );
 }
