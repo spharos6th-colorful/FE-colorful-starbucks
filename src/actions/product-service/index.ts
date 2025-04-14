@@ -350,3 +350,46 @@ export async function getRecentlyProducts(): Promise<
     throw error;
   }
 }
+
+export async function getRecentlyProductsDummy(): Promise<
+  DailyRecentlyViewedProducts[]
+> {
+  return [
+    {
+      viewedAt: '2025-04-14',
+      recentlyViewProducts: [
+        { productCode: 1000643461774 },
+        { productCode: 1000038695356 },
+        { productCode: 1000548972182 },
+      ],
+    },
+    {
+      viewedAt: '2025-04-13',
+      recentlyViewProducts: [
+        { productCode: 1000380318119 },
+        { productCode: 1000642803667 },
+      ],
+    },
+    {
+      viewedAt: '2025-04-10',
+      recentlyViewProducts: [
+        { productCode: 1000605449653 },
+        { productCode: 1000680163829 },
+        { productCode: 2097002153962 },
+        { productCode: 1000522642212 },
+      ],
+    },
+  ];
+}
+
+export async function getProduct(productCode: number): Promise<ProductTypes> {
+  try {
+    const response = await fetch(
+      `${process.env.BASE_URL}/products/${productCode}`,
+    );
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
