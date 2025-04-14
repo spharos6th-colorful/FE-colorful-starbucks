@@ -9,13 +9,13 @@ const nextConfig: NextConfig = {
     return config;
   },
   images: {
+    domains: ['sitem.ssgcdn.com', 'image.istarbucks.co.kr'],
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 's3.amazonaws.com',
         port: '',
         pathname: '/my-bucket/**',
-        search: '',
       },
     ],
   },
