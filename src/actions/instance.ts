@@ -15,8 +15,7 @@ interface RequestOptions extends RequestInit {
   revalidate?: number | false; // 재검증 시간 (초)
 }
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api/v1';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:8080/api/v1';
 
 const fetchInstance = async <T = undefined>(
   url: string,

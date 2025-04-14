@@ -384,12 +384,43 @@ export async function getRecentlyProductsDummy(): Promise<
 
 export async function getProduct(productCode: number): Promise<ProductTypes> {
   try {
-    const response = await fetch(
-      `${process.env.BASE_URL}/products/${productCode}`,
+    const response = await instance.get<ProductTypes>(
+      `/products/${productCode}`,
+      {
+        cache: 'force-cache',
+        tags: ['product', `product-${productCode}`],
+        revalidate: 60 * 60 * 24,
+      },
     );
-    const result = await response.json();
-    return result.data;
+
+    return response.data;
   } catch (error) {
+    console.error(`제품 정보(코드: ${productCode}) 조회 중 오류:`, error);
+    throw error;
+  }
+}
+
+export async function deleteRecentProduct(productCode: number) {
+  try {
+    return await instance.delete(
+      `/users/recently-view-products/${productCode}`,
+      {
+        requireAuth: true,
+      },
+    );
+  } catch (error) {
+    console.error('최근 제품 삭제 중 오류 발생:', error);
+    throw error;
+  }
+}
+
+export async function deleteAllRecentProducts() {
+  try {
+    return await instance.delete(`/users/recently-view-products`, {
+      requireAuth: true,
+    });
+  } catch (error) {
+    console.error('최근 제품 삭제 중 오류 발생:', error);
     throw error;
   }
 }
