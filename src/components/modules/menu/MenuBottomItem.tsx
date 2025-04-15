@@ -3,10 +3,14 @@ import { useRouter } from 'next/navigation';
 
 import { Body, Caption } from '@/components/ui/common';
 import { useMenuContext } from '@/context/MenuContext';
-import type { MenuListDataType } from '@/types/Menu';
+import type { MenuListDataType } from '@/types/menu';
 import ChevronRight from '@/assets/icons/common/chevron-right.svg';
 
-export default function MenuBottomItem({ href, desc, title }: MenuListDataType) {
+export default function MenuBottomItem({
+  href,
+  desc,
+  title,
+}: MenuListDataType) {
   const router = useRouter();
   const { setIsOpen } = useMenuContext();
 
@@ -17,7 +21,10 @@ export default function MenuBottomItem({ href, desc, title }: MenuListDataType) 
 
   return (
     <li className='grid grid-cols-[1fr_auto] justify-between items-center gap-x-3 py-5'>
-      <button onClick={() => handleRouteChange(href)} className='text-left space-y-1.5'>
+      <button
+        onClick={() => handleRouteChange(href)}
+        className='text-left space-y-1.5'
+      >
         <Body level={2}>{title}</Body>
         <Caption level={3}>{desc}</Caption>
       </button>
