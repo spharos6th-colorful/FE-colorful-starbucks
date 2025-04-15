@@ -12,7 +12,7 @@ export const getCartDatas = async () => {
     const res = await instance.get<CartDatasType>(`/carts`, {
       headers: { Authorization: `Bearer ${process.env.ACCESS_TOKEN}` },
       next: { tags: [CART_TAG] },
-      cache: 'force-cache',
+      cache: 'default',
     });
 
     return res.data;
