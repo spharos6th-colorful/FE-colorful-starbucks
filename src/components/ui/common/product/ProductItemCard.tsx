@@ -29,11 +29,9 @@ export default async function ProductItemCard({
 
       <div className='flex-1'>
         <h3 className='text-sm text-gray-800 mb-1'>{product.productName}</h3>
-        <div className='flex items-center'>
-          <span className='text-base font-semibold'>
-            {product.price.toLocaleString()}원
-          </span>
-        </div>
+        <p className='text-base font-semibold'>
+          {product.price.toLocaleString()}원
+        </p>
       </div>
     </article>
   );

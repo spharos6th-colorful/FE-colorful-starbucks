@@ -27,7 +27,7 @@ export type RecentlyViewedProductItem = {
   productCode: number;
 };
 
-export type DailyRecentlyViewedProducts = {
+export type DailyRecentlyViewedProductsType = {
   viewedAt: string;
   recentlyViewProducts: RecentlyViewedProductItem[];
 };

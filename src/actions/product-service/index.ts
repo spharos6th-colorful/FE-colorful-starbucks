@@ -10,7 +10,7 @@ import {
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import {
-  DailyRecentlyViewedProducts,
+  DailyRecentlyViewedProductsType,
   ProductListDataType,
   ProductTypes,
 } from '@/types/products/productTypes';
@@ -338,7 +338,7 @@ export async function getInitialProductsData(
 }
 
 export async function getRecentlyProducts(): Promise<
-  DailyRecentlyViewedProducts[]
+  DailyRecentlyViewedProductsType[]
 > {
   try {
     const response = await fetch(
@@ -352,7 +352,7 @@ export async function getRecentlyProducts(): Promise<
 }
 
 export async function getRecentlyProductsDummy(): Promise<
-  DailyRecentlyViewedProducts[]
+  DailyRecentlyViewedProductsType[]
 > {
   return [
     {
