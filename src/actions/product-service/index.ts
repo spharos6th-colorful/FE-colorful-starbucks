@@ -19,6 +19,7 @@ import {
   CategoryBottomResponseType,
   CategoryTopResponseType,
 } from '@/types/products/categoryResponseTypes';
+import { ProductDetailDataType } from '@/types/responseDataTypes';
 
 const BASE_URL = 'http://13.209.230.182:8080/api/v1';
 
@@ -66,18 +67,11 @@ export const getProductDetail = async (
   productCode: number,
 ): Promise<ProductTypes> => {
   try {
-    const response = await fetch(
-      BASE_URL + `http://localhost:8080/api/v1/products/${productCode}`,
+    const response = await instance.get<ProductTypes>(
+      `/products/${productCode}`,
     );
 
-    if (!response.ok) {
-      throw new Error(
-        `상품 정보를 가져오는데 실패했습니다: ${response.status}`,
-      );
-    }
-
-    const result = await response.json();
-    return result.data;
+    return response.data;
   } catch (error) {
     console.error('상품 상세 정보 조회 중 오류 발생:', error);
     throw error;
@@ -471,3 +465,22 @@ export async function deleteAllRecentProducts() {
     throw error;
   }
 }
+
+export const getProudctDetailData = async (
+  productCode: number,
+): Promise<ProductDetailDataType> => {
+  try {
+    const res = await instance.get<ProductDetailDataType>(
+      `/product-details/${productCode}`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+        },
+      },
+    );
+
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
