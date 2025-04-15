@@ -1,18 +1,55 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
-import CategoryContent from '../../modules/product/CategoryContent';
+import { CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
+import ProductCategoryTop from '@/components/ui/products/ProductCategoryTop';
+
+type ProductCategoryTopTabBarProps = {
+  topCategory: CategoryTopResponseType[];
+};
 
 export default function ProductCategoryTopTabBar({
-  initialCategory,
-}: {
-  initialCategory: string;
-}) {
+  topCategory,
+}: ProductCategoryTopTabBarProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const currentCategoryCode = searchParams.get('topCategoryId') || '0';
+
+  const activeTabRef = useRef<HTMLLIElement>(null);
+
+  const handleCategoryClick = (category: CategoryTopResponseType) => {
+    router.push(`?topCategoryId=${category.topCategoryId}`, { scroll: false });
+  };
+
+  useEffect(() => {
+    if (activeTabRef.current) {
+      activeTabRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'center',
+      });
+    }
+  }, [currentCategoryCode]);
+
   return (
-    <div className='w-full border-b boarder-stroke-100 flex justify-center'>
-      <div className='max-w-3xl w-full'>
-        <CategoryContent initialCategory={initialCategory} />
-      </div>
-    </div>
+    <ul className='flex  border-b boarder-stroke-100 overflow-x-auto scrollbar-hidden'>
+      {topCategory.map((category) => {
+        const isActive = currentCategoryCode === String(category.topCategoryId);
+        return (
+          <li
+            key={category.topCategoryId}
+            className='flex-shrink-0'
+            ref={isActive ? activeTabRef : null}
+          >
+            <ProductCategoryTop
+              name={category.categoryName}
+              isActive={isActive}
+              onClick={() => handleCategoryClick(category)}
+            />
+          </li>
+        );
+      })}
+    </ul>
   );
 }

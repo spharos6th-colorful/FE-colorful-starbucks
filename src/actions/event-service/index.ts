@@ -16,6 +16,7 @@ export type DetailEventResponseType = {
   policy: string;
   status: string;
 };
+const BASE_URL = 'http://13.209.230.182:8080/api/v1';
 
 export const getEvents = async (
   page: number,
@@ -23,7 +24,7 @@ export const getEvents = async (
 ): Promise<EventResponseType[]> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/v1/events?size=${size}&page=${page}`,
+      BASE_URL + `/events?size=${size}&page=${page}`,
     );
 
     const result = await response.json();

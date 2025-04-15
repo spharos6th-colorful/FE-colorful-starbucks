@@ -1,21 +1,22 @@
 'use client';
 import React, { useRef, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 import ProductCategoryTop from '@/components/ui/products/ProductCategoryTop';
-import { sampleCategories } from '@/data/productDummy/productCategoryTopDummyDatas';
-import { ProductCategoryTopType } from '@/types/products/productCategoryType';
+import { CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
 
-export default function CategoryContent({
-  initialCategory,
-}: {
-  initialCategory: string;
-}) {
+type CategoryContentProps = {
+  topCategory: CategoryTopResponseType[];
+};
+
+export default function CategoryContent({ topCategory }: CategoryContentProps) {
   const router = useRouter();
-  const currentCategoryCode = initialCategory;
+  const searchParams = useSearchParams();
+  const currentCategoryCode = searchParams.get('topCategoryId') || '1';
+
   const activeTabRef = useRef<HTMLDivElement>(null);
 
-  const handleCategoryClick = (category: ProductCategoryTopType) => {
+  const handleCategoryClick = (category: CategoryTopResponseType) => {
     router.push(`?topCategoryId=${category.topCategoryId}`, { scroll: false });
   };
 
@@ -30,11 +31,12 @@ export default function CategoryContent({
   }, [currentCategoryCode]);
 
   return (
-    <div className='flex justify-center'>
-      <div className='flex overflow-x-auto scrollbar-hidden'>
-        {sampleCategories.map((category) => {
+    <div className='flex justify-center '>
+      <div className='flex overflow-x-auto hide-scrollbar'>
+        {topCategory.map((category) => {
           const isActive =
-            currentCategoryCode === category.topCategoryId.toString();
+            currentCategoryCode === String(category.topCategoryId);
+
           return (
             <div
               key={category.topCategoryId}

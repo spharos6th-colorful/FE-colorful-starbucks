@@ -15,14 +15,61 @@ import {
   ProductTypes,
 } from '@/types/products/productTypes';
 import { instance } from '../instance';
+import {
+  CategoryBottomResponseType,
+  CategoryTopResponseType,
+} from '@/types/products/categoryResponseTypes';
+
+const BASE_URL = 'http://13.209.230.182:8080/api/v1';
+
+export const getTopCategories = async (): Promise<
+  CategoryTopResponseType[]
+> => {
+  try {
+    const response = await fetch(BASE_URL + `/top-categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 60 * 60 * 24 },
+    });
+    const result = await response.json();
+    return result.data.categories;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getBottomCategories = async (
+  topCategoryId: number,
+): Promise<CategoryBottomResponseType[]> => {
+  try {
+    const response = await fetch(
+      BASE_URL + `/bottom-categories?topCategoryId=${topCategoryId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { revalidate: 60 * 60 * 24 }, // 1일
+      },
+    );
+    const result = await response.json();
+    return result.data.categories;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const getProductDetail = async (
   productCode: number,
 ): Promise<ProductTypes> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/v1/products/${productCode}`,
+      BASE_URL + `http://localhost:8080/api/v1/products/${productCode}`,
     );
+
     if (!response.ok) {
       throw new Error(
         `상품 정보를 가져오는데 실패했습니다: ${response.status}`,
