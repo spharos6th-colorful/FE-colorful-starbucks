@@ -4,7 +4,7 @@ import { getServerSession } from 'next-auth';
 
 import './globals.css';
 import { MenuProvider } from '@/context/MenuContext';
-import Menu from '@/components/ui/common/menu';
+import Menu from '@/components/ui/common/Menu';
 import ScrollToTopButton from '@/components/ui/common/ScrollToTopButton';
 import { ModalProvider } from '@/context/ModalContext';
 import AuthContextProvider from '@/provider/AuthContextProvider';

@@ -11,7 +11,10 @@ type ProductPriceFilterRowProps = {
   priceOptions: PriceOptionType[];
 };
 
-export default function ProductPriceFilterRow({ title, priceOptions }: ProductPriceFilterRowProps) {
+export default function ProductPriceFilterRow({
+  title,
+  priceOptions,
+}: ProductPriceFilterRowProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const selectedOptionRef = useRef<HTMLAnchorElement>(null);
@@ -20,7 +23,9 @@ export default function ProductPriceFilterRow({ title, priceOptions }: ProductPr
   const currentMaxPrice = searchParams.get('maxPrice') || '';
 
   const selectedOption = priceOptions.find(
-    (option) => option.minPrice === currentMinPrice && option.maxPrice === currentMaxPrice,
+    (option) =>
+      option.minPrice === currentMinPrice &&
+      option.maxPrice === currentMaxPrice,
   );
 
   const updatePriceParams = (option: PriceOptionType) => {
