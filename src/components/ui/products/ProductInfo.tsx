@@ -19,7 +19,7 @@ interface ProductInfoProps extends ProductTypes {
 }
 
 export default function ProductInfo({ tags, ...product }: ProductInfoProps) {
-  const handleshareProduct = (productCode: string) => {
+  const handleshareProduct = (productCode: number) => {
     console.log('shared' + productCode);
   };
 

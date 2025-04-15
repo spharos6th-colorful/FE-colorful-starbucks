@@ -9,7 +9,7 @@ import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { cn } from '@/lib/utils';
 
 interface ProductActionsProps {
-  productId: string;
+  productId: number;
   productPrice: number;
   productOptions: ProductOptionType[];
 }

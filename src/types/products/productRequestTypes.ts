@@ -1,5 +1,5 @@
 export interface ProductTagsType {
-  productCode: string;
+  productCode: number;
   isBest: boolean;
   isNew: boolean;
   isMarkable: boolean;

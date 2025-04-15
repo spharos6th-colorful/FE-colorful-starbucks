@@ -4,7 +4,7 @@ import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import ProductActions from '@/components/ui/products/ProductActions';
 
 interface ProductActionsWrapperProps {
-  productId: string;
+  productId: number;
   productPrice: number;
   productOptions: ProductOptionType[];
 }

@@ -10,6 +10,7 @@ import {
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import {
+  DailyRecentlyViewedProductsType,
   ProductListDataType,
   ProductTypes,
 } from '@/types/products/productTypes';
@@ -333,5 +334,93 @@ export async function getInitialProductsData(
       hasNext: false,
       nextCursor: null,
     };
+  }
+}
+
+export async function getRecentlyProducts(): Promise<
+  DailyRecentlyViewedProductsType[]
+> {
+  try {
+    const response = await fetch(
+      `${process.env.BASE_URL}/users/recently-view-products`,
+    );
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getRecentlyProductsDummy(): Promise<
+  DailyRecentlyViewedProductsType[]
+> {
+  return [
+    {
+      viewedAt: '2025-04-14',
+      recentlyViewProducts: [
+        { productCode: 1000643461774 },
+        { productCode: 1000038695356 },
+        { productCode: 1000548972182 },
+      ],
+    },
+    {
+      viewedAt: '2025-04-13',
+      recentlyViewProducts: [
+        { productCode: 1000380318119 },
+        { productCode: 1000642803667 },
+      ],
+    },
+    {
+      viewedAt: '2025-04-10',
+      recentlyViewProducts: [
+        { productCode: 1000605449653 },
+        { productCode: 1000680163829 },
+        { productCode: 2097002153962 },
+        { productCode: 1000522642212 },
+      ],
+    },
+  ];
+}
+
+export async function getProduct(productCode: number): Promise<ProductTypes> {
+  try {
+    const response = await instance.get<ProductTypes>(
+      `/products/${productCode}`,
+      {
+        cache: 'force-cache',
+        tags: ['product', `product-${productCode}`],
+        revalidate: 60 * 60 * 24,
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(`제품 정보(코드: ${productCode}) 조회 중 오류:`, error);
+    throw error;
+  }
+}
+
+export async function deleteRecentProduct(productCode: number) {
+  try {
+    return await instance.delete(
+      `/users/recently-view-products/${productCode}`,
+      {
+        requireAuth: true,
+      },
+    );
+  } catch (error) {
+    console.error('최근 제품 삭제 중 오류 발생:', error);
+    throw error;
+  }
+}
+
+export async function deleteAllRecentProducts() {
+  try {
+    return await instance.delete(`/users/recently-view-products`, {
+      requireAuth: true,
+    });
+  } catch (error) {
+    console.error('최근 제품 삭제 중 오류 발생:', error);
+    throw error;
   }
 }
