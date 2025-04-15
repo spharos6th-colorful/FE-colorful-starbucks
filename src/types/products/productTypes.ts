@@ -1,5 +1,5 @@
 export interface ProductTypes {
-  productCode: string;
+  productCode: number;
   productName: string;
   description: string;
   productThumbnailUrl: string;
@@ -22,3 +22,23 @@ export interface ProductListDataType {
 export interface ProductsWithDetailsDataType extends ProductListDataType {
   productDetails: ProductTypes[];
 }
+
+export type RecentlyViewedProductItem = {
+  productCode: number;
+};
+
+export type DailyRecentlyViewedProductsType = {
+  viewedAt: string;
+  recentlyViewProducts: RecentlyViewedProductItem[];
+};
+
+export type ProductDetailResponseType = {
+  productDetailCode: number;
+  productCode: number;
+  sizeName: string;
+  colorName: string;
+  inventoryQuantity: number;
+  price: number;
+  discountPrice: number;
+  productDetailThumbnailUrl: string;
+};

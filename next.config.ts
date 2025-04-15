@@ -15,7 +15,16 @@ const nextConfig: NextConfig = {
         hostname: 's3.amazonaws.com',
         port: '',
         pathname: '/my-bucket/**',
-        search: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'sitem.ssgcdn.com',
+        port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'image.istarbucks.co.kr',
+        port: '',
       },
     ],
   },
