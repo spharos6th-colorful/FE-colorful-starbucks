@@ -1,5 +1,5 @@
 'use client';
-
+import { ChevronUp } from 'lucide-react';
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
@@ -8,7 +8,6 @@ import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 import { CategoryBottomResponseType } from '@/types/products/categoryResponseTypes';
 import { priceOptions } from '@/data/category/categoryData';
 import ProductPriceFilterRow from '@/components/modules/product/ProductPriceFilterRow';
-import { ChevronUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type ProductDetailCategorySectionProps = {

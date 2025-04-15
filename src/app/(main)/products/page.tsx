@@ -7,7 +7,6 @@ import {
 import ProductCategoryTopTabBar from '@/components/layouts/product/ProductCategoryTopTabBar';
 import ProductDetailCategorySection from '@/components/layouts/product/ProductDetailCategorySection';
 import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
-// import CategoryContent from '@/components/modules/product/CategoryContent';
 
 export default async function ProductsPage({
   searchParams,

@@ -14,12 +14,9 @@ export function ProductBottomTabBarWrapper({
   return (
     <div className='w-full border-b border-stroke-100 py-4'>
       <div className='flex items-center px-4'>
-        <span className='text-body3 text-black font-bold w-20 shrink-0'>
-          {title}
-        </span>
-
+        <p className='text-body3 text-black font-bold w-20 shrink-0'>{title}</p>
         <div className='overflow-x-auto scrollbar-hidden ml-4'>
-          <div className='flex gap-6 min-w-max'>{children}</div>
+          <ul className='flex gap-6 min-w-max'>{children}</ul>
         </div>
       </div>
     </div>

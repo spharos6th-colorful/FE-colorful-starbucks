@@ -1,8 +1,8 @@
 'use client';
 import React, { useEffect, useRef } from 'react';
+import { useSearchParams, useRouter } from 'next/navigation';
 
 import { CategoryTopResponseType } from '@/types/products/categoryResponseTypes';
-import { useSearchParams, useRouter } from 'next/navigation';
 import ProductCategoryTop from '@/components/ui/products/ProductCategoryTop';
 
 type ProductCategoryTopTabBarProps = {
