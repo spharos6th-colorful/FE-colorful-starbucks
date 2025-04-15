@@ -1,5 +1,5 @@
 import { PageSubHeaderDataType } from '@/types/initDataTypes';
-import { MenuListDataType } from '@/types/Menu';
+import { MenuListDataType } from '@/types/menu';
 
 export const menuListData: MenuListDataType[] = [
   {
