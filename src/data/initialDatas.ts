@@ -19,7 +19,7 @@ export const menuListData: MenuListDataType[] = [
 export const pageSubHeaderData: PageSubHeaderDataType[] = [
   {
     id: 1,
-    path: '/carts',
+    path: '/cart',
     title: '장바구니',
   },
   {
