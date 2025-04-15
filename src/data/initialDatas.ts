@@ -24,7 +24,7 @@ export const pageSubHeaderData: PageSubHeaderDataType[] = [
   },
   {
     id: 2,
-    path: '/recent-product',
+    path: '/recently-viewed',
     title: '최근 본 상품',
   },
   {

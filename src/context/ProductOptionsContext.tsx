@@ -37,7 +37,7 @@ const ProductOptionsContext = createContext<
 
 interface ProductOptionsProviderProps {
   children: ReactNode;
-  productId: string;
+  productId: number;
   productPrice: number;
   productOptions: ProductOptionType[];
 }

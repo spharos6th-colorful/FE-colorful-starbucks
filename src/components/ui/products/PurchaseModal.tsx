@@ -10,7 +10,7 @@ import { ProductOptionsProvider } from '@/context/ProductOptionsContext';
 import PurchaseForm from '@/components/modules/product/PurchaseForm';
 
 interface PurchaseModalProps {
-  productId: string;
+  productId: number;
   productPrice: number;
   productOptions: ProductOptionType[];
 }

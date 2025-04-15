@@ -18,7 +18,7 @@ export interface SelectedOption {
 }
 
 export interface ProductDetail {
-  id: string;
+  id: number;
   price: number;
   options: ProductOptionType[];
   // 기타 상품 정보...

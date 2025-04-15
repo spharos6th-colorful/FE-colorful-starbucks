@@ -1,104 +1,82 @@
 'use client';
-
-import React, { useState } from 'react';
+import { ChevronUp } from 'lucide-react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 
 import ProductDetailCategoryTabBar from '@/components/modules/product/ProductDetailCategoryTabBar';
-import ProductFilterRow from '@/components/modules/product/ProductFilterRow';
-import {
-  FilterDataType,
-  SubDetailCategoryType,
-  SubSizeCateogryType,
-} from '@/types/products/productCategoryType';
-import UpIcon from '@/assets/icons/common/up.svg';
 import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
+import { CategoryBottomResponseType } from '@/types/products/categoryResponseTypes';
+import { priceOptions } from '@/data/category/categoryData';
+import ProductPriceFilterRow from '@/components/modules/product/ProductPriceFilterRow';
+import { cn } from '@/lib/utils';
 
 type ProductDetailCategorySectionProps = {
-  subCategories: SubDetailCategoryType[];
-  subVolumeCategories: SubSizeCateogryType[];
-  filterOptions: FilterDataType;
+  topCategoryId: string;
+  bottomCategory: CategoryBottomResponseType[];
 };
 
 export default function ProductDetailCategorySection({
-  subCategories,
-  subVolumeCategories,
-  filterOptions,
+  topCategoryId,
+  bottomCategory,
 }: ProductDetailCategorySectionProps) {
-  // 접기/펼치기 상태만 클라이언트 측에서 관리
   const [isExpanded, setIsExpanded] = useState(true);
+  const [isAll, setIsAll] = useState(false);
   const rawSearchParams = useSearchParams();
-  const searchParams: SearchParamsType = {
-    bottomCategoryIds: rawSearchParams.getAll('bottomCategoryIds'),
-    seasons: rawSearchParams.getAll('seasons'),
-    sizes: rawSearchParams.getAll('sizes'),
-    price: rawSearchParams.get('price') || '',
-  };
 
-  // 가격 필터 옵션 (모든 카테고리에 공통)
-  const priceOptions = [
-    { filterId: 'under10000', filterName: '1만원미만' },
-    { filterId: '10000to20000', filterName: '1만원대' },
-    { filterId: '20000to30000', filterName: '2만원대' },
-    { filterId: '30000to40000', filterName: '3만원대' },
-  ];
+  useEffect(() => {
+    if (bottomCategory.length > 0 && topCategoryId !== '0') {
+      setIsAll(true);
+    } else {
+      setIsAll(false);
+    }
+  }, [bottomCategory, topCategoryId]);
+
+  const searchParams: SearchParamsType = useMemo(() => {
+    const rawBottomCategoryIds = rawSearchParams.get('bottomCategoryIds');
+    const bottomCategoryIds = rawBottomCategoryIds
+      ? [...new Set(rawBottomCategoryIds.split(','))]
+      : [];
+    return {
+      bottomCategoryIds: bottomCategoryIds,
+      price: rawSearchParams.get('price') || '',
+    };
+  }, [rawSearchParams]);
 
   return (
-    <section className='w-full border-b border-stroke-100'>
-      {/* 하위 카테고리 탭바 (있을 때만 표시) */}
-      {subCategories.length > 0 && (
-        <ProductDetailCategoryTabBar
-          categories={subCategories}
-          selectedIds={searchParams.bottomCategoryIds}
-        />
-      )}
-
-      {isExpanded && (
-        <>
-          {/* 시즌 필터 (있을 때만 표시) */}
-          {filterOptions.seasons.length > 0 && (
-            <ProductFilterRow
-              title='시즌'
-              options={filterOptions.seasons}
-              filterId='seasons'
-              selectedIds={searchParams.seasons}
-            />
-          )}
-
-          {subVolumeCategories.length > 0 && (
-            <ProductFilterRow
-              title='용량'
-              options={subVolumeCategories.map((category) => ({
-                filterId: category.sizeId,
-                filterName: category.sizeName,
-              }))}
-              filterId='sizes'
-              selectedIds={searchParams.sizes}
-            />
-          )}
-
-          {/* 가격 필터 (항상 표시) */}
-          <ProductFilterRow
-            title='가격'
-            options={priceOptions}
-            filterId='price'
-            selectedIds={searchParams.price}
-            isMultiSelect={false}
+    <>
+      <section
+        className={cn(
+          isExpanded ? 'h-[100px]' : 'h-[1px]',
+          'w-full  transition-all duration-[1s] overflow-hidden bg-white',
+        )}
+      >
+        {isAll && (
+          <ProductDetailCategoryTabBar
+            categories={bottomCategory}
+            selectedIds={searchParams.bottomCategoryIds}
           />
-        </>
-      )}
+        )}
+        <ProductPriceFilterRow title='가격' priceOptions={priceOptions} />
+      </section>
 
-      {/* 접기/펼치기 버튼 */}
-      <div className='w-full py-3 flex justify-center border-b border-stroke-100'>
-        <button
-          onClick={() => setIsExpanded(!isExpanded)}
-          className='flex items-center text-body3 text-[var(--color-text-700)]'
-        >
-          {isExpanded ? '접기' : '펼치기'}
-          <span className='ml-1'>
-            {isExpanded ? <UpIcon /> : <UpIcon className='rotate-180' />}
-          </span>
-        </button>
-      </div>
-    </section>
+      {isAll && (
+        <div className='w-full py-3 flex justify-center border-b border-stroke-100'>
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className='flex items-center text-body3 text-[var(--color-text-700)]'
+            type='button'
+          >
+            {isExpanded ? '접기' : '펼치기'}
+            <ChevronUp
+              size={16}
+              className={cn(
+                isExpanded ? 'rotate-0' : 'rotate-180',
+                'transition-all ml-1',
+              )}
+            />
+          </button>
+        </div>
+      )}
+    </>
   );
 }

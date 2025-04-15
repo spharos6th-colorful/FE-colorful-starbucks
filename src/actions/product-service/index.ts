@@ -10,18 +10,66 @@ import {
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
 import {
+  DailyRecentlyViewedProductsType,
   ProductListDataType,
   ProductTypes,
 } from '@/types/products/productTypes';
 import { instance } from '../instance';
+import {
+  CategoryBottomResponseType,
+  CategoryTopResponseType,
+} from '@/types/products/categoryResponseTypes';
+
+const BASE_URL = 'http://13.209.230.182:8080/api/v1';
+
+export const getTopCategories = async (): Promise<
+  CategoryTopResponseType[]
+> => {
+  try {
+    const response = await fetch(BASE_URL + `/top-categories`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      next: { revalidate: 60 * 60 * 24 },
+    });
+    const result = await response.json();
+    return result.data.categories;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getBottomCategories = async (
+  topCategoryId: number,
+): Promise<CategoryBottomResponseType[]> => {
+  try {
+    const response = await fetch(
+      BASE_URL + `/bottom-categories?topCategoryId=${topCategoryId}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        next: { revalidate: 60 * 60 * 24 }, // 1일
+      },
+    );
+    const result = await response.json();
+    return result.data.categories;
+  } catch (error) {
+    throw error;
+  }
+};
 
 export const getProductDetail = async (
   productCode: number,
 ): Promise<ProductTypes> => {
   try {
     const response = await fetch(
-      `http://localhost:8080/api/v1/products/${productCode}`,
+      BASE_URL + `http://localhost:8080/api/v1/products/${productCode}`,
     );
+
     if (!response.ok) {
       throw new Error(
         `상품 정보를 가져오는데 실패했습니다: ${response.status}`,
@@ -333,5 +381,93 @@ export async function getInitialProductsData(
       hasNext: false,
       nextCursor: null,
     };
+  }
+}
+
+export async function getRecentlyProducts(): Promise<
+  DailyRecentlyViewedProductsType[]
+> {
+  try {
+    const response = await fetch(
+      `${process.env.BASE_URL}/users/recently-view-products`,
+    );
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export async function getRecentlyProductsDummy(): Promise<
+  DailyRecentlyViewedProductsType[]
+> {
+  return [
+    {
+      viewedAt: '2025-04-14',
+      recentlyViewProducts: [
+        { productCode: 1000643461774 },
+        { productCode: 1000038695356 },
+        { productCode: 1000548972182 },
+      ],
+    },
+    {
+      viewedAt: '2025-04-13',
+      recentlyViewProducts: [
+        { productCode: 1000380318119 },
+        { productCode: 1000642803667 },
+      ],
+    },
+    {
+      viewedAt: '2025-04-10',
+      recentlyViewProducts: [
+        { productCode: 1000605449653 },
+        { productCode: 1000680163829 },
+        { productCode: 2097002153962 },
+        { productCode: 1000522642212 },
+      ],
+    },
+  ];
+}
+
+export async function getProduct(productCode: number): Promise<ProductTypes> {
+  try {
+    const response = await instance.get<ProductTypes>(
+      `/products/${productCode}`,
+      {
+        cache: 'force-cache',
+        tags: ['product', `product-${productCode}`],
+        revalidate: 60 * 60 * 24,
+      },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(`제품 정보(코드: ${productCode}) 조회 중 오류:`, error);
+    throw error;
+  }
+}
+
+export async function deleteRecentProduct(productCode: number) {
+  try {
+    return await instance.delete(
+      `/users/recently-view-products/${productCode}`,
+      {
+        requireAuth: true,
+      },
+    );
+  } catch (error) {
+    console.error('최근 제품 삭제 중 오류 발생:', error);
+    throw error;
+  }
+}
+
+export async function deleteAllRecentProducts() {
+  try {
+    return await instance.delete(`/users/recently-view-products`, {
+      requireAuth: true,
+    });
+  } catch (error) {
+    console.error('최근 제품 삭제 중 오류 발생:', error);
+    throw error;
   }
 }

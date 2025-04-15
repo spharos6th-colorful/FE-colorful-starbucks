@@ -11,10 +11,10 @@ export default function ProductCategoryTop({
   return (
     <div
       className={cn(
-        'px-4 py-5 text-center cursor-pointer',
+        'px-4 py-5 text-center cursor-pointer border-b-2 box-border',
         isActive
-          ? 'border-b-2 border-primary-100 text-primary-100 text-body2 font-black'
-          : 'text-text-700 text-body3',
+          ? 'border-primary-100 text-body3 text-primary-100 font-black'
+          : 'border-transparent text-body3 text-text-700 ',
       )}
       onClick={onClick}
     >
