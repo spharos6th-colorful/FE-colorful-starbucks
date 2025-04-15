@@ -3,8 +3,8 @@ import { useRouter } from 'next/navigation';
 
 import { Body, Caption } from '@/components/ui/common';
 import { useMenuContext } from '@/context/MenuContext';
-import type { MenuListDataType } from '@/types/menu';
 import ChevronRight from '@/assets/icons/common/chevron-right.svg';
+import type { MenuListDataType } from '@/types/menu';
 
 export default function MenuBottomItem({
   href,
