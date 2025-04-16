@@ -19,25 +19,15 @@ export const options: NextAuthOptions = {
           return null;
         }
 
-        if (false) {
-          console.log('credentials', credentials);
-          console.log(
-            'process.env.NEXT_PUBLIC_API_URL',
-            process.env.NEXT_PUBLIC_API_URL,
-          );
-        }
         try {
-          const response = await fetch(
-            `${process.env.NEXT_PUBLIC_API_UR}/auth/sign-in`,
-            {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                email: credentials.email,
-                password: credentials.password,
-              }),
-            },
-          );
+          const response = await fetch(`${process.env.BASE_URL}/auth/sign-in`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: credentials.email,
+              password: credentials.password,
+            }),
+          });
           if (!response.ok) {
             throw new Error('Invalid credentials');
           }
