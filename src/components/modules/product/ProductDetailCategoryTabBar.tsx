@@ -49,6 +49,7 @@ export default function ProductDetailCategoryTabBar({
           <Link
             key={category.bottomCategoryId}
             href={`${pathname}?${updateQueryParams(category.bottomCategoryId)}`}
+            replace
             className={`text-body3 ${isActive ? 'text-primary-100 font-black' : 'text-text-700'}`}
             scroll={false}
           >
