@@ -1,4 +1,3 @@
-// components/CountdownTimer.tsx
 type CountdownTimerProps = {
   countdown: number;
   onResend: (e: React.FormEvent) => Promise<void>;

@@ -23,3 +23,12 @@ export type SignUpFormState = {
 export type FormErrors = {
   [K in keyof SignUpFormState]?: string;
 };
+
+export interface CheckboxState {
+  all: boolean;
+  terms: boolean;
+  privacy: boolean;
+  card: boolean;
+  marketing: boolean;
+  [key: string]: boolean;
+}

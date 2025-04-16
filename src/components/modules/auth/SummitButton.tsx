@@ -1,4 +1,3 @@
-// SubmitButton.tsx
 import { Button } from '@/components/ui/common/Button';
 
 type SubmitButtonProps = {

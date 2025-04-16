@@ -1,4 +1,3 @@
-// EmailForm.tsx
 'use client';
 
 import { CountdownTimer } from '@/components/modules/auth/CountdownTimer';

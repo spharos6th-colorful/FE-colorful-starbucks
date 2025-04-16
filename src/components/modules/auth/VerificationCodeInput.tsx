@@ -1,4 +1,3 @@
-// components/VerificationCodeInput.tsx
 import { Input } from '@/components/ui/common/input';
 import { Button } from '@/components/ui/common/Button';
 

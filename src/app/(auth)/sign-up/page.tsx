@@ -1,110 +1,96 @@
 'use client';
-import { ChevronRight } from 'lucide-react';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/common';
+import React from 'react';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 
-import { Avatar } from '@/components/ui/common/Avatar';
-import logo from '../../../assets/images/logo.png';
-import Image from 'next/image';
+import AgreementCheckbox from '@/components/modules/auth/AgreementCheckBox';
+import AgreementSubmitButton from '@/components/modules/auth/AgreementSubmitButton';
+import WelcomeSection from '@/components/pages/auth/WelcomeSection';
+import { agreementItems } from '@/data/auth/agreementData';
+import { CheckboxState } from '@/types/auth';
 
 export default function SignUpPage() {
   const router = useRouter();
 
+  const [checkboxes, setCheckboxes] = useState<CheckboxState>({
+    all: false,
+    terms: false,
+    privacy: false,
+    card: false,
+    marketing: false,
+  });
+
+  const [isAllRequiredChecked, setIsAllRequiredChecked] = useState(false);
+
+  const handleCheckboxChange = (id: string) => {
+    if (id === 'all') {
+      const newValue = !checkboxes.all;
+      setCheckboxes({
+        all: newValue,
+        terms: newValue,
+        privacy: newValue,
+        card: newValue,
+        marketing: newValue,
+      });
+    } else {
+      const newCheckboxes: CheckboxState = {
+        ...checkboxes,
+        [id]: !checkboxes[id],
+      };
+
+      const allChecked = agreementItems.every((item) => newCheckboxes[item.id]);
+      newCheckboxes.all = allChecked;
+
+      setCheckboxes(newCheckboxes);
+    }
+  };
+
+  useEffect(() => {
+    const requiredChecked = agreementItems
+      .filter((item) => item.required)
+      .every((item) => checkboxes[item.id]);
+
+    setIsAllRequiredChecked(requiredChecked);
+  }, [checkboxes]);
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    router.push('sign-up/user-info');
+    if (isAllRequiredChecked) {
+      router.push('sign-up/user-info');
+    }
   };
+
   return (
     <main className='flex flex-col items-center justify-center min-h-screen bg-gray-50'>
-      <section className='w-full space-y-4 pt-15 pb-10 px-7 tracking-tighter'>
-        <Avatar style={{ width: '5rem', height: '5rem' }}>
-          <Image src={logo} alt='로고' fill style={{ objectFit: 'cover' }} />
-        </Avatar>
-        <h1 className='text-3xl font-bold'>
-          고객님
-          <br />
-          환영합니다!
-        </h1>
-        <p className='text-md font-medium leading-normal text-[#717171]'></p>
-      </section>
+      <WelcomeSection />
 
       <form
         onSubmit={handleSubmit}
         className='group w-full font-semibold tracking-tighter px-4 pb-40'
       >
-        <div className='flex items-center gap-2 py-4 relative'>
-          <input
-            type='checkbox'
-            className='text-lg font-bold'
-            data-required={false}
-          />
-          <label>전체동의</label>
-        </div>
+        <AgreementCheckbox
+          id='all'
+          label='전체동의'
+          required={false}
+          checked={checkboxes.all}
+          onChange={() => handleCheckboxChange('all')}
+          hasLink={false}
+        />
 
-        <hr className='border-t border-gray-300' />
+        <hr className='border-t border-gray-400' />
 
-        <div className='flex items-center gap-2 py-4 relative'>
-          <input
-            type='checkbox'
-            className='text-lg font-bold'
-            data-required={true}
+        {agreementItems.map((item) => (
+          <AgreementCheckbox
+            key={item.id}
+            id={item.id}
+            label={item.label}
+            required={item.required}
+            checked={checkboxes[item.id as keyof typeof checkboxes]}
+            onChange={() => handleCheckboxChange(item.id)}
           />
-          <label>[필수] 이용약관 동의</label>
-          <Link href='/' className={cn('absolute right-0')}>
-            <ChevronRight size={16} />
-          </Link>
-        </div>
-        <div className='flex items-center gap-2 py-4 relative'>
-          <input
-            type='checkbox'
-            className='text-lg font-bold'
-            data-required={true}
-          />
-          <label>[필수] 개인정보 수집 및 이용 동의</label>
-          <Link href='/' className={cn('absolute right-0')}>
-            <ChevronRight size={16} />
-          </Link>
-        </div>
-        <div className='flex items-center gap-2 py-4 relative'>
-          <input
-            type='checkbox'
-            className='text-lg font-bold'
-            data-required={true}
-          />
-          <label>[필수] 스타벅스 카드 이용약관</label>
-          <Link href='/' className={cn('absolute right-0')}>
-            <ChevronRight size={16} />
-          </Link>
-        </div>
-        <div className='flex items-center gap-2 py-4 relative'>
-          <input
-            type='checkbox'
-            className='text-lg font-bold'
-            data-required={true}
-          />
-          <label>[필수] 마케팅 활용 수집 이용 동의</label>
-          <Link href='/' className={cn('absolute right-0')}>
-            <ChevronRight size={16} />
-          </Link>
-        </div>
+        ))}
 
-        <div className='w-full fixed bottom-0 pb-5 left-0 bg-white px-7 pt-5 shadow-[0_0_10px_rgba(0,0,0,0.1)]'>
-          <Button
-            type='submit'
-            variant='starbucks'
-            width='auto'
-            className='
-              w-full text-lg font-bold py-6
-              group-has-[button[data-state=unchecked][data-required=true]]:bg-[#E0E0E0]
-              group-has-[button[data-state=unchecked][data-required=true]]:pointer-events-none
-            '
-          >
-            다음
-          </Button>
-        </div>
+        <AgreementSubmitButton isActive={isAllRequiredChecked} />
       </form>
     </main>
   );
