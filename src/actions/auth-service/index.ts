@@ -115,11 +115,10 @@ export async function signUp(data: SignUpRequestData) {
     return response.data;
   } catch (error) {
     console.error('회원가입 오류:', error);
-    return {
-      code: 500,
-      status: 'INTERNAL_SERVER_ERROR',
-      message: '회원가입 중 오류가 발생했습니다.',
-      data: '',
-    };
+    throw new Error(
+      error instanceof Error
+        ? error.message
+        : '회원가입 중 오류가 발생했습니다.',
+    );
   }
 }
