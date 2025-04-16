@@ -6,6 +6,8 @@ import { signInDataType } from '@/types/responseDataTypes';
 import { instance } from '../instance';
 import { ApiResponse } from '@/types/common';
 import { SignUpRequestData } from '@/types/auth';
+import { options } from '@/app/api/auth/[...nextauth]/options';
+import { getServerSession } from 'next-auth';
 
 export const signInRequest = async (credentials: {
   email: string;
@@ -121,4 +123,8 @@ export async function signUp(data: SignUpRequestData) {
         : '회원가입 중 오류가 발생했습니다.',
     );
   }
+}
+
+export async function auth() {
+  return await getServerSession(options);
 }

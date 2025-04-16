@@ -1,6 +1,6 @@
 import { ApiResponse } from '@/types/common';
 import { revalidateTag } from 'next/cache';
-// import { auth } from '@/lib/auth'; // 아직 구현되지 않음
+import { auth } from './auth-service';
 
 interface NextFetchRequestConfig {
   tags?: string[];
@@ -11,8 +11,8 @@ interface RequestOptions extends RequestInit {
   isMultipart?: boolean;
   requireAuth?: boolean;
   cache?: RequestCache;
-  tags?: string[]; // Next.js 캐싱 태그
-  revalidate?: number | false; // 재검증 시간 (초)
+  tags?: string[];
+  revalidate?: number | false;
 }
 
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080/api/v1';
@@ -26,25 +26,22 @@ const fetchInstance = async <T = undefined>(
       ...(options.headers as Record<string, string>),
     };
 
-    // auth 체크 및 토큰 추가 (현재 주석)
-    /* 
     if (options.requireAuth !== false) {
       try {
         const session = await auth();
+
         const accessToken = session?.user?.accessToken;
 
-        if (!accessToken) {
-          console.error('No access token found');
-          throw new Error('Authentication required');
+        if (accessToken) {
+          headers.Authorization = `Bearer ${accessToken}`;
+        } else {
+          throw new Error('인증이 필요합니다');
         }
-
-        headers.Authorization = `Bearer ${accessToken}`;
       } catch (authError) {
-        console.error('Auth error:', authError);
-        throw new Error('Authentication failed');
+        console.error('인증 오류:', authError);
+        throw new Error('인증 실패');
       }
     }
-    */
 
     if (options.body instanceof FormData) {
       delete headers['Content-Type'];
@@ -64,6 +61,8 @@ const fetchInstance = async <T = undefined>(
     if (options.revalidate !== undefined) {
       nextOptions.revalidate = options.revalidate;
     }
+
+    console.log(headers);
 
     const response = await fetch(`${BASE_URL}${url}`, {
       ...options,
