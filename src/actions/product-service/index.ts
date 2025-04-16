@@ -4,8 +4,6 @@ import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 import {
   FilterDataType,
   ProductCategoryTopType,
-  SubDetailCategoryType,
-  SubSizeCateogryType,
 } from '@/types/products/productCategoryType';
 import { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import { ProductTagsType } from '@/types/products/productRequestTypes';
@@ -26,17 +24,14 @@ export const getTopCategories = async (): Promise<
   CategoryTopResponseType[]
 > => {
   try {
-    const response = await fetch(BASE_URL + `/top-categories`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await instance.get<{
+      categories: CategoryTopResponseType[];
+    }>(`/top-categories`, {
+      requireAuth: false,
       next: { revalidate: 60 * 60 * 24 },
     });
-    const result = await response.json();
-    return result.data.categories;
+    return response.data.categories;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -45,12 +40,11 @@ export const getBottomCategories = async (
   topCategoryId: number,
 ): Promise<CategoryBottomResponseType[]> => {
   try {
-    // ApiResponse<T>의 T에 실제 data 필드의 타입을 지정
     const response = await instance.get<{
       categories: CategoryBottomResponseType[];
     }>(`/bottom-categories?topCategoryId=${topCategoryId}`, {
       revalidate: 60 * 60 * 24,
-      requireAuth: true,
+      requireAuth: false,
     });
 
     if (!response.data || !response.data.categories) {
@@ -186,77 +180,6 @@ export async function getProductFilters(
   } catch (error) {
     console.error('필터 옵션 정보 조회 중 오류 발생:', error);
     throw error;
-  }
-}
-
-// FIXME: 현재는 더미 넘겨주는 함수이다. 나중에 변경 예정
-type SubCategoriesAndVolume = {
-  subDetailCategories: SubDetailCategoryType[];
-  subVolumeCategories: SubSizeCateogryType[];
-};
-export async function getSubCategoriesAndVolume(
-  topCategoryId: number,
-): Promise<SubCategoriesAndVolume> {
-  switch (topCategoryId) {
-    case 1: // 전체
-      return {
-        subDetailCategories: [],
-        subVolumeCategories: [],
-      };
-    case 2: // 텀블러/보온병
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '플라스틱 텀블러' },
-          { bottomCategoryId: 2, categoryName: '스테인리스 텀블러' },
-          { bottomCategoryId: 3, categoryName: '보온병' },
-        ],
-        subVolumeCategories: [
-          { sizeId: 'short', sizeName: 'Short' },
-          { sizeId: 'tall', sizeName: 'Tall' },
-          { sizeId: 'grande', sizeName: 'Grande' },
-          { sizeId: 'venti', sizeName: 'Venti' },
-        ],
-      };
-    case 3: // 머그/컵
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '스테인리스 머그' },
-          { bottomCategoryId: 2, categoryName: '세라믹 머그' },
-          { bottomCategoryId: 3, categoryName: '글라스 머그' },
-        ],
-        subVolumeCategories: [
-          { sizeId: 'short', sizeName: 'Short' },
-          { sizeId: 'tall', sizeName: 'Tall' },
-          { sizeId: 'grande', sizeName: 'Grande' },
-        ],
-      };
-    case 4: // 라이프스타일
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '키친' },
-          { bottomCategoryId: 2, categoryName: '홈' },
-          { bottomCategoryId: 3, categoryName: '트래블' },
-        ],
-        subVolumeCategories: [],
-      };
-    case 5: // 티/커피
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '티 용품' },
-          { bottomCategoryId: 2, categoryName: '커피 용품' },
-          { bottomCategoryId: 3, categoryName: '티/커피 액세서리' },
-        ],
-        subVolumeCategories: [
-          { sizeId: 'short', sizeName: 'Short' },
-          { sizeId: 'tall', sizeName: 'Tall' },
-          { sizeId: 'grande', sizeName: 'Grande' },
-        ],
-      };
-    default:
-      return {
-        subDetailCategories: [],
-        subVolumeCategories: [],
-      };
   }
 }
 
