@@ -11,7 +11,7 @@ export function Modal({
 }: {
   children?: React.ReactNode;
   className?: string;
-  variant: 'card' | 'bottomSheet';
+  variant?: 'card' | 'bottomSheet';
 }) {
   const { isOpen, closeModal } = useModalContext();
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -50,7 +50,6 @@ export function Modal({
           'm-0 mt-auto rounded-t-md max-w-3xl',
           'backdrop:backdrop-blur-[2px] backdrop:h-full backdrop:fixed backdrop:bottom-0',
           'shadow-1',
-          'overflow-hidden',
           'transition-all animate-bottom-sheet-slide-up',
           'w-full fixed left-1/2 transform -translate-x-1/2',
 
@@ -71,7 +70,7 @@ export function Modal({
         'max-w-md w-[calc(100%-48px)] sm:w-full rounded-md',
         'backdrop:backdrop-blur-[2px]',
         'shadow-1',
-        'overflow-hidden',
+        'overflow-visible',
         'animate-card-slide-up transition-all',
         className,
       )}
