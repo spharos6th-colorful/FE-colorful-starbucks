@@ -1,25 +1,29 @@
 'use server';
 
-import { SearchParamsType } from '@/data/productDummy/productSearchTypes';
-import {
+import type { SearchParamsType } from '@/data/productDummy/productSearchTypes';
+import type {
   FilterDataType,
   ProductCategoryTopType,
   SubDetailCategoryType,
   SubSizeCateogryType,
 } from '@/types/products/productCategoryType';
-import { ProductOptionType } from '@/types/products/productPurchaseTypes';
-import { ProductTagsType } from '@/types/products/productRequestTypes';
-import {
+import type { ProductOptionType } from '@/types/products/productPurchaseTypes';
+import type { ProductTagsType } from '@/types/products/productRequestTypes';
+import type {
   DailyRecentlyViewedProductsType,
   ProductListDataType,
   ProductTypes,
 } from '@/types/products/productTypes';
 import { instance } from '../instance';
-import {
+import type {
   CategoryBottomResponseType,
   CategoryTopResponseType,
 } from '@/types/products/categoryResponseTypes';
-import { ProductDetailDataType } from '@/types/responseDataTypes';
+import type {
+  ProductDetailDataType,
+  ProductOptionDataType,
+  ProductOptionsType,
+} from '@/types/responseDataTypes';
 
 const BASE_URL = 'http://13.209.230.182:8080/api/v1';
 
@@ -479,6 +483,45 @@ export const getProudctDetailData = async (
       },
     );
 
+    return res.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getProductOptionData = async (
+  productCode: number,
+): Promise<ProductOptionDataType> => {
+  try {
+    const res = await instance.get<ProductOptionsType>(
+      `/products/${productCode}/options`,
+      {
+        headers: {
+          Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+        },
+      },
+    );
+
+    return res?.data?.options;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getProductDetailWithOptions = async (
+  productCode: number,
+  sizeId: number | null,
+  colorId: number | null,
+) => {
+  const params = new URLSearchParams();
+  params.append('productCode', productCode.toString());
+  if (sizeId !== null) params.append('sizeId', sizeId.toString());
+  if (colorId !== null) params.append('colorId', colorId.toString());
+  try {
+    const res = await instance.get<{
+      productDetailCode: number;
+      inventoryQuantity: number;
+    }>(`/product-details?${params.toString()}`);
     return res.data;
   } catch (error) {
     throw error;
