@@ -4,11 +4,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Tag from '../../ui/main/Tag';
-import {
-  getProductDetailDummy,
-  ProductDetail,
-} from '@/actions/product-service';
+import { getProductSimple } from '@/actions/product-service';
 import FilteredProductItemCardSkelton from './FilteredProductItemCardSkelton';
+import { SimpleProduct } from '@/types/products/productTypes';
 
 interface FilteredProductCardProps {
   productCode: number;
@@ -17,13 +15,13 @@ interface FilteredProductCardProps {
 export default function FilteredProductItemCard({
   productCode,
 }: FilteredProductCardProps) {
-  const [product, setProduct] = useState<ProductDetail | null>(null);
+  const [product, setProduct] = useState<SimpleProduct | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProductDetail = async () => {
       try {
-        const productDetail = await getProductDetailDummy(productCode); //Dummy만 빼면 됨 나중에
+        const productDetail = await getProductSimple(productCode);
         setProduct(productDetail);
       } catch (error) {
         console.error('상품 정보 로딩 실패', error);
@@ -56,11 +54,7 @@ export default function FilteredProductItemCard({
             sizes='100%'
           />
         </div>
-        <Tag
-          isMarkable={product.isMarkable}
-          isNew={product.isNew}
-          isBest={product.isBest}
-        />
+        <Tag isNew={product.isNew} />
         <h3 className='text-button2 my-3'>{product.productName}</h3>
         <p className='text-subtitle2'>{product.price.toLocaleString()}원</p>
       </div>

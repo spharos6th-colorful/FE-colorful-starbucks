@@ -42,3 +42,21 @@ export type ProductDetailResponseType = {
   discountPrice: number;
   productDetailThumbnailUrl: string;
 };
+
+export type FilteredProductsDataType = {
+  productCode: number;
+};
+
+export type PaginatedResponseType = {
+  content: FilteredProductsDataType[];
+  hasNext: boolean;
+  nextCursor: number;
+};
+
+export type SimpleProduct = {
+  productName: string;
+  productCode: number;
+  productThumbnailUrl: string;
+  price: number;
+  isNew: true;
+};
