@@ -8,7 +8,7 @@ export default function Cart() {
   const pathname = usePathname();
 
   return (
-    <Link href={`/carts?callbackUrl=${pathname}`}>
+    <Link href={`/cart?callbackUrl=${pathname}`}>
       <CartIcon />
     </Link>
   );

@@ -5,11 +5,6 @@ export type PriceOptionType = {
   filterName: string;
 };
 
-export type SizeOptionType = {
-  sizeId: string;
-  sizeName: string;
-};
-
 export const priceOptions: PriceOptionType[] = [
   {
     priceOptionId: 'under50000',
