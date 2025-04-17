@@ -19,13 +19,6 @@ export const options: NextAuthOptions = {
           return null;
         }
 
-        if (false) {
-          console.log('credentials', credentials);
-          console.log(
-            'process.env.NEXT_PUBLIC_API_URL',
-            process.env.NEXT_PUBLIC_API_URL,
-          );
-        }
         try {
           const response = await fetch(`${process.env.BASE_URL}/auth/sign-in`, {
             method: 'POST',

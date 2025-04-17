@@ -50,19 +50,21 @@ export const getBottomCategories = async (
   topCategoryId: number,
 ): Promise<CategoryBottomResponseType[]> => {
   try {
-    const response = await fetch(
-      BASE_URL + `/bottom-categories?topCategoryId=${topCategoryId}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        next: { revalidate: 60 * 60 * 24 }, // 1일
-      },
-    );
-    const result = await response.json();
-    return result.data.categories;
+    // ApiResponse<T>의 T에 실제 data 필드의 타입을 지정
+    const response = await instance.get<{
+      categories: CategoryBottomResponseType[];
+    }>(`/bottom-categories?topCategoryId=${topCategoryId}`, {
+      revalidate: 60 * 60 * 24,
+      requireAuth: true,
+    });
+
+    if (!response.data || !response.data.categories) {
+      throw new Error('카테고리 데이터가 없습니다');
+    }
+
+    return response.data.categories;
   } catch (error) {
+    console.error('하위 카테고리 조회 실패:', error);
     throw error;
   }
 };
@@ -156,6 +158,7 @@ export async function getProductCategories(
   );
   console.log('res', res);
   const data = res.data;
+
   return data;
 }
 

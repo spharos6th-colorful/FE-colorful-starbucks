@@ -4,7 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center cursor-pointer gap-2 rounded-full font-medium transition-all disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none h-12 py-3 text-button1",
+  "inline-flex items-center justify-center cursor-pointer gap-2 rounded-full font-medium transition-all disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none py-3 text-button1",
   {
     variants: {
       variant: {
@@ -22,6 +22,10 @@ const buttonVariants = cva(
         link: 'text-primary-100 underline-offset-4 hover:underline',
         disabled: 'bg-disabled text-text-400 cursor-not-allowed',
       },
+      size: {
+        sm: 'h-10 py-2 text-sm',
+        default: 'h-12 py-3',
+      },
       width: {
         auto: 'px-6',
         full: 'w-full px-6',
@@ -30,6 +34,7 @@ const buttonVariants = cva(
     },
     defaultVariants: {
       variant: 'default',
+      size: 'default',
       width: 'auto',
     },
   },
@@ -39,6 +44,7 @@ function Button({
   className,
   variant,
   width,
+  size,
   asChild = false,
   disabled,
   style,
@@ -55,7 +61,7 @@ function Button({
     <Comp
       data-slot='button'
       className={cn(
-        buttonVariants({ variant: buttonVariant, width, className }),
+        buttonVariants({ variant: buttonVariant, width, size, className }), // size 속성 전달
       )}
       disabled={disabled}
       style={style}
