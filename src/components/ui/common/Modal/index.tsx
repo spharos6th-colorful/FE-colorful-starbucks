@@ -48,11 +48,10 @@ export function Modal({
         ref={dialogRef}
         className={cn(
           'm-0 mt-auto rounded-t-md max-w-3xl',
-          'backdrop:backdrop-blur-[2px] backdrop:h-full backdrop:fixed backdrop:bottom-0',
           'shadow-1',
+          'overflow-visible',
           'transition-all animate-bottom-sheet-slide-up',
-          'w-full fixed left-1/2 transform -translate-x-1/2',
-
+          'w-full fixed !z-50 left-1/2 transform -translate-x-1/2',
           className,
         )}
         onClick={handleBackdropClick}
@@ -66,6 +65,7 @@ export function Modal({
     <dialog
       ref={dialogRef}
       className={cn(
+        'overflow-visible',
         'absolute left-1/2 top-1/2 -translate-1/2',
         'max-w-md w-[calc(100%-48px)] sm:w-full rounded-md',
         'backdrop:backdrop-blur-[2px]',

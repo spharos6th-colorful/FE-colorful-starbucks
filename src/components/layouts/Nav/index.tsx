@@ -36,7 +36,7 @@ export default function Nav() {
   ];
 
   return (
-    <nav className='fixed max-w-3xl w-full bottom-0 z-50 bg-white px-6 py-2 xl:px-9 shadow-2'>
+    <nav className='fixed max-w-3xl w-full bottom-0 z-20 bg-white px-6 py-2 xl:px-9 shadow-2'>
       <ul className='flex justify-between items-start max-w-xl w-full mx-auto'>
         {navDatas.map((nav) => (
           <NavItem key={nav.id} data={nav} />

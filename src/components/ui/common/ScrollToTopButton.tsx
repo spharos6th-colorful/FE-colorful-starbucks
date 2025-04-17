@@ -51,7 +51,7 @@ export default function ScrollToTopButton() {
   if (!isVisible) return null;
 
   return (
-    <div className='z-50 sticky bottom-10 right-0 w-full pointer-events-none'>
+    <div className='z-30 sticky bottom-10 right-0 w-full pointer-events-none'>
       <div className='max-w-3xl mx-auto relative'>
         <button
           onClick={scrollToTop}
