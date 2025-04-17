@@ -15,3 +15,9 @@ export interface UpdateCartCheckedType {
 export type DeleteCartItemType = {
   cartIds: { cartId: number }[];
 };
+
+export interface UpdateCartDataType {
+  productCode: number;
+  productDetailCode: number;
+  quantity: number;
+}

@@ -1,17 +1,16 @@
 import Link from 'next/link';
-// import Image from 'next/image';
 
 import { Body } from '@/components/ui/common';
 import CartForm from '@/components/pages/cart/CartForm';
-import CartController from '@/components/modules/cart/CartController';
 import { getCartDatas } from '@/actions/cart-service';
+import CartTerms from '@/components/modules/cart/CartTerms';
 
 export default async function CartPage() {
   const cartDatas = await getCartDatas();
 
-  const action = async (updateCartData: FormData) => {
+  const action = async (createOrderData: FormData) => {
     'use server';
-    console.log('🚀 ~ action ~ cartsData:', updateCartData);
+    console.log('🚀 ~ action ~ cartsData:', createOrderData);
   };
 
   if (!cartDatas?.productDetails || cartDatas.productDetails.length === 0) {
@@ -52,13 +51,9 @@ export default async function CartPage() {
         </Link>
       </section>
 
-      <CartController cartDatas={cartDatas.productDetails} />
+      <CartForm action={action} cartDatas={cartDatas} />
 
-      <Body level={3} className='px-6 pt-6 pb-4'>
-        <span className='text-primary-100'>{cartDatas.totalElements}</span>개의
-        상품이 있습니다.
-      </Body>
-      <CartForm action={action} cartItemDatas={cartDatas.productDetails} />
+      <CartTerms />
     </main>
   );
 }

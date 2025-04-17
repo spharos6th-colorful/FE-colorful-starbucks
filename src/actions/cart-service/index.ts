@@ -2,14 +2,17 @@
 import { revalidateTag } from 'next/cache';
 import type { CheckedState } from '@radix-ui/react-checkbox';
 
-import type { UpdateCartCheckedType } from '@/types/requestDataTypes';
+import type {
+  UpdateCartCheckedType,
+  UpdateCartDataType,
+} from '@/types/requestDataTypes';
 import type { CartDatasType } from '@/types/responseDataTypes';
 import { instance } from '../instance';
 import { CART_TAG } from '@/data/tagDatas';
 
-export const getCartDatas = async () => {
+export const getCartDatas = async (size: number = 10) => {
   try {
-    const res = await instance.get<CartDatasType>(`/carts`, {
+    const res = await instance.get<CartDatasType>(`/carts?size=${size}`, {
       headers: { Authorization: `Bearer ${process.env.ACCESS_TOKEN}` },
       next: { tags: [CART_TAG] },
       cache: 'default',
@@ -18,12 +21,13 @@ export const getCartDatas = async () => {
     return res.data;
   } catch (error) {
     console.log('🚀 ~ getCartDatas ~ error:', error);
+    throw error;
   }
 };
 
 export const updateCartChecked = async (data: UpdateCartCheckedType) => {
   try {
-    await instance.put(`/carts/checked`, {
+    await instance.put(`/carts/${data.id}/checked`, {
       headers: {
         Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
         'Content-Type': 'application/json',
@@ -37,28 +41,32 @@ export const updateCartChecked = async (data: UpdateCartCheckedType) => {
   }
 };
 
-export interface UpdateCartDataType {
-  productCode: number;
-  productDetailCode: number;
-  quantity: number;
-}
+export const updateCartData = async (
+  cartId: number,
+  cartData: UpdateCartDataType,
+) => {
+  try {
+    await instance.put(`/carts/${cartId}`, {
+      headers: {
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+      },
+      body: JSON.stringify(cartData),
+    });
 
-export const updateCartData = async (cartData: Partial<UpdateCartDataType>) => {
-  console.log('🚀 ~ cartData:', cartData);
+    revalidateTag(CART_TAG);
+  } catch (error) {
+    throw error;
+  }
 };
 
-export interface UpdateAllCheckedType {
-  id: number;
-  checked: CheckedState;
-}
-
-export const updateAllChecked = async (data: UpdateAllCheckedType) => {
+export const updateAllChecked = async (checked: CheckedState) => {
   try {
-    await instance.put(`${process.env.BASE_URL}/api/v1/carts/checked`, {
+    await instance.put(`/carts/checked`, {
       headers: {
-        Authrization: `Bearer ${process.env.ACCESS_TOKEN}`,
+        Authorization: `Bearer ${process.env.ACCESS_TOKEN}`,
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ checked }),
     });
 
     revalidateTag(CART_TAG);

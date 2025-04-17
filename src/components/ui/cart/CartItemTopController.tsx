@@ -13,7 +13,7 @@ export default function CartItemTopController({
   cartId,
 }: CartTopItemControllerProps) {
   const debounce = useDebounce();
-  const handleChange = async (updatedChecked: CheckedState) => {
+  const handleChange = async (cartId: number, updatedChecked: CheckedState) => {
     try {
       const data = { id: cartId, checked: updatedChecked };
       await updateCartChecked(data);
@@ -23,7 +23,7 @@ export default function CartItemTopController({
   };
 
   const handleDebounceChange = debounce(
-    (checked: CheckedState) => handleChange(checked),
+    (cartId: number, checked: CheckedState) => handleChange(cartId, checked),
     200,
   );
 
@@ -33,8 +33,8 @@ export default function CartItemTopController({
         className='aspect-square'
         checked={checked}
         value={cartId}
-        name='id'
-        onCheckedChange={(e) => handleDebounceChange(e)}
+        name='cartId'
+        onCheckedChange={(e) => handleDebounceChange(cartId, e)}
       />
 
       <DeleteCartItemButton cartId={cartId} />

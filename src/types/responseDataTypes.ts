@@ -34,10 +34,31 @@ export interface CartItemDataType {
 export interface ProductDetailDataType {
   productDetailCode: number;
   productCode: number;
+  sizeId: number | null;
+  colorId: number | null;
   sizeName: string | null;
   colorName: string | null;
   price: number;
   inventoryQuantity: number;
   discountPrice: number;
   productThumbnailUrl: string;
+}
+
+export interface ProductOptionsType {
+  options: ProductOptionDataType;
+}
+
+export type SizeOptionType = {
+  sizeId: number;
+  sizeName: string;
+};
+
+export type ColorOptionType = {
+  colorId: number;
+  colorName: string;
+};
+
+export interface ProductOptionDataType {
+  size: SizeOptionType[];
+  color: ColorOptionType[];
 }

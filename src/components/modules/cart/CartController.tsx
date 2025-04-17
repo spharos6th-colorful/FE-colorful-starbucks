@@ -1,9 +1,14 @@
 'use client';
+import type { CheckedState } from '@radix-ui/react-checkbox';
 
 import { Checkbox } from '@/components/ui/common/checkbox';
 import { ActionList } from '@/components/ui/common';
-import { CartItemDataType } from '@/types/responseDataTypes';
-import { deleteCartItem } from '@/actions/cart-service';
+import type { CartItemDataType } from '@/types/responseDataTypes';
+import {
+  deleteAllCart,
+  deleteCartItem,
+  updateAllChecked,
+} from '@/actions/cart-service';
 
 export default function CartController({
   cartDatas,
@@ -25,10 +30,29 @@ export default function CartController({
     }
   };
 
+  const handleChangeAllCheck = async (checked: CheckedState) => {
+    try {
+      await updateAllChecked(checked);
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const handleClickAllDelete = async () => {
+    try {
+      await deleteAllCart();
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return (
-    <section className='flex justify-between items-center px-4 py-3 border-b'>
+    <section className='flex justify-between items-center px-6 py-3 border-b border-stroke-100'>
       <label className='flex items-center gap-2.5 text-body3'>
-        <Checkbox checked={isAllChecked} />
+        <Checkbox
+          checked={isAllChecked}
+          onCheckedChange={(checked) => handleChangeAllCheck(checked)}
+        />
         <span>전체 선택</span>
       </label>
 
@@ -43,7 +67,11 @@ export default function CartController({
           </button>
         </ActionList.Item>
         <ActionList.Item>
-          <button type='button' aria-label='전체 삭제'>
+          <button
+            type='button'
+            aria-label='전체 삭제'
+            onClick={handleClickAllDelete}
+          >
             전체 삭제
           </button>
         </ActionList.Item>
