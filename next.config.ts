@@ -12,20 +12,12 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 's3.amazonaws.com',
-        port: '',
-        pathname: '/my-bucket/**',
-      },
-      {
-        protocol: 'https',
         hostname: 'sitem.ssgcdn.com',
-        port: '',
         pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'image.istarbucks.co.kr',
-        port: '',
         pathname: '/**',
       },
     ],

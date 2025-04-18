@@ -58,5 +58,5 @@ export type SimpleProduct = {
   productCode: number;
   productThumbnailUrl: string;
   price: number;
-  isNew: true;
+  isNew: boolean;
 };
