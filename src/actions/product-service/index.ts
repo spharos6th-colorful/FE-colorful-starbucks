@@ -83,7 +83,9 @@ export const getInitialFilteredProducts = async (
     }
     if (params.minPrice) queryParams.append('minPrice', params.minPrice);
     if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-    queryParams.append('sortBy', 'string');
+    queryParams.append('sortBy', '');
+    if (params.sortBy) queryParams.set('sortBy', params.sortBy);
+
     queryParams.append('page', '0');
 
     const response = await instance.get<PaginatedResponseType>(
@@ -92,8 +94,6 @@ export const getInitialFilteredProducts = async (
         requireAuth: false,
       },
     );
-
-    console.log(response);
 
     const result = response.data;
     return result;
@@ -132,8 +132,8 @@ export const fetchFilteredProducts = async (
     }
     if (params.minPrice) queryParams.append('minPrice', params.minPrice);
     if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-    queryParams.append('sortBy', 'string');
-
+    queryParams.append('sortBy', '');
+    if (params.sortBy) queryParams.set('sortBy', params.sortBy);
     queryParams.append('page', page.toString());
 
     const response = await instance.get<PaginatedResponseType>(
@@ -182,8 +182,8 @@ export const fetchMoreFilteredProducts = async (
         }
       }
     });
-    queryParams.append('sortBy', 'string');
-
+    queryParams.append('sortBy', '');
+    if (params.sortBy) queryParams.append('sortBy', params.sortBy);
     queryParams.append('cursor', cursor.toString());
 
     const response = await instance.get<PaginatedResponseType>(

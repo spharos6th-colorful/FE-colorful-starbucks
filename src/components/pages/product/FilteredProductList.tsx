@@ -10,6 +10,7 @@ import {
 import Loader from '@/components/ui/common/Loader';
 import FilteredProductItemSection from '@/components/layouts/product/FilteredProductSection';
 import BottomScrollLoader from './BottomScrollLoader';
+import SortProducts from '@/components/modules/product/SortProducts';
 
 type FilteredProductListProps = {
   params: SearchParamsType;
@@ -169,7 +170,11 @@ export default function FilteredProductList({
   }
 
   return (
-    <section className='padded py-6 flex justify-center flex-col'>
+    <section className='padded ml-4 mr-4  flex justify-center flex-col'>
+      <div className='mt-2 mb-4  flex justify-end'>
+        <SortProducts />
+      </div>
+
       {products.map((pageData, index) => (
         <FilteredProductItemSection key={index} pageData={pageData} />
       ))}
