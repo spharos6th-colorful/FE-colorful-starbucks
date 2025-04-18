@@ -23,8 +23,7 @@ import type {
   ProductOptionDataType,
   ProductOptionsType,
 } from '@/types/responseDataTypes';
-
-const BASE_URL = 'http://13.209.230.182:8080/api/v1';
+import { buildQueryParams } from '@/lib/product/util';
 
 export const getTopCategories = async (): Promise<
   CategoryTopResponseType[]
@@ -63,36 +62,12 @@ export const getBottomCategories = async (
     throw error;
   }
 };
-
-export const getInitialFilteredProducts = async (
-  params: SearchParamsType,
+const fetchProducts = async (
+  queryParams: URLSearchParams,
+  errorMessage: string = '상품 데이터를 가져오는 중 오류 발생:',
+  defaultCursor: number = 0,
 ): Promise<PaginatedResponseType> => {
   try {
-    const queryParams = new URLSearchParams();
-
-    queryParams.append('size', '10');
-    if (params.topCategoryId)
-      queryParams.append('topCategoryId', params.topCategoryId);
-    if (params.bottomCategoryIds) {
-      const bottomCategoryIds =
-        typeof params.bottomCategoryIds === 'string'
-          ? params.bottomCategoryIds.split(',')
-          : params.bottomCategoryIds;
-
-      queryParams.append(
-        'bottomCategoryIds',
-        Array.isArray(bottomCategoryIds)
-          ? bottomCategoryIds.join(',')
-          : bottomCategoryIds,
-      );
-    }
-    if (params.minPrice) queryParams.append('minPrice', params.minPrice);
-    if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-    queryParams.append('sortBy', '');
-    if (params.sortBy) queryParams.set('sortBy', params.sortBy);
-
-    queryParams.append('page', '0');
-
     const response = await instance.get<PaginatedResponseType>(
       `/products?${queryParams.toString()}`,
       {
@@ -100,112 +75,45 @@ export const getInitialFilteredProducts = async (
       },
     );
 
-    const result = response.data;
-    return result;
+    return response.data;
   } catch (error) {
-    console.error('초기 상품 데이터를 가져오는 중 오류 발생:', error);
+    console.error(errorMessage, error);
     return {
       content: [],
       hasNext: false,
-      nextCursor: 0,
+      nextCursor: defaultCursor,
     };
   }
+};
+
+export const getInitialFilteredProducts = async (
+  params: SearchParamsType,
+): Promise<PaginatedResponseType> => {
+  const queryParams = buildQueryParams(params, { page: 0 });
+  return fetchProducts(
+    queryParams,
+    '초기 상품 데이터를 가져오는 중 오류 발생:',
+  );
 };
 
 export const fetchFilteredProducts = async (
   params: SearchParamsType,
   page: number,
 ): Promise<PaginatedResponseType> => {
-  try {
-    const queryParams = new URLSearchParams();
-
-    queryParams.append('size', '10');
-    if (params.topCategoryId)
-      queryParams.append('topCategoryId', params.topCategoryId);
-    if (params.bottomCategoryIds) {
-      const bottomCategoryIds =
-        typeof params.bottomCategoryIds === 'string'
-          ? params.bottomCategoryIds.split(',')
-          : params.bottomCategoryIds;
-
-      queryParams.append(
-        'bottomCategoryIds',
-        Array.isArray(bottomCategoryIds)
-          ? bottomCategoryIds.join(',')
-          : bottomCategoryIds,
-      );
-    }
-    if (params.minPrice) queryParams.append('minPrice', params.minPrice);
-    if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-    queryParams.append('sortBy', '');
-    if (params.sortBy) queryParams.set('sortBy', params.sortBy);
-    queryParams.append('page', page.toString());
-
-    const response = await instance.get<PaginatedResponseType>(
-      `/products?${queryParams.toString()}`,
-      {
-        requireAuth: false,
-      },
-    );
-
-    if (response.data) {
-      return response.data;
-    }
-    return {
-      content: [],
-      hasNext: false,
-      nextCursor: 0,
-    };
-  } catch (error) {
-    console.error('상품 데이터를 가져오는 중 오류 발생:', error);
-    return {
-      content: [],
-      hasNext: false,
-      nextCursor: 0,
-    };
-  }
+  const queryParams = buildQueryParams(params, { page });
+  return fetchProducts(queryParams);
 };
 
 export const fetchMoreFilteredProducts = async (
   params: SearchParamsType,
   cursor: number,
 ): Promise<PaginatedResponseType> => {
-  try {
-    const queryParams = new URLSearchParams();
-
-    queryParams.append('size', '10');
-
-    Object.entries(params).forEach(([key, value]) => {
-      if (value && key !== 'page') {
-        if (key === 'bottomCategoryIds') {
-          const ids = Array.isArray(value)
-            ? value.join(',')
-            : (value as string).split(',').join(',');
-          queryParams.append(key, ids);
-        } else {
-          queryParams.append(key, String(value));
-        }
-      }
-    });
-    queryParams.append('sortBy', '');
-    if (params.sortBy) queryParams.append('sortBy', params.sortBy);
-    queryParams.append('cursor', cursor.toString());
-
-    const response = await instance.get<PaginatedResponseType>(
-      `/products?${queryParams.toString()}`,
-      { requireAuth: false },
-    );
-
-    return response.data;
-  } catch (error) {
-    console.error('추가 상품 데이터를 가져오는 중 오류 발생:', error);
-
-    return {
-      content: [],
-      hasNext: false,
-      nextCursor: cursor,
-    };
-  }
+  const queryParams = buildQueryParams(params, { cursor });
+  return fetchProducts(
+    queryParams,
+    '추가 상품 데이터를 가져오는 중 오류 발생:',
+    cursor,
+  );
 };
 
 export const getProductDetail = async (
