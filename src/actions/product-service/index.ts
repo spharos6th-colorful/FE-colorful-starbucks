@@ -4,15 +4,14 @@ import type { SearchParamsType } from '@/data/productDummy/productSearchTypes';
 import type {
   FilterDataType,
   ProductCategoryTopType,
-  SubDetailCategoryType,
-  SubSizeCateogryType,
 } from '@/types/products/productCategoryType';
 import type { ProductOptionType } from '@/types/products/productPurchaseTypes';
 import type { ProductTagsType } from '@/types/products/productRequestTypes';
 import type {
   DailyRecentlyViewedProductsType,
-  ProductListDataType,
+  PaginatedResponseType,
   ProductTypes,
+  SimpleProduct,
 } from '@/types/products/productTypes';
 import { instance } from '../instance';
 import type {
@@ -31,17 +30,14 @@ export const getTopCategories = async (): Promise<
   CategoryTopResponseType[]
 > => {
   try {
-    const response = await fetch(BASE_URL + `/top-categories`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+    const response = await instance.get<{
+      categories: CategoryTopResponseType[];
+    }>(`/top-categories`, {
+      requireAuth: false,
       next: { revalidate: 60 * 60 * 24 },
     });
-    const result = await response.json();
-    return result.data.categories;
+    return response.data.categories;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -50,7 +46,6 @@ export const getBottomCategories = async (
   topCategoryId: number,
 ): Promise<CategoryBottomResponseType[]> => {
   try {
-    // ApiResponse<T>의 T에 실제 data 필드의 타입을 지정
     const response = await instance.get<{
       categories: CategoryBottomResponseType[];
     }>(`/bottom-categories?topCategoryId=${topCategoryId}`, {
@@ -66,6 +61,150 @@ export const getBottomCategories = async (
   } catch (error) {
     console.error('하위 카테고리 조회 실패:', error);
     throw error;
+  }
+};
+
+export const getInitialFilteredProducts = async (
+  params: SearchParamsType,
+): Promise<PaginatedResponseType> => {
+  try {
+    const queryParams = new URLSearchParams();
+
+    queryParams.append('size', '10');
+    if (params.topCategoryId)
+      queryParams.append('topCategoryId', params.topCategoryId);
+    if (params.bottomCategoryIds) {
+      const bottomCategoryIds =
+        typeof params.bottomCategoryIds === 'string'
+          ? params.bottomCategoryIds.split(',')
+          : params.bottomCategoryIds;
+
+      queryParams.append(
+        'bottomCategoryIds',
+        Array.isArray(bottomCategoryIds)
+          ? bottomCategoryIds.join(',')
+          : bottomCategoryIds,
+      );
+    }
+    if (params.minPrice) queryParams.append('minPrice', params.minPrice);
+    if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
+    queryParams.append('sortBy', '');
+    if (params.sortBy) queryParams.set('sortBy', params.sortBy);
+
+    queryParams.append('page', '0');
+
+    const response = await instance.get<PaginatedResponseType>(
+      `/products?${queryParams.toString()}`,
+      {
+        requireAuth: false,
+      },
+    );
+
+    const result = response.data;
+    return result;
+  } catch (error) {
+    console.error('초기 상품 데이터를 가져오는 중 오류 발생:', error);
+    return {
+      content: [],
+      hasNext: false,
+      nextCursor: 0,
+    };
+  }
+};
+
+export const fetchFilteredProducts = async (
+  params: SearchParamsType,
+  page: number,
+): Promise<PaginatedResponseType> => {
+  try {
+    const queryParams = new URLSearchParams();
+
+    queryParams.append('size', '10');
+    if (params.topCategoryId)
+      queryParams.append('topCategoryId', params.topCategoryId);
+    if (params.bottomCategoryIds) {
+      const bottomCategoryIds =
+        typeof params.bottomCategoryIds === 'string'
+          ? params.bottomCategoryIds.split(',')
+          : params.bottomCategoryIds;
+
+      queryParams.append(
+        'bottomCategoryIds',
+        Array.isArray(bottomCategoryIds)
+          ? bottomCategoryIds.join(',')
+          : bottomCategoryIds,
+      );
+    }
+    if (params.minPrice) queryParams.append('minPrice', params.minPrice);
+    if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
+    queryParams.append('sortBy', '');
+    if (params.sortBy) queryParams.set('sortBy', params.sortBy);
+    queryParams.append('page', page.toString());
+
+    const response = await instance.get<PaginatedResponseType>(
+      `/products?${queryParams.toString()}`,
+      {
+        requireAuth: false,
+      },
+    );
+
+    if (response.data) {
+      return response.data;
+    }
+    return {
+      content: [],
+      hasNext: false,
+      nextCursor: 0,
+    };
+  } catch (error) {
+    console.error('상품 데이터를 가져오는 중 오류 발생:', error);
+    return {
+      content: [],
+      hasNext: false,
+      nextCursor: 0,
+    };
+  }
+};
+
+export const fetchMoreFilteredProducts = async (
+  params: SearchParamsType,
+  cursor: number,
+): Promise<PaginatedResponseType> => {
+  try {
+    const queryParams = new URLSearchParams();
+
+    queryParams.append('size', '10');
+
+    Object.entries(params).forEach(([key, value]) => {
+      if (value && key !== 'page') {
+        if (key === 'bottomCategoryIds') {
+          const ids = Array.isArray(value)
+            ? value.join(',')
+            : (value as string).split(',').join(',');
+          queryParams.append(key, ids);
+        } else {
+          queryParams.append(key, String(value));
+        }
+      }
+    });
+    queryParams.append('sortBy', '');
+    if (params.sortBy) queryParams.append('sortBy', params.sortBy);
+    queryParams.append('cursor', cursor.toString());
+
+    const response = await instance.get<PaginatedResponseType>(
+      `/products?${queryParams.toString()}`,
+      { requireAuth: false },
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error('추가 상품 데이터를 가져오는 중 오류 발생:', error);
+
+    return {
+      content: [],
+      hasNext: false,
+      nextCursor: cursor,
+    };
   }
 };
 
@@ -187,114 +326,6 @@ export async function getProductFilters(
   }
 }
 
-// FIXME: 현재는 더미 넘겨주는 함수이다. 나중에 변경 예정
-type SubCategoriesAndVolume = {
-  subDetailCategories: SubDetailCategoryType[];
-  subVolumeCategories: SubSizeCateogryType[];
-};
-export async function getSubCategoriesAndVolume(
-  topCategoryId: number,
-): Promise<SubCategoriesAndVolume> {
-  switch (topCategoryId) {
-    case 1: // 전체
-      return {
-        subDetailCategories: [],
-        subVolumeCategories: [],
-      };
-    case 2: // 텀블러/보온병
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '플라스틱 텀블러' },
-          { bottomCategoryId: 2, categoryName: '스테인리스 텀블러' },
-          { bottomCategoryId: 3, categoryName: '보온병' },
-        ],
-        subVolumeCategories: [
-          { sizeId: 'short', sizeName: 'Short' },
-          { sizeId: 'tall', sizeName: 'Tall' },
-          { sizeId: 'grande', sizeName: 'Grande' },
-          { sizeId: 'venti', sizeName: 'Venti' },
-        ],
-      };
-    case 3: // 머그/컵
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '스테인리스 머그' },
-          { bottomCategoryId: 2, categoryName: '세라믹 머그' },
-          { bottomCategoryId: 3, categoryName: '글라스 머그' },
-        ],
-        subVolumeCategories: [
-          { sizeId: 'short', sizeName: 'Short' },
-          { sizeId: 'tall', sizeName: 'Tall' },
-          { sizeId: 'grande', sizeName: 'Grande' },
-        ],
-      };
-    case 4: // 라이프스타일
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '키친' },
-          { bottomCategoryId: 2, categoryName: '홈' },
-          { bottomCategoryId: 3, categoryName: '트래블' },
-        ],
-        subVolumeCategories: [],
-      };
-    case 5: // 티/커피
-      return {
-        subDetailCategories: [
-          { bottomCategoryId: 1, categoryName: '티 용품' },
-          { bottomCategoryId: 2, categoryName: '커피 용품' },
-          { bottomCategoryId: 3, categoryName: '티/커피 액세서리' },
-        ],
-        subVolumeCategories: [
-          { sizeId: 'short', sizeName: 'Short' },
-          { sizeId: 'tall', sizeName: 'Tall' },
-          { sizeId: 'grande', sizeName: 'Grande' },
-        ],
-      };
-    default:
-      return {
-        subDetailCategories: [],
-        subVolumeCategories: [],
-      };
-  }
-}
-
-export async function getFilteredProducts(
-  params: SearchParamsType,
-): Promise<ProductListDataType> {
-  const queryParams = new URLSearchParams();
-
-  if (params.cursor) queryParams.append('cursor', params.cursor);
-  if (params.minPrice) queryParams.append('minPrice', params.minPrice);
-  if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-  if (params.topCategoryId)
-    queryParams.append('topCategoryId', params.topCategoryId);
-
-  if (params.bottomCategoryIds) {
-    const bottomCategoryIdsStr = Array.isArray(params.bottomCategoryIds)
-      ? params.bottomCategoryIds.join(',')
-      : params.bottomCategoryIds;
-    queryParams.append('bottomCategoryIds', bottomCategoryIdsStr);
-  }
-
-  if (params.size) queryParams.append('size', params.size);
-  if (params.sortBy) queryParams.append('sortBy', params.sortBy);
-
-  try {
-    const response = await fetch(
-      `http://localhost:8080/api/product-category-list?${queryParams.toString()}`,
-    );
-    if (!response.ok) {
-      throw new Error('상품 목록을 가져오는데 실패했습니다.');
-    }
-
-    const data = await response.json();
-    return data.data;
-  } catch (error) {
-    console.error('상품 데이터 패칭 오류:', error);
-    throw error;
-  }
-}
-
 export interface ProductDetail {
   productCode: number;
   productName: string;
@@ -321,69 +352,22 @@ export const getProductDetailDummy = async (productCode: number) => {
   }
 };
 
-export async function fetchMoreProducts(
-  params: SearchParamsType,
-): Promise<ProductListDataType> {
+export const getProductSimple = async (
+  productCode: number,
+): Promise<SimpleProduct> => {
   try {
-    const queryParams = new URLSearchParams();
-
-    if (params.cursor) queryParams.append('cursor', params.cursor);
-    if (params.minPrice) queryParams.append('minPrice', params.minPrice);
-    if (params.maxPrice) queryParams.append('maxPrice', params.maxPrice);
-    if (params.topCategoryId)
-      queryParams.append('topCategoryId', params.topCategoryId);
-
-    if (params.bottomCategoryIds) {
-      const bottomCategoryIdsStr = Array.isArray(params.bottomCategoryIds)
-        ? params.bottomCategoryIds.join(',')
-        : params.bottomCategoryIds;
-      queryParams.append('bottomCategoryIds', bottomCategoryIdsStr);
-    }
-
-    if (params.size) queryParams.append('size', params.size);
-    if (params.sortBy) queryParams.append('sortBy', params.sortBy);
-
-    const response = await fetch(
-      `/product-category-list?${queryParams.toString()}`,
+    const response = await instance.get<SimpleProduct>(
+      `/products/${productCode}/simple`,
+      { requireAuth: false, next: { revalidate: 60 * 60 * 24 } },
     );
 
-    if (!response.ok) {
-      throw new Error('추가 상품을 불러오는데 실패했습니다.');
-    }
-
-    const result = await response.json();
-    return result.data; // 백엔드 응답에서 data 부분만 사용
+    return response.data;
   } catch (error) {
-    console.error('추가 상품 로드 오류:', error);
+    console.log('상품 심플 패칭 실패');
+
     throw error;
   }
-}
-export async function getInitialProductsData(
-  searchParams?: SearchParamsType,
-): Promise<ProductListDataType> {
-  try {
-    // 초기 로딩 시 기본 파라미터 설정
-    const defaultParams: SearchParamsType = {
-      size: '10',
-      topCategoryId: '1', // 필요에 따라 기본 카테고리 설정
-      ...searchParams, // 전달받은 추가 파라미터로 덮어쓰기
-    };
-
-    // fetchMoreProducts 함수 재사용
-    const initialProductsData = await fetchMoreProducts(defaultParams);
-
-    return initialProductsData;
-  } catch (error) {
-    console.error('초기 상품 데이터 로딩 오류:', error);
-
-    // 에러 발생 시 빈 데이터 반환
-    return {
-      content: [],
-      hasNext: false,
-      nextCursor: null,
-    };
-  }
-}
+};
 
 export async function getRecentlyProducts(): Promise<
   DailyRecentlyViewedProductsType[]
