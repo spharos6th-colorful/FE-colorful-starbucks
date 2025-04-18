@@ -53,6 +53,7 @@ export default function FilteredProductItemCard({
           alt={product.productName}
           className='rounded-[4px]'
           fill
+          unoptimized={true}
           sizes='100%'
         />
       </button>
