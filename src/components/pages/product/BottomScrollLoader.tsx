@@ -9,11 +9,11 @@ interface BottomScrollLoaderProps {
   onIntersect: () => void;
 }
 
-export const BottomScrollLoader = ({
+export default function BottomScrollLoader({
   hasMore,
   isLoading,
   onIntersect,
-}: BottomScrollLoaderProps) => {
+}: BottomScrollLoaderProps) {
   const loaderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -46,6 +46,4 @@ export const BottomScrollLoader = ({
       {isLoading && hasMore && <Loader size='10' />}
     </>
   );
-};
-
-export default BottomScrollLoader;
+}
