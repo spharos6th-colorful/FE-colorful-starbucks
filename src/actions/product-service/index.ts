@@ -55,7 +55,7 @@ export const getBottomCategories = async (
       categories: CategoryBottomResponseType[];
     }>(`/bottom-categories?topCategoryId=${topCategoryId}`, {
       revalidate: 60 * 60 * 24,
-      requireAuth: true,
+      requireAuth: false,
     });
 
     if (!response.data || !response.data.categories) {
