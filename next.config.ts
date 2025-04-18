@@ -20,11 +20,13 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'sitem.ssgcdn.com',
         port: '',
+        pathname: '/**',
       },
       {
         protocol: 'https',
         hostname: 'image.istarbucks.co.kr',
         port: '',
+        pathname: '/**',
       },
     ],
   },
