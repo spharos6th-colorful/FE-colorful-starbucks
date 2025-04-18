@@ -24,7 +24,6 @@ export default function FilteredProductItemSection({
 
   return (
     <ul className='w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4'>
-      {' '}
       {pageData.content.map((product) => (
         <li key={`${product.productCode}`}>
           <FilteredProductItemCard productCode={product.productCode} />
