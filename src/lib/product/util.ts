@@ -33,6 +33,9 @@ export const buildQueryParams = (
   if (params.topCategoryId) {
     queryParams.append('topCategoryId', params.topCategoryId);
   }
+  if (params.topCategoryId === '0') {
+    queryParams.delete('topCategoryId');
+  }
 
   if (params.bottomCategoryIds) {
     const bottomCategoryIds =
