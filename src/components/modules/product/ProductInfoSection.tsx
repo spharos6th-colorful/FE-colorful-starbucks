@@ -10,7 +10,10 @@ interface ProductInfoSectionProps {
   tags: ProductTagsType;
 }
 
-export default function ProductInfoSection({ product, tags }: ProductInfoSectionProps) {
+export default function ProductInfoSection({
+  product,
+  tags,
+}: ProductInfoSectionProps) {
   return (
     <section>
       <div className='w-full z-20 bg-white pt-4'>
@@ -28,6 +31,7 @@ export default function ProductInfoSection({ product, tags }: ProductInfoSection
         <Image
           src={product.productImageUrl}
           alt={product.productName}
+          unoptimized={true}
           width={370}
           height={1500}
           className='w-full h-auto'
